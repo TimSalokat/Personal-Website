@@ -6,7 +6,4 @@ First module is supposed to be a Todo client with programming projects to replac
 
 ## Todo
 - Get the base design down
-- File structure
-  - Modules Folder in Routing 
-  - In modules folder with each individual module, each consisting of its own index.html
 - Connect to python Api
