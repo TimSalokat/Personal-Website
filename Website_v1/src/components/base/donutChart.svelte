@@ -1,6 +1,7 @@
 
 <script>
-    import { Doughnut } from "svelte-chartjs";
+
+    import { Doughnut, Line } from "svelte-chartjs";
     import {
     Chart as ChartJS,
     Title,
@@ -98,13 +99,10 @@
 
     }
     
-    const priorityColors = ["#03245E", "#023E8A", "#0077B6", "#C71F37"]
-    
     export let data;
     export let labels;
     export let plugins;
 
-    export let colors = "priorityColors";
     export let passColors = [];
 
     export let fontColor = "#92a2b7";
@@ -124,8 +122,6 @@
         chartPlugins = ([sideCount])
     } 
 
-    const chartColors = colors === "priorityColors" ? priorityColors : passColors;
-
     const chartData = {
         fontMid: fontMid, 
         fontSide: fontSide, 
@@ -134,7 +130,7 @@
         datasets: [
         {
             data: data,
-            backgroundColor: chartColors,
+            backgroundColor: passColors,
     }]}
 </script>
 

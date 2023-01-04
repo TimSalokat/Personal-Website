@@ -1,36 +1,53 @@
 
 <script>
     import DonutChart from "../base/donutChart.svelte";
+    import {priorities} from "../../stores/Store_Todo";
+    import {colors} from "../../stores/Global";
     export let project;
 </script>
 
 
-<div id="projectContainer" class="w-full self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-64 flex-grow" style="background-color: {project.color};">
+<a 
+    href="/todo/{project.uuid}"
+    id="projectContainer" 
+    class="w-full self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-64 flex-grow" 
+    style="background-color: {project.color};"
+    >
+   
+    <!-- Heading -->
     <div class="flex">
-        <p class="text-xl font-semibold {project.text}">{project.title}</p>
+        <p class="text-xl font-semibold text-slate-400">{project.title}</p>
     </div>
     
+    <!-- Chart and Text -->
     <div class="flex pb-2">
         <DonutChart
-            labels={["POne", "PTwo", "PThree", "PFour"]}
+            labels={$priorities[0]}
             fontMid="13px Arial"
             fontColor="#fff"
-            data={[13,2,1,1]}
+            passColors={$colors["priorityColors"]}
+            data={project.priorities}
             plugins={"mid"}
         />
         <div class="flex flex-col stretch text-slate-400 {project.text} text-xs justify-center mb-2 pl-3 ">
-            <p>PrioOne: 12</p>
-            <p>PrioTwo: 2</p>
-            <p>PrioThree: 1</p>
-            <p>PrioFour: 1</p>
+            <p>PrioOne: </p>
+            <p>PrioTwo: </p>
+            <p>PrioThree: </p>
+            <p>PrioFour: </p>
+        </div>
+        <div class="flex flex-col stretch text-slate-400 {project.text} text-xs justify-center mb-2 pl-3">
+            {#each project.priorities as prio}
+                <p>{prio}<br/></p>
+            {/each}
         </div>
     </div>
 
+    <!-- Progress Bar -->
     <div class="absolute flex w-3/4 z-10 bg-slate-700 rounded-full" style="left: 12.5%; bottom: 12.5%; height: 3px">
-        <span class="h-full" style="width:{"30%"}; background-color: {project.color}"></span>
+        <span class="h-full" style="width:{project.finishedTasks / project.totalTasks * 100 + "%"}; background-color: {project.color}"></span>
     </div>
 
-</div>
+</a>
 
 <style>
 

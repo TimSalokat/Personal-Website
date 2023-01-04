@@ -1,25 +1,11 @@
 
 <script>
     import Icon from "@iconify/svelte";
+    import {states, consts} from "../../stores/Global.js";
 
     export let toggleSideBar;
     export let ShowSideBar;
     export let closeSideBar;
-
-    const Pages = [
-        {
-            title: "Dashboard",
-            icon: "ic:round-home",
-            link: "/",
-        },
-        {
-            title: "Todos",
-            icon: "ic:round-assignment",
-            link: "/todo"
-        }
-    ];
-
-    let ActivePage = Pages[0].title;
 
 </script>
 
@@ -31,21 +17,29 @@
 
 <div class="flex flex-col min-h-screen bg-gray-900 text-slate-300 absolute top-0 left-0 items-center px-1 py-5" id="SideBar">
 
+    <!-- Header -->
     <h1 class="text-xl mb-4 font-semibold">Tims Projecto</h1>
     <div class="bg-indigo-500 rounded-full w-16 h-16 mb-2">
-
+        <!-- Placeholder for Image -->
     </div>
+
+    <!-- User Info -->
     <h2 class="font-semibold text-indigo-500">Admin User</h2>
     <p class="text-slate-500 text-xs">Admin</p>
 
-
     <span class="{ShowSideBar ? "seperator" : "seperator invis"} bg-indigo-600 my-5"/>
 
+    <!-- Navigation -->
     <nav class="flex flex-col w-full px-3 gap-3 font-normal text-gray-500">
 
-        {#each Pages as page}
-            <a class="{ActivePage === page.title ? "active" : ""} hover:text-indigo-300 col-span-3 transition ease-in-out flex gap-5" href={page.link} on:click={() => {closeSideBar(); ActivePage = page.title}}>
-                <Icon icon={page.icon} class="w-6 h-6"/>
+        {#each $consts["Pages"] as page}
+            <a class="{$states["activePage"] === page.title ? "active" : ""} hover:text-indigo-300 col-span-3 transition ease-in-out flex gap-5" 
+                href={page.link} 
+                on:click={() => {closeSideBar()}}
+            >
+                <div class="w-6 h-6">
+                    <Icon icon={page.icon} class="w-6 h-6"/>
+                </div>
                 {page.title}
             </a>
         {/each}

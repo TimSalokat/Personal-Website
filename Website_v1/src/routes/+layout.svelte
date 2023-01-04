@@ -10,7 +10,7 @@
 
 <SideBar {toggleSideBar} {ShowSideBar} {closeSideBar}/>
 <div 
-    class="{ShowSideBar ? "open" : "closed"} min-w-screen min-h-screen bg-gray-800 text-white relative transition-all overflow-hidden"
+    class="{ShowSideBar ? "open" : "closed"} min-w-screen min-h-screen bg-slate-800 text-white relative transition-all overflow-hidden"
 >
     <slot></slot>
 </div>

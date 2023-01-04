@@ -1,83 +1,18 @@
 
 <script lang="ts">
 
+    import {states, colors} from "../../stores/Global";
+    import {projects, tasks} from "../../stores/Store_Todo";
+
+    $states["activePage"] = "Todos";
+
     import Project from "../../components/todo/project.svelte";
     import Todo from "../../components/todo/todo.svelte";
 
     import DonutChart from "../../components/base/donutChart.svelte";
-
-    const projectColors = ["#F6AE2D", "#7400b8", "#6930c3", "#5e60ce", "#5390d9", "#4ea8de", "#48bfe3", "#56cfe1", "#64dfdf", "#72efdd", "#80ffdb"]
-
-    const textColor = "text-slate-200";
-
-    let Projects = [
-        {
-            title: "Testing",
-            text: textColor,
-            background: "bg-blue-600",
-            color: "",
-        },
-        {
-            title: "Working on",
-            text: textColor,
-            background: "bg-red-600",
-            color: "",
-        },
-        {
-            title: "Todo Project",
-            text: textColor,
-            background: "bg-green-600",
-            color: "",
-        },
-        {
-            title: "Testing",
-            text: textColor,
-            background: "bg-fuchsia-500",
-            color: "",
-        },
-        {
-            title: "Working on",
-            text: textColor,
-            background: "bg-fuchsia-600",
-            color: "",
-        },
-        {
-            title: "Todo Project",
-            text: textColor,
-            background: "bg-fuchsia-700",
-            color: "",
-        }
-    ];
-
-    Projects.forEach((project, i) => {
-        project.color = projectColors[i];
-    })
-
-    let Tasks = [
-        {
-            project: "Todo Project",
-            title: "Do some stuff",
-            desc: "This means that you shall do some stuff",
-            finished: false,
-            border: "border-transparent",
-        },
-        {
-            project: "Working on",
-            title: "Do stuff",
-            desc: "This means that you shall do some stuff",
-            finished: true,
-            border: "border-indigo-600",
-        },
-        {
-            project: "Testing",
-            title: "Do some more stuff",
-            desc: "",
-            finished: false,
-            border: "border-indigo-600",
-        },
-    ]
-
+    
 </script>
+
 
 
 <div class="grid grid-cols-7 grid-rows-5 w-full h-screen">
@@ -99,8 +34,7 @@
                         height="h-40"
                         labels={["Testing", "WorkingOn", "Todo Website"]}
                         data={[11,11,4]}
-                        colors="passed"
-                        passColors={projectColors}
+                        passColors={$colors["projectColors"]}
                         plugins={"mid,side"}  
                     />
                     <div class="text-slate-400 text-l flex flex-col justify-center mb-5 pl-3">
@@ -122,6 +56,7 @@
                         labels={["Casual", "Should be done", "Has to be done", "Do this ASAP"]}
                         data={[9, 21, 6, 8]}
                         plugins={["mid", "side"]}
+                        passColors={$colors["priorityColors"]}
                     />
                     <div class="text-slate-400 text-l flex flex-col justify-center mb-5 pl-3">
                         <h3>Testing: 9</h3>
@@ -138,8 +73,8 @@
     <div class="stretch hidden row-span-5 col-span-2 xl:flex">
         <div class="flex flex-col gap-3 stretch border-l-2 border-l-indigo-800 w-full p-5 pt-0 my-10">
             <h2 class="text-2xl pb-2 text-slate-200">Important Tasks</h2>
-            {#each Tasks as task}
-                <Todo {task}/>
+            {#each $tasks as task}
+                <Todo {task} customClasses="bg-slate-900"/>
             {/each}
         </div>
     </div>
@@ -148,7 +83,7 @@
     <div class="col-span-7 row-span-3 xl:col-span-5 p-10 pt-2">
         <h2 class="pb-4 text-2xl text-slate-200">Projects</h2>
         <div class="flex flex-wrap gap-5 pb-5">
-            {#each Projects as project}
+            {#each $projects as project}
                 <Project {project}/>
             {/each}
         </div>
