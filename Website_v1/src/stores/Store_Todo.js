@@ -71,7 +71,7 @@ export let _projects = [
         uuid: "",
     },
     {
-        title: "Working onnnn",
+        title: "Working onnn",
         color: "",
 
         priorities: [17,2,7,1],

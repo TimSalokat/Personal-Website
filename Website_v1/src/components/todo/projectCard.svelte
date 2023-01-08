@@ -10,17 +10,18 @@
 <a 
     href="/todo/{project.uuid}"
     id="projectContainer" 
-    class="self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-64 h-40 flex-grow" 
-    style="background-color: {project.color};"
+    class="self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-1/4 h-40 flex-grow w-" 
+    style="background-color: {project.color}; min-width: 18rem; max-width: 21rem"
     >
    
     <!-- Heading -->
-    <div class="flex h-full items-center pb-3 px-3">
+    <div class="flex flex-col h-full justify-center pb-2 px-0">
         <h2
             class="text-xl font-extrabold font-mono text-slate-400" 
-            style="font-size: 3.3rem; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px; line-height: 2.5rem">
+            style="font-size: 2.7rem; -webkit-text-fill-color: transparent; -webkit-text-stroke: .05rem; line-height: 2.2rem;">
             {project.title}
         </h2>
+        <p class="text-slate-500 pl-1" style="line-height: 1rem;">Total Tasks 15 <br/> Finished 20% </p>
     </div>
     
     <!-- Chart and Text -->
@@ -48,7 +49,7 @@
 
     <!-- Progress Bar -->
     <div class="absolute flex w-3/4 z-10 bg-slate-700 rounded-full" style="left: 12.5%; bottom: 12.5%; height: 3px">
-        <span class="h-full" style="width:{project.finishedTasks / project.totalTasks * 100 + "%"}; background-color: {project.color}"></span>
+        <span class="h-full" style="width:{project.finishedTasks / project.totalTasks * 100 + "%"}; background-color: {project.color}"/>
     </div>
 
 </a>

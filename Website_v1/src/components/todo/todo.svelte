@@ -1,12 +1,16 @@
 <script>
     export let task;
+    export let light = false;
     export let customStyle = "";
     export let customClasses = "";
+
+    const appliedBg = light ? "bg-slate-600" : "bg-slate-800";
+    const appliedColor = light ? "text-slate-900" : "text-slate-400";
+
 </script>
 
-
 <div 
-    class="{customClasses} todoContainer items-center w-full rounded-xl h-fit p-2 bg-slate-800 hover:bg-indigo-900 border-l-0 relative" 
+    class="{customClasses} {appliedBg} todoContainer items-center w-full rounded-xl h-fit p-2 hover:bg-indigo-900 border-l-0 relative"    
     style="{customStyle}">
 
     <!-- Side Border and Checkbox -->
@@ -19,8 +23,8 @@
 
     <!-- text -->
     <div class="{task.finished ? "line-through" : ""} decoration-1 decoration-slate-200 ml-3 py-1">
-        <h2 class="text-slate-300">{task.title}</h2>
-        <h4 class="text-xs text-slate-400">{task.desc}</h4>
+        <h2 class="{appliedColor}">{task.title}</h2>
+        <h4 class="text-xs {appliedColor}">{task.desc}</h4>
     </div>
 
     <!-- Project Indicator -->
