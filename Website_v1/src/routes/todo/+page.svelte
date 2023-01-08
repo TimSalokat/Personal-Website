@@ -6,7 +6,7 @@
 
     $states["activePage"] = "Todos";
 
-    import Project from "../../components/todo/project.svelte";
+    import Project from "../../components/todo/projectCard.svelte";
     import Todo from "../../components/todo/todo.svelte";
 
     import DonutChart from "../../components/base/donutChart.svelte";
@@ -24,9 +24,9 @@
         <h2 class="text-2xl pt-1 pb-3 text-slate-200">Overview</h2>
         <div class="flex mb-10 gap-10 px-5 no-wrap max-h-52 min-w-max"> 
 
+            <!-- ? Unfinished Overview -->
             <div class="w-1/2 bg-slate-900 rounded-2xl p-3">
 
-                <!-- ? Unfinished -->
                 <h2 class="text-slate-400 text-xl">All Unfinished Tasks</h2>
                 <div class="flex max-h-40">
                     <DonutChart 
@@ -45,9 +45,9 @@
                 </div>
             </div>
 
+            <!-- ? Priority  Overview -->
             <div class="w-1/2 bg-slate-900 rounded-2xl mt-0 p-3 max-h-52 min-w-fit">
 
-                <!-- ? Priority -->
                 <h2 class="text-slate-400 text-xl">Priority of Tasks</h2>
                 <div class="flex max-h-40">
                     <DonutChart

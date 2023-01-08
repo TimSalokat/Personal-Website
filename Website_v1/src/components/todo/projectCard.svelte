@@ -10,25 +10,29 @@
 <a 
     href="/todo/{project.uuid}"
     id="projectContainer" 
-    class="w-full self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-64 flex-grow" 
+    class="self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-64 h-40 flex-grow" 
     style="background-color: {project.color};"
     >
    
     <!-- Heading -->
-    <div class="flex">
-        <p class="text-xl font-semibold text-slate-400">{project.title}</p>
+    <div class="flex h-full items-center pb-3 px-3">
+        <h2
+            class="text-xl font-extrabold font-mono text-slate-400" 
+            style="font-size: 3.3rem; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px; line-height: 2.5rem">
+            {project.title}
+        </h2>
     </div>
     
     <!-- Chart and Text -->
-    <div class="flex pb-2">
+    <!-- <div class="flex pb-2">
         <DonutChart
             labels={$priorities[0]}
             fontMid="13px Arial"
             fontColor="#fff"
             passColors={$colors["priorityColors"]}
             data={project.priorities}
-            plugins={"mid"}
-        />
+            plugins={"mid"} 
+        /> 
         <div class="flex flex-col stretch text-slate-400 {project.text} text-xs justify-center mb-2 pl-3 ">
             <p>PrioOne: </p>
             <p>PrioTwo: </p>
@@ -40,7 +44,7 @@
                 <p>{prio}<br/></p>
             {/each}
         </div>
-    </div>
+    </div> -->
 
     <!-- Progress Bar -->
     <div class="absolute flex w-3/4 z-10 bg-slate-700 rounded-full" style="left: 12.5%; bottom: 12.5%; height: 3px">
