@@ -1,30 +1,51 @@
-<script>
+<script lang="ts">
+
+    import Icon from 'svelte-icons-pack/Icon.svelte';
+    import BiCheckCircle from "svelte-icons-pack/bi/BiCheckCircle";
+    import BiCircle from "svelte-icons-pack/bi/BiCircle";
+
+    import { colors } from "../../stores/Global";
+
+    const d_colors = $colors.darkColors;
+    const l_colors = $colors.lightColors;
+
     export let task;
     export let light = false;
     export let customStyle = "";
     export let customClasses = "";
+    
+    const t_color = light ? d_colors[6] : l_colors[9];
+    const bg_color = light ? l_colors[10] : d_colors[6];
 
-    const appliedBg = light ? "bg-slate-600" : "bg-slate-800";
-    const appliedColor = light ? "text-slate-900" : "text-slate-400";
+    const appliedStyle = `background-color: ${bg_color}; color: ${t_color}; text-decoration-color: ${t_color}; border-color: ${t_color}`;
 
 </script>
 
 <div 
-    class="{customClasses} {appliedBg} todoContainer items-center w-full rounded-xl h-fit p-2 hover:bg-indigo-900 border-l-0 relative"    
-    style="{customStyle}">
+    class="{customClasses} todoContainer items-center w-full rounded-xl h-fit p-2 hover:bg-indigo-900 border-l-0 relative"    
+    style="{customStyle} {appliedStyle}">
 
-    <!-- Side Border and Checkbox -->
-    <div class="{task.finished ? "finished" : "checkBox"} relative justify-self-center rounded-full border-slate-400 border-2 hover:bg-slate-400" 
+    <!-- Side Border -->
+    <div class="w-fit h-fit overflow-visible relative"
+        style="fill: {t_color}"
         on:click={()=>task.finished = !task.finished}
         on:keydown={() => console.log("keydown")}
     >
+
+        <!-- Checkbox -->
+        {#if task.finished}
+            <Icon src={BiCheckCircle} className="fill-inherit w-max h-max flex align-center justify-center" size="1.5rem"/>
+        {:else}
+            <Icon src={BiCircle} className="fill-inherit w-max h-max flex align-center justify-center" size="1.5rem"/>
+        {/if}
+
         <span class="prioIndicator" style="background-color: {task.borderColor};"/>
     </div>
 
     <!-- text -->
-    <div class="{task.finished ? "line-through" : ""} decoration-1 decoration-slate-200 ml-3 py-1">
-        <h2 class="{appliedColor}">{task.title}</h2>
-        <h4 class="text-xs {appliedColor}">{task.desc}</h4>
+    <div class="{task.finished ? "line-through" : ""} decoration-1 ml-3 py-1">
+        <h2>{task.title}</h2>
+        <h4 class="text-xs">{task.desc}</h4>
     </div>
 
     <!-- Project Indicator -->
@@ -38,30 +59,14 @@
         transition: .25s ease;
     }
 
-    .checkBox {
-        width: 1.15rem;
-        height: 1.15rem;
-    }
-
     .prioIndicator {
         content: "";
         position: absolute;
-        width: 2px;
+        width: 4px;
         height: 25px;
         top: calc(50% - 12.5px);
-        left: -85%;
-        border-radius: 2px;
-    }
-
-    .finished .prioIndicator {
-        opacity: 0;
-    }
-
-    .finished {
-        @apply bg-slate-400;
-        @apply border-hidden;
-        @apply h-4;
-        @apply w-4;
+        left: -40%;
+        border-radius: 5px;
     }
 
     .todoContainer {

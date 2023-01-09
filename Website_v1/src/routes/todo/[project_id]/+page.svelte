@@ -3,7 +3,10 @@
 
 export let data;
 
-import {states} from "../../../stores/Global";
+import {states, colors} from "../../../stores/Global";
+
+const color = $colors
+
 import { Projects, Tasks } from "../Todo";
 
 import Todo from "../../../components/todo/todo.svelte";
@@ -15,8 +18,6 @@ const uuid = data.params.project_id;
 const project = Projects.getById(uuid);
 
 const tasks = Tasks.filterByProjectId(uuid);
-
-console.log(project);
 
 </script>
 

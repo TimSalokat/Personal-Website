@@ -13,8 +13,6 @@
     
 </script>
 
-
-
 <div class="grid grid-cols-7 grid-rows-5 w-full h-screen">
 
     <!-- ? Overview -->
@@ -80,7 +78,7 @@
             <h2 class="text-2xl pb-2 text-slate-200">Important Tasks</h2>
 
             {#each $tasks as task}
-                <Todo {task} customClasses="bg-slate-900"/>
+                <Todo {task}/>
             {/each}
 
         </div>

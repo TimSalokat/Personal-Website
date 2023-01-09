@@ -1,11 +1,14 @@
 
 <script>
-    import Icon from "@iconify/svelte";
-    import {states, consts} from "../../stores/Global.js";
+    import Icon from 'svelte-icons-pack/Icon.svelte';
+
+    import {states, consts, colors} from "../../stores/Global.js";
 
     export let toggleSideBar;
     export let ShowSideBar;
     export let closeSideBar;
+
+    const l_colors = $colors.lightColors;
 
 </script>
 
@@ -33,13 +36,15 @@
     <nav class="flex flex-col w-full px-3 gap-3 font-normal text-gray-500">
 
         {#each $consts["Pages"] as page}
-            <a class="{$states["activePage"] === page.title ? "active" : ""} hover:text-indigo-300 col-span-3 transition ease-in-out flex gap-5" 
+            <a class="hover:text-indigo-300 col-span-3 transition ease-in-out flex gap-5" 
                 href={page.link} 
                 on:click={() => {closeSideBar()}}
             >
-                <div class="w-6 h-6">
-                    <Icon icon={page.icon} class="w-6 h-6"/>
+
+                <div class="w-6 h-6" style="{$states["activePage"] === page.title ? "fill: orange" : `fill: ${l_colors[9]}`}">
+                    <Icon src={page.icon} className="w-6 h-6 fill-inherit"/>
                 </div>
+
                 {page.title}
             </a>
         {/each}
@@ -48,6 +53,7 @@
 </div>
 
 <style>
+
     #SideBar {
         padding-right: 30px;
         width: 280px;
@@ -61,7 +67,7 @@
     }
 
     .active {
-        @apply text-indigo-500;
+        @apply fill-indigo-500;
     }
 
     .seperator.invis {
