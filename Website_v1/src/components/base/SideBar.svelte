@@ -41,7 +41,7 @@
                 on:click={() => {closeSideBar()}}
             >
 
-                <div class="w-6 h-6" style="{$states["activePage"] === page.title ? "fill: orange" : `fill: ${l_colors[9]}`}">
+                <div class="w-6 h-6" style="{$states["activePage"] === page.title ? "fill: indigo" : `fill: ${l_colors[9]}`}">
                     <Icon src={page.icon} className="w-6 h-6 fill-inherit"/>
                 </div>
 

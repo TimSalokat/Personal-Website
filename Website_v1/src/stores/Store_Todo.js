@@ -60,33 +60,6 @@ export let _projects = [
         totalTasks: 0,
         finishedTasks: 0,
         uuid: "",
-    },
-    {
-        title: "Testinggg",
-        color: "",
-
-        priorities: [3,2,1,1],
-        totalTasks: 0,
-        finishedTasks: 2,
-        uuid: "",
-    },
-    {
-        title: "Working onnn",
-        color: "",
-
-        priorities: [17,2,7,1],
-        totalTasks: 0,
-        finishedTasks: 6,
-        uuid: "",
-    },
-    {
-        title: "Todo Project",
-        color: "",
-
-        totalTasks: 0,
-        finishedTasks: 11,
-        priorities: [11,2,3,3],
-        uuid: "",
     }
 ];
 

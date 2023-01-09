@@ -14,15 +14,15 @@
     export let customStyle = "";
     export let customClasses = "";
     
-    const t_color = light ? d_colors[6] : l_colors[9];
-    const bg_color = light ? l_colors[10] : d_colors[6];
+    const t_color = light ? l_colors[10] : l_colors[9];
+    const bg_color = light ? d_colors[13] : d_colors[6];
 
     const appliedStyle = `background-color: ${bg_color}; color: ${t_color}; text-decoration-color: ${t_color}; border-color: ${t_color}`;
 
 </script>
 
 <div 
-    class="{customClasses} todoContainer items-center w-full rounded-xl h-fit p-2 hover:bg-indigo-900 border-l-0 relative"    
+    class="{customClasses} todoContainer items-center w-full rounded-xl h-fit p-2 border-l-0 relative"    
     style="{customStyle} {appliedStyle}">
 
     <!-- Side Border -->
@@ -34,16 +34,16 @@
 
         <!-- Checkbox -->
         {#if task.finished}
-            <Icon src={BiCheckCircle} className="fill-inherit w-max h-max flex align-center justify-center" size="1.5rem"/>
+            <Icon src={BiCheckCircle} className="fill-inherit w-max h-max flex align-center justify-center scale-90" size="1.5rem"/>
         {:else}
-            <Icon src={BiCircle} className="fill-inherit w-max h-max flex align-center justify-center" size="1.5rem"/>
+            <Icon src={BiCircle} className="fill-inherit w-max h-max flex align-center justify-center scale-90" size="1.5rem"/>
         {/if}
 
         <span class="prioIndicator" style="background-color: {task.borderColor};"/>
     </div>
 
     <!-- text -->
-    <div class="{task.finished ? "line-through" : ""} decoration-1 ml-3 py-1">
+    <div class="{task.finished ? "line-through" : ""} decoration-1 p-1">
         <h2>{task.title}</h2>
         <h4 class="text-xs">{task.desc}</h4>
     </div>
@@ -54,7 +54,6 @@
 </div>
 
 <style>
-
     * {
         transition: .25s ease;
     }
@@ -72,5 +71,7 @@
     .todoContainer {
         display: grid;
         grid-template-columns: 1.5rem auto;
+        cursor: pointer;
     }
+
 </style>

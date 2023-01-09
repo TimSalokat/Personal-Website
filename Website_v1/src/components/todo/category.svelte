@@ -5,8 +5,10 @@
     const color = $colors
 
     import Todo from "./todo.svelte";
+    import AddTodoBtn from "./addTodoBtn.svelte";
 
     export let title;
+    export let project;
     export let tasks = [];
     
 </script>
@@ -16,16 +18,20 @@
     style="background-color: {color.darkColors[9]};"
 >
 
-    <h2 class="text-slate-300 text-xl">{title}</h2>
+    <h2 class="text-slate-300 text-xl mb-1">{title}</h2>
+    
+    <!-- Display Tasks -->
+    {#each tasks as task }
+    <Todo {task} light={true} customClasses="rounded-lg hover:bg-slate-700"/>
+        <span class="seperator bg-slate-700"/>
+    {/each}
+    
 
     <!-- Show that no tasks there -->
     {#if tasks.length === 0}
-        <h2 class="text-slate-500 place-self-center my-auto text-xl">No Tasks</h2>
+        <!-- <h2 class="text-slate-500 place-self-center text-xl">No Tasks</h2> -->
+        <AddTodoBtn category={title} {project} customClasses="m-auto"/>
+    {:else}
+        <AddTodoBtn category={title} {project}/>
     {/if}
-
-    <!-- Display Tasks -->
-    {#each tasks as task }
-        <Todo {task} light={true} customClasses="rounded-lg hover:bg-slate-700"/>
-        <span class="seperator bg-slate-700"/>
-    {/each}
 </div>

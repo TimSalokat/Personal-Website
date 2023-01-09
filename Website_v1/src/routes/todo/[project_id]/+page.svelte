@@ -41,11 +41,11 @@ const tasks = Tasks.filterByProjectId(uuid);
     <!-- Taks Categories -->
     <div class="flex h-full w-full flex-wrap gap-5">
         
-        <Category title="Todo" {tasks}/>
+        <Category title="Todo" {tasks} project={project.title}/>
 
-        <Category title="Still buggy" {tasks}/>
+        <Category title="Still buggy" {tasks} project={project.title}/>
 
-        <Category title="Implemented"/>
+        <Category title="Implemented" project={project.title}/>
 
     </div>
 </div>

@@ -17,11 +17,11 @@
     <!-- Heading -->
     <div class="flex flex-col h-full justify-center pb-2 px-0">
         <h2
-            class="text-xl font-extrabold font-mono text-slate-400" 
-            style="font-size: 2.7rem; -webkit-text-fill-color: transparent; -webkit-text-stroke: .05rem; line-height: 2.2rem;">
+            class="text-xl font-extrabold text-slate-400 pb-2" 
+            style="font-size: 2.7rem;">
             {project.title}
         </h2>
-        <p class="text-slate-500 pl-1" style="line-height: 1rem;">Total Tasks 15 <br/> Finished 20% </p>
+        <p class="text-slate-500 pl-1" style="line-height: 1.1rem;">Total Tasks 15 <br/> Finished 20% </p>
     </div>
     
     <!-- Chart and Text -->
@@ -57,7 +57,7 @@
 <style>
 
     * {
-        transition: .25s ease;
+        transition: scale .25s ease;
     }
 
     #projectContainer::before {
