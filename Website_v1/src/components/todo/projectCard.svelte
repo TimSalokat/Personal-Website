@@ -10,7 +10,7 @@
 <a 
     href="/todo/{project.uuid}"
     id="projectContainer" 
-    class="self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-1/4 h-40 flex-grow w-" 
+    class="self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-1/4 h-44 flex-grow w-" 
     style="background-color: {project.color}; min-width: 18rem; max-width: 21rem"
     >
    
@@ -18,10 +18,10 @@
     <div class="flex flex-col h-full justify-center pb-2 px-0">
         <h2
             class="text-xl font-extrabold text-slate-400 pb-2" 
-            style="font-size: 2.7rem;">
+            style="font-size: 2.2rem;">
             {project.title}
         </h2>
-        <p class="text-slate-500 pl-1" style="line-height: 1.1rem;">Total Tasks 15 <br/> Finished 20% </p>
+        <p class="text-slate-500 pl-1 text-sm" style="line-height: 1rem;">Total Tasks 15 <br/> Finished 20% </p>
     </div>
     
     <!-- Chart and Text -->
