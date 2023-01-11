@@ -17,7 +17,7 @@
 </button>
 
 <div
-	class="flex flex-col min-h-screen bg-gray-900 text-slate-300 absolute top-0 left-0 items-center px-1 py-5"
+    class="flex flex-col min-h-screen bg-gray-900 text-slate-300 absolute top-0 left-0 items-center px-1 py-5"
 	id="SideBar"
 >
 	<!-- Header -->
