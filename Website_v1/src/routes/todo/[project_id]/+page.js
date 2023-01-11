@@ -1,8 +1,4 @@
-
-
 export const load = (page) => {
-
-    const params = page.params;
-    return {params}
-    
-}
+	const params = page.params;
+	return { params };
+};
