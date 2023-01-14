@@ -1,5 +1,6 @@
 <script>
 	import SideBar from '../components/base/SideBar.svelte';
+	import Overlay from '../components/base/overlay.svelte';
 	let ShowSideBar = false;
 
 	const toggleSideBar = () => {
@@ -10,8 +11,9 @@
 	};
 </script>
 
+<Overlay/>
 <SideBar {toggleSideBar} {ShowSideBar} {closeSideBar} />
-<div
+<div 
 	class="{ShowSideBar
 		? 'open'
 		: 'closed'} min-w-screen min-h-screen bg-slate-800 text-white relative transition-all overflow-hidden"

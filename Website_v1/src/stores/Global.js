@@ -79,7 +79,11 @@ const _consts = {
 };
 
 const _states = {
-	activePage: _consts['Pages'][0].title
+	activePage: _consts['Pages'][0].title,
+	activeForm: "AddTodo",
+
+	overlayActive: true,
+	setOverlay : (newState) => {_states.overlayActive = newState;},
 };
 
 colors.set(_colors);

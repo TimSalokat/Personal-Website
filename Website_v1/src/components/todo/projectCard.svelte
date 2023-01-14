@@ -5,22 +5,6 @@
 	export let project;
 </script>
 
-<a
-	href="/todo/{project.uuid}"
-	id="projectContainer"
-	class="self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-1/4 h-40 flex-grow w-"
-	style="background-color: {project.color}; min-width: 18rem; max-width: 21rem"
->
-	<!-- Heading -->
-	<div class="flex flex-col h-full justify-center pb-2 px-0">
-		<h2 class="text-xl font-extrabold text-slate-400 pb-2" style="font-size: 2.7rem;">
-			{project.title}
-		</h2>
-		<p class="text-slate-500 pl-1" style="line-height: 1.1rem;">
-			Total Tasks 15 <br /> Finished 20%
-		</p>
-	</div>
-
 <a 
     href="/todo/{project.uuid}"
     id="projectContainer" 

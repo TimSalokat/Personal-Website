@@ -49,7 +49,7 @@
 	</div>
 
 	<!-- text -->
-	<div class="{task.finished ? 'line-through' : ''} decoration-1 p-1">
+	<div class="{task.finished ? 'line-through' : ''} decoration-1 p-1 ml-2">
 		<h2>{task.title}</h2>
 		<h4 class="text-xs">{task.desc}</h4>
 	</div>
@@ -68,10 +68,10 @@
 	.prioIndicator {
 		content: '';
 		position: absolute;
-		width: 4px;
+		width: 2px;
 		height: 25px;
 		top: calc(50% - 12.5px);
-		left: -40%;
+		left: 120%;
 		border-radius: 5px;
 	}
 
