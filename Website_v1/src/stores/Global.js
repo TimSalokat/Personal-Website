@@ -82,7 +82,7 @@ const _states = {
 	activePage: _consts['Pages'][0].title,
 	activeForm: "AddTodo",
 
-	overlayActive: true,
+	overlayActive: false,
 	setOverlay : (newState) => {_states.overlayActive = newState;},
 };
 

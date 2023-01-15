@@ -1,22 +1,21 @@
 <script>
 	import SideBar from '../components/base/SideBar.svelte';
 	import Overlay from '../components/base/overlay.svelte';
+	import { colors } from '../stores/Global';
 	let ShowSideBar = false;
 
 	const toggleSideBar = () => {
 		ShowSideBar = !ShowSideBar;
 	};
-	const closeSideBar = () => {
-		ShowSideBar = false;
-	};
 </script>
 
 <Overlay/>
-<SideBar {toggleSideBar} {ShowSideBar} {closeSideBar} />
+<SideBar {toggleSideBar} {ShowSideBar} />
 <div 
-	class="{ShowSideBar
+	class=" p-5 {ShowSideBar
 		? 'open'
-		: 'closed'} min-w-screen min-h-screen bg-slate-800 text-white relative transition-all overflow-hidden"
+		: 'closed'} min-w-screen min-h-screen  text-white relative transition-all overflow-hidden"
+	style="background-color: {$colors.darkColors[10]};"
 >
 	<slot />
 </div>
@@ -28,7 +27,7 @@
 
 	.open {
 		margin-left: 250px;
-		border-radius: 30px 0 0 30px;
+		border-radius: 20px 0 0 20px;
 	}
 	.closed {
 		margin-left: 55px;

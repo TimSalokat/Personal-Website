@@ -18,9 +18,9 @@
 	const tasks = Tasks.filterByProjectId(uuid);
 </script>
 
-<div class="p-5 h-screen w-full flex flex-col gap-0">
+<div class="h-full w-full flex flex-col gap-0 overflow-hidden">
 	<!-- Project Overview -->
-	<div class="w-full flex h-80 items-center">
+	<div class="w-full flex h-60 items-center">
 		<div class="mb-3">
 			<p class="text-slate-400 text-lg font-light mb-0">Project:</p>
 			<h2
