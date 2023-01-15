@@ -1,8 +1,6 @@
 import { writable } from 'svelte/store';
 import { _colors } from './Global';
 
-import { Projects } from '../routes/todo/Todo';
-
 import { v4 as uuid } from 'uuid';
 
 const projectColors = _colors['projectColors'];

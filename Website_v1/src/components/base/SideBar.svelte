@@ -2,12 +2,16 @@
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 
 	import { states, consts, colors } from '../../stores/Global.js';
+	import { projects } from '../../stores/Store_Todo.js';
 
 	export let toggleSideBar;
 	export let ShowSideBar;
-	export let closeSideBar;
 
 	const l_colors = $colors.lightColors;
+	let p_titles = [];
+
+	$projects.forEach(project => p_titles.push(project.title));
+
 </script>
 
 <button class={ShowSideBar ? 'Burger open' : 'Burger'} on:click={toggleSideBar}>
@@ -34,24 +38,22 @@
 
 	<!-- Navigation -->
 	<nav class="flex flex-col w-full px-3 gap-3 font-normal text-gray-500">
+
 		{#each $consts['Pages'] as page}
 			<a
-				class="hover:text-indigo-300 col-span-3 transition ease-in-out flex gap-5"
-				href={page.link}
-				on:click={() => {
-					closeSideBar();
-				}}
+			class="hover:text-indigo-300 col-span-3 transition ease-in-out flex gap-5"
+			href={page.link}
 			>
 				<div
-					class="w-6 h-6"
-					style={$states['activePage'] === page.title ? 'fill: indigo' : `fill: ${l_colors[9]}`}
+				class="w-6 h-6"
+				style={$states['activePage'] === page.title ? 'fill: #7b2cbf;' : `fill: ${l_colors[9]}`}
 				>
 					<Icon src={page.icon} className="w-6 h-6 fill-inherit" />
 				</div>
-
 				{page.title}
 			</a>
 		{/each}
+		
 	</nav>
 </div>
 
@@ -66,10 +68,6 @@
 		height: 1px;
 		border-radius: 100%;
 		transition: 0.2s ease;
-	}
-
-	.active {
-		@apply fill-indigo-500;
 	}
 
 	.seperator.invis {

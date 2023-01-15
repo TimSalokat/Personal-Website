@@ -7,47 +7,34 @@
 
 <a 
     href="/todo/{project.uuid}"
-    id="projectContainer" 
-    class="self-stretch bg-slate-900 shadow-l hover:scale-105 rounded-2xl p-3 relative overflow-hidden w-1/4 h-44 flex-grow w-" 
-    style="background-color: {project.color}; min-width: 18rem; max-width: 21rem"
+    id="" 
+    class="relative xl:w-1/2 w-full p-2 flex h-14"
     >
+
+	<div class="rounded h-6 w-6 my-auto" style="background-color: {project.color};"/>
    
     <!-- Heading -->
-    <div class="flex flex-col h-full justify-center pb-2 px-0">
+    <div class="flex flex-col h-full justify-center pb-3 px-0 pl-2">
         <h2
-            class="text-xl font-extrabold text-slate-400 pb-2" 
-            style="font-size: 2.2rem;">
+            class="text-l font-semibold text-slate-400" 
+            style="">
             {project.title}
         </h2>
-        <p class="text-slate-500 pl-1 text-sm" style="line-height: 1rem;">Total Tasks 15 <br/> Finished 20% </p>
+        <p class="text-slate-500 text-sm" style="line-height: 1rem;">15 Tasks</p>
     </div>
     
-    <!-- Chart and Text -->
-    <!-- <div class="flex pb-2">
-        <DonutChart
+        <!-- <DonutChart
             labels={$priorities[0]}
             fontMid="13px Arial"
             fontColor="#fff"
             passColors={$colors["priorityColors"]}
             data={project.priorities}
             plugins={"mid"} 
-        /> 
-        <div class="flex flex-col stretch text-slate-400 {project.text} text-xs justify-center mb-2 pl-3 ">
-            <p>PrioOne: </p>
-            <p>PrioTwo: </p>
-            <p>PrioThree: </p>
-            <p>PrioFour: </p>
-        </div>
-        <div class="flex flex-col stretch text-slate-400 {project.text} text-xs justify-center mb-2 pl-3">
-            {#each project.priorities as prio}
-                <p>{prio}<br/></p>
-            {/each}
-        </div>
-    </div> -->
+        />  -->
 
 	<!-- Progress Bar -->
 	<div
-		class="absolute flex w-3/4 z-10 bg-slate-700 rounded-full"
+		class="absolute flex w-3/5 z-10 bg-slate-700 rounded-full ml-4"
 		style="left: 12.5%; bottom: 12.5%; height: 3px"
 	>
 		<span
