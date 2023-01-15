@@ -1,6 +1,8 @@
 import { writable } from 'svelte/store';
 import { _colors } from './Global';
 
+import { func } from '../routes/todo/functions';
+
 import { v4 as uuid } from 'uuid';
 
 const projectColors = _colors['projectColors'];
@@ -9,6 +11,8 @@ const priorityColors = _colors['priorityColors'];
 export const priorities = writable({});
 export const projects = writable({});
 export const tasks = writable({});
+
+
 
 let _priorities = [
 	['Whatever', 'Should do', 'Must do', 'Do ASAP'],
@@ -30,7 +34,10 @@ let _priorities = [
 	}
 ];
 
-export let _projects = [
+export let _projects = await func.getProjects();
+if(_projects[0] == undefined) _projects = [];
+
+export let __projects = [
 	{
 		title: 'Testing',
 		color: '',
@@ -60,80 +67,41 @@ export let _projects = [
 	}
 ];
 
-_projects.forEach((project, i) => {
-	project.color = projectColors[i];
-	project.totalTasks = project.priorities?.reduce((x, y) => {
-		return x + y;
-	});
-	project.uuid = uuid();
-});
+// _projects.forEach((project, i) => {
+// 	project.color = projectColors[i];
+// 	project.totalTasks = project.priorities?.reduce((x, y) => {
+// 		return x + y;
+// 	});
+// 	project.uuid = uuid();
+// });
 
-export let _tasks = [
-	{
-		project: 'Todo Project',
-		title: 'Do some stuff',
-		desc: 'This means that you shall do some stuff',
-		finished: false,
-		prio: 2,
+export let _tasks = await func.getTodos();
+if(_tasks[0] == undefined) _tasks = [];
 
-		pColor: '',
-		borderColor: '',
+// _tasks.forEach((task, index) => {
+// 	//Add id
+// 	task.id = uuid();
 
-		id: '',
-		project_id: ''
-	},
-	{
-		project: 'Working on',
-		title: 'Do stuff',
-		desc: 'This means that you shall do some stuff',
-		finished: true,
-		prio: 3,
+// 	// Add Priority Color
+// 	let prio = ''; // TODO make this count to the project
+// 	_priorities.forEach((priority, i) => {
+// 		if (task.prio === i) {
+// 			prio = priority.title;
+// 			task.borderColor = priority.color;
+// 			return;
+// 		}
+// 	});
 
-		pColor: '',
-		borderColor: '',
-
-		id: '',
-		project_id: ''
-	},
-	{
-		project: 'Testing',
-		title: 'Do some more stuff',
-		desc: '',
-		finished: false,
-		prio: 4,
-
-		projectColor: '',
-		borderColor: '',
-
-		id: '',
-		project_id: ''
-	}
-];
-
-_tasks.forEach((task, index) => {
-	//Add id
-	task.id = uuid();
-
-	// Add Priority Color
-	let prio = ''; // TODO make this count to the project
-	_priorities.forEach((priority, i) => {
-		if (task.prio === i) {
-			prio = priority.title;
-			task.borderColor = priority.color;
-			return;
-		}
-	});
-
-	// Add Project color and project id
-	_projects.forEach((project) => {
-		if (task.project === project.title) {
-			task.projectColor = project.color;
-			task.project_id = project.uuid;
-			project.totalTasks += 1;
-			return;
-		}
-	});
-});
+// 	// Add Project color and project id
+// 	_projects.forEach((project) => {
+// 		if (task.project === project.title) {
+// 			task.projectColor = project.color;
+// 			task.project_id = project.uuid;
+// 			project.totalTasks += 1;
+// 			return;
+// 		}
+// 	});
+// });
 
 priorities.set(_priorities);
 projects.set(_projects);

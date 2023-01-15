@@ -50,7 +50,7 @@
 	<!-- text -->
 	<div class="{task.finished ? 'line-through' : ''} decoration-1 p-1 ml-3">
 		<h2 class="font-semibold">{task.title}</h2>
-		<h4 class="text-sm" style="color: {$colors.lightColors[6]}">{task.desc}</h4>
+		<h4 class="text-sm" style="color: {$colors.lightColors[6]}">{task.description}</h4>
 	</div>
 
 	<!-- Project Indicator -->

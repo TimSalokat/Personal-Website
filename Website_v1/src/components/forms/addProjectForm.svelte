@@ -1,34 +1,29 @@
 
 <script>
+    import { func } from "../../routes/todo/functions.js";
+
     import { v4 as uuid } from 'uuid';
 
     import { projects } from "../../stores/Store_Todo.js";
     import { colors, states } from "../../stores/Global";
 
-    import { func } from "../../routes/todo/functions.js";
-
     import CustomInput from "../base/inputs/customInput.svelte";
     import CustomTextarea from "../base/inputs/customTextarea.svelte";
-    import ChipContainer from "../base/inputs/chipContainer.svelte";
-
-    let selectedProject;
-    const p_titles = [];
-    $projects.forEach((project) => {p_titles.push(project.title)})
 
     let title;
     let description;
 
     const submit = () => {
-        // console.log(title, description);
+        console.log(title, description);
         const _data = {
             uuid: uuid(),
-            project_uuid: func.getProjectUuid(selectedProject),
             title: title,
             description: description,
-            priority: 2,
-            finished: false,
+            total: 0,
+            finished: 0,
+            color: "#ea1"
         }
-        func.addTodo(_data);
+        func.addProject(_data);
         $states.overlayActive = false;
     }
 
@@ -41,7 +36,7 @@ class="w-3/5 h-4/5 mx-auto rounded-xl p-5 relative flex"
 
     <!-- Main  -->
     <div class="w-2/3 pr-5 relative">
-        <h1 class="text-2xl mb-3">Add Task</h1>
+        <h1 class="text-2xl mb-3">Add Project</h1>
         
         <!-- Inputs -->
         <CustomInput title="Title" bind:value={title}/>
@@ -60,21 +55,13 @@ class="w-3/5 h-4/5 mx-auto rounded-xl p-5 relative flex"
                 class="px-6 py-3 rounded text-sm border" 
                 style="background-color: {$colors.darkColors[15]};  border-color: {$colors.darkColors[19]}"
                 on:click={() => submit()}
-            >Add Task</button>
+            >Add Project</button>
         </div>
     </div>
 
     <!-- Side -->
     <div class="flex-1 p-5 border-l relative" style="border-color: {$colors.darkColors[18]};">
         <h2 class="text-xl text-center">Settings</h2>
-
-        <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
-
-        <ChipContainer 
-            items={p_titles} 
-            bind:selected={selectedProject}
-            customColors={$colors.projectColors}    
-        />
 
         <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
 

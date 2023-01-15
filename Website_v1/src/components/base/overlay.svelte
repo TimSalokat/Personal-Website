@@ -1,6 +1,7 @@
 
 <script>
     import AddTodoForm from "../forms/addTodoForm.svelte";
+    import AddProjectForm from "../forms/addProjectForm.svelte";
 
     import { states } from "../../stores/Global";
 
@@ -21,6 +22,8 @@ class="absolute h-full w-full z-50 flex items-center justify-center"
 
     {#if $states.activeForm === "AddTodo"}
         <AddTodoForm/>
+    {:else if $states.activeForm === "AddProject"}
+        <AddProjectForm/>
     {:else}
         <p>Hello</p>
     {/if}
