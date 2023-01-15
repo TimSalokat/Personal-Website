@@ -78,7 +78,7 @@
 
 	.Burger {
 		position: fixed;
-		z-index: 100;
+		z-index: 49;
 		margin: 20px 10px;
 		height: 30px;
 		width: 30px;

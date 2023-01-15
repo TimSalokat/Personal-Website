@@ -41,11 +41,3 @@
 		<Category title="Implemented" project={project.title} />
 	</div>
 </div>
-
-<style>
-	.seperator {
-		margin-left: 10%;
-		width: 80%;
-		height: 1px;
-	}
-</style>

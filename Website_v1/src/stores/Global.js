@@ -83,7 +83,6 @@ const _states = {
 	activeForm: "AddTodo",
 
 	overlayActive: true,
-	setOverlay : (newState) => {_states.overlayActive = newState;},
 };
 
 colors.set(_colors);
