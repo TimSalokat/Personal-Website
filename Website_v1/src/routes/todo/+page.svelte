@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { states, colors } from '../../stores/Global';
 	import { projects, tasks } from '../../stores/Store_Todo';
 
@@ -6,39 +6,47 @@
 
 	import Project from '../../components/todo/projectCard.svelte';
 	import Todo from '../../components/todo/todo.svelte';
-
-	import DonutChart from '../../components/base/donutChart.svelte';
 </script>
 
-<div class="flex h-full w-full">
+<div 
+class="bg-red-900 flex h-60 border-2 m-3 p-5 rounded-xl"
+style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkColors[13]};"
+>
+    <h2>Overview or some shit</h2>
+</div>
+
+<div class="flex h-2/3 w-full">
 
         <!-- ? Projects Section -->
         <div 
-        class="flex w-1/2 rounded-xl border-2 m-5 p-5 flex-col" 
-        style="background-color: {$colors.darkColors[12]}; border-color: {$colors.darkColors[15]}; height: 50%;"
+        class="flex w-1/2 rounded-xl border-2 m-3 p-5 flex-col h-full" 
+        style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkColors[13]};"
         >
 
             <h2 class="pb-4 text-2xl text-slate-200">Projects</h2>
-            <div class="flex flex-wrap">
+            <div class="grid grid-cols-2 gap-5">
+
                 {#each $projects as project}
                     <Project {project} />
                 {/each}
+
             </div>
 
         </div>
 
         <!-- ? Important Tasks -->
         <div 
-        class="flex w-1/2 rounded-xl border-2 m-5 p-5 flex-col" 
-        style="background-color: {$colors.darkColors[12]}; border-color: {$colors.darkColors[15]}; height: 50%;"
+        class="flex w-1/2 rounded-xl border-2 m-3 p-5 flex-col h-full" 
+        style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkColors[13]};"
         >
 
-            <h2 class="text-2xl pb-2 text-slate-200">Important Tasks</h2>
+            <h2 class="text-2xl pb-4 text-slate-200">Important Tasks</h2>
             <div class="flex flex-col gap-3 stretch w-full">
 
                 {#each $tasks as task}
                     <Todo {task} />
                 {/each}
+
             </div>
         </div>
 </div>

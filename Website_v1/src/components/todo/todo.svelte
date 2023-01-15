@@ -9,18 +9,17 @@
 	const l_colors = $colors.lightColors;
 
 	export let task;
-	export let light = false;
 	export let customStyle = '';
 	export let customClasses = '';
 
-	const t_color = light ? l_colors[10] : l_colors[9];
-	const bg_color = light ? d_colors[13] : d_colors[6];
+	const t_color = l_colors[10];
+	const bg_color = d_colors[12];
 
 	const appliedStyle = `background-color: ${bg_color}; color: ${t_color}; text-decoration-color: ${t_color}; border-color: ${t_color}`;
 </script>
 
 <div
-	class="{customClasses} todoContainer items-center w-full rounded-xl h-fit p-2 border-l-0 relative"
+	class="{customClasses} todoContainer items-center w-full rounded-lg h-fit p-2 border-l-0 relative"
 	style="{customStyle} {appliedStyle}"
 >
 	<!-- Side Border -->
@@ -49,9 +48,9 @@
 	</div>
 
 	<!-- text -->
-	<div class="{task.finished ? 'line-through' : ''} decoration-1 p-1 ml-2">
-		<h2>{task.title}</h2>
-		<h4 class="text-xs">{task.desc}</h4>
+	<div class="{task.finished ? 'line-through' : ''} decoration-1 p-1 ml-3">
+		<h2 class="font-semibold">{task.title}</h2>
+		<h4 class="text-sm" style="color: {$colors.lightColors[6]}">{task.desc}</h4>
 	</div>
 
 	<!-- Project Indicator -->

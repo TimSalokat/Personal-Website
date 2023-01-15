@@ -19,7 +19,7 @@
 
 	<!-- Display Tasks -->
 	{#each tasks as task}
-		<Todo {task} light={true} customClasses="rounded-lg hover:bg-slate-700" />
+		<Todo {task}/>
 		<span class="seperator bg-slate-700" />
 	{/each}
 

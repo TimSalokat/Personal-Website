@@ -8,19 +8,23 @@
 <a 
     href="/todo/{project.uuid}"
     id="" 
-    class="relative xl:w-1/2 w-full p-2 flex h-14"
+    class="relative w-full p-4 flex h-16 rounded-lg"
+	style="background-color: {$colors.darkColors[12]}"
     >
 
-	<div class="rounded h-6 w-6 my-auto" style="background-color: {project.color};"/>
+	<div class="rounded-full h-6 w-6 my-auto" style="background-color: {project.color};"/>
    
     <!-- Heading -->
-    <div class="flex flex-col h-full justify-center pb-3 px-0 pl-2">
+    <div 
+	class="flex flex-col h-full justify-center pb-3 px-0 pl-2"
+	style="color: {$colors.lightColors[10]}"
+	>
         <h2
-            class="text-l font-semibold text-slate-400" 
+            class="text-l font-semibold" 
             style="">
             {project.title}
         </h2>
-        <p class="text-slate-500 text-sm" style="line-height: 1rem;">15 Tasks</p>
+        <p class="text-sm" style="line-height: 1rem; color: {$colors.lightColors[6]}">15 Tasks</p>
     </div>
     
         <!-- <DonutChart
@@ -48,26 +52,5 @@
 <style>
 	* {
 		transition: scale 0.25s ease;
-	}
-
-	#projectContainer::before {
-		@apply bg-slate-900;
-		content: '';
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 2;
-		-webkit-clip-path: polygon(75% 0%, 100% 35%, 100% 100%, 20% 100%, 0% 70%, 0 0);
-		clip-path: polygon(75% 0%, 100% 35%, 100% 100%, 20% 100%, 0% 70%, 0 0);
-		box-shadow: 0px 0px 60px 1px #090f1e inset;
-		scale: 1.05;
-	}
-	#projectContainer:hover::before {
-		scale: 1.05;
-	}
-	#projectContainer * {
-		z-index: 10;
 	}
 </style>

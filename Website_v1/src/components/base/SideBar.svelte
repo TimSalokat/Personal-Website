@@ -37,21 +37,37 @@
 	<span class="{ShowSideBar ? 'seperator' : 'seperator invis'} bg-indigo-600 my-5" />
 
 	<!-- Navigation -->
-	<nav class="flex flex-col w-full px-3 gap-3 font-normal text-gray-500">
+	<nav class="flex flex-col w-full px-3 gap-1 font-normal text-gray-500">
 
 		{#each $consts['Pages'] as page}
 			<a
-			class="hover:text-indigo-300 col-span-3 transition ease-in-out flex gap-5"
+			class="col-span-3 transition ease-in-out flex gap-5 hover:text-slate-200 {page.title === "Todos" ? "" : "mb-2"}"
 			href={page.link}
+			style="{$states['activePage'] === page.title ? 'color: #7b2cbf;' : ``}"
 			>
 				<div
-				class="w-6 h-6"
-				style={$states['activePage'] === page.title ? 'fill: #7b2cbf;' : `fill: ${l_colors[9]}`}
+				class="w-6 h-6 hover:fill-slate-200"
+				style={$states['activePage'] === page.title ? 'fill: #7b2cbf;' : `fill: ${l_colors[5]}`}
 				>
 					<Icon src={page.icon} className="w-6 h-6 fill-inherit" />
 				</div>
-				{page.title}
+				<p style="color: inherit;">{page.title}</p>
 			</a>
+
+			<!-- !This shit aint workin (link) -->
+			<!-- TODO this is an error in sveltekit. if your at the dynamic +page from the projects the
+			TODO  data isnt passed a second time on click of any of these -->
+			{#if page.title === "Todos"}
+				<ul>
+					{#each $projects as project}
+						<li class="hover:text-slate-200">
+							<a href="/todo/{project.uuid}">
+								{project.title}
+							</a>
+						</li>
+					{/each}
+				</ul>
+			{/if}
 		{/each}
 		
 	</nav>
@@ -109,5 +125,9 @@
 	}
 	.Burger.open span:nth-of-type(3) {
 		opacity: 0;
+	}
+	ul{
+		list-style-type: circle;
+		margin-left: 3rem;
 	}
 </style>

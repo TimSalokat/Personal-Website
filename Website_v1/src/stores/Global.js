@@ -9,6 +9,9 @@ export const colors = writable({});
 
 export const _colors = {
 	darkColors: [
+		"#ccc",
+		"#ccc",
+		"#ccc",
 		'#080716',
 		'#09091A',
 		'#0B0C1D',
@@ -73,7 +76,7 @@ const _consts = {
 		{
 			title: 'Todos',
 			icon: BiSpreadsheet,
-			link: '/todo'
+			link: '/todo',
 		}
 	]
 };
