@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { states, colors } from '../../stores/Global';
-	import { projects, tasks } from '../../stores/Store_Todo';
+	import { projects, tasks } from '../todo/functions';
 
 	$states['activePage'] = 'Todos';
 

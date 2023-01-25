@@ -1,4 +1,4 @@
-import { _projects, _tasks } from '../../stores/Store_Todo';
+import { _projects, _tasks } from '../todo/functions';
 
 class _Projects {
 	getById(id: string) {

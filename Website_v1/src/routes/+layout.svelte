@@ -1,4 +1,5 @@
 <script>
+
 	import SideBar from '../components/base/SideBar.svelte';
 	import Overlay from '../components/base/overlay.svelte';
 	import { colors } from '../stores/Global';
@@ -7,6 +8,7 @@
 	const toggleSideBar = () => {
 		ShowSideBar = !ShowSideBar;
 	};
+
 </script>
 
 <Overlay/>

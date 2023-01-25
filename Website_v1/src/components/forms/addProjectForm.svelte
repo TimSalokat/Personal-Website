@@ -4,7 +4,7 @@
 
     import { v4 as uuid } from 'uuid';
 
-    import { projects } from "../../stores/Store_Todo.js";
+    import { projects } from "../../routes/todo/functions";
     import { colors, states } from "../../stores/Global";
 
     import CustomInput from "../base/inputs/customInput.svelte";

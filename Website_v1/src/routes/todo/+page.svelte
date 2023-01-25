@@ -2,10 +2,9 @@
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import BiPlus from 'svelte-icons-pack/bi/BiPlus';
 
-    import { func } from './functions';
+    import { func, projects } from './functions';
     
     import { states, colors } from '../../stores/Global';
-	import { projects, tasks } from '../../stores/Store_Todo';
 
 	$states['activePage'] = 'Todos';
 
@@ -26,7 +25,7 @@ style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkCol
     <h2>Overview or some shit</h2>
 </div>
 
-<div class="flex h-2/3 w-full">
+<div class="flex h-2/4 w-full">
 
         <!-- ? Projects Section -->
         <div 
@@ -37,9 +36,13 @@ style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkCol
             <h2 class="pb-4 text-2xl text-slate-200">Projects</h2>
             <div class="grid grid-cols-2 gap-5">
 
+                {#await func.getProjects()}
+                    <h2>Loading ...</h2>
+                {:then} 
                 {#each $projects as project}
                     <Project {project} />
                 {/each}
+                {/await}
 
                 <!-- Add Project Button -->
                 <button
@@ -65,9 +68,13 @@ style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkCol
             <h2 class="text-2xl pb-4 text-slate-200">Important Tasks</h2>
             <div class="flex flex-col gap-3 stretch w-full">
 
-                    {#each $tasks as task}
-                        <Todo {task} />
-                    {/each}
+                {#await func.getTodos()}
+                    <h2>Loading ...</h2>
+                {:then tasks} 
+                {#each tasks as task}
+                    <Todo {task} />
+                {/each}
+                {/await}
 
             </div>
         </div>

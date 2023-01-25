@@ -2,15 +2,13 @@
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 
 	import { states, consts, colors } from '../../stores/Global.js';
-	import { projects } from '../../stores/Store_Todo.js';
+	import { func } from '../../routes/todo/functions';
 
 	export let toggleSideBar;
 	export let ShowSideBar;
 
 	const l_colors = $colors.lightColors;
-	let p_titles = [];
-
-	$projects.forEach(project => p_titles.push(project.title));
+	const hover_color = "#eee";
 
 </script>
 
@@ -43,30 +41,34 @@
 			<a
 			class="col-span-3 transition ease-in-out flex gap-5 hover:text-slate-200 {page.title === "Todos" ? "" : "mb-2"}"
 			href={page.link}
-			style="{$states['activePage'] === page.title ? 'color: #7b2cbf;' : ``}"
+			style="{$states['activePage'] === page.title ? `color: ${hover_color} ;` : ``}"
 			>
 				<div
 				class="w-6 h-6 hover:fill-slate-200"
-				style={$states['activePage'] === page.title ? 'fill: #7b2cbf;' : `fill: ${l_colors[5]}`}
+				style={$states['activePage'] === page.title ? `fill: ${hover_color};` : `fill: ${l_colors[5]}`}
 				>
 					<Icon src={page.icon} className="w-6 h-6 fill-inherit" />
 				</div>
-				<p style="color: inherit;">{page.title}</p>
+				<h4 style="color: inherit;">{page.title}</h4>
 			</a>
 
 			<!-- !This shit aint workin (link) -->
 			<!-- TODO this is an error in sveltekit. if your at the dynamic +page from the projects the
 			TODO  data isnt passed a second time on click of any of these -->
 			{#if page.title === "Todos"}
-				<ul>
-					{#each $projects as project}
-						<li class="hover:text-slate-200">
-							<a href="/todo/{project.uuid}">
-								{project.title}
-							</a>
-						</li>
-					{/each}
-				</ul>
+				{#await func.getProjects()}
+					<h2>Loading ...</h2>
+				{:then projects} 
+					<ul>
+						{#each projects as project}
+							<li class="hover:text-slate-200">
+								<a href="/todo/{project.uuid}">
+									{project.title}
+								</a>
+							</li>
+						{/each}
+					</ul>
+				{/await}
 			{/if}
 		{/each}
 		
