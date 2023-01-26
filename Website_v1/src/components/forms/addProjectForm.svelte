@@ -1,10 +1,10 @@
-
+<!-- TODO remove the description as a dependencie -->
 <script>
     import { func } from "../../routes/todo/functions.js";
 
     import { v4 as uuid } from 'uuid';
 
-    import { projects } from "../../routes/todo/functions";
+    import { projects } from "../../stores/Tasks";
     import { colors, states } from "../../stores/Global";
 
     import CustomInput from "../base/inputs/customInput.svelte";

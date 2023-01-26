@@ -2,7 +2,7 @@
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 
 	import { states, consts, colors } from '../../stores/Global.js';
-	import { func } from '../../routes/todo/functions';
+	import { projects } from '../../stores/Tasks.js';
 
 	export let toggleSideBar;
 	export let ShowSideBar;
@@ -56,11 +56,11 @@
 			<!-- TODO this is an error in sveltekit. if your at the dynamic +page from the projects the
 			TODO  data isnt passed a second time on click of any of these -->
 			{#if page.title === "Todos"}
-				{#await func.getProjects()}
+				<!-- {#await func.getProjects()}
 					<h2>Loading ...</h2>
-				{:then projects} 
+				{:then projects}  -->
 					<ul>
-						{#each projects as project}
+						{#each $projects as project}
 							<li class="hover:text-slate-200">
 								<a href="/todo/{project.uuid}">
 									{project.title}
@@ -68,7 +68,7 @@
 							</li>
 						{/each}
 					</ul>
-				{/await}
+				<!-- {/await} -->
 			{/if}
 		{/each}
 		

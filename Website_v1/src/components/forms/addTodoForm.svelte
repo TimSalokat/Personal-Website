@@ -1,8 +1,8 @@
-
+<!-- TODO make the right project auto select and update the project colors -->
 <script>
     import { v4 as uuid } from 'uuid';
 
-    import { projects } from "../../routes/todo/functions"
+    import { projects } from "../../stores/Tasks"
     import { colors, states } from "../../stores/Global";
 
     import { func } from "../../routes/todo/functions.js";

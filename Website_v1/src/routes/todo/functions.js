@@ -1,45 +1,18 @@
 
-import { writable } from 'svelte/store';
-import { _colors } from '../../stores/Global';
+import { projects, tasks } from "../../stores/Tasks";
 
-export const priorities = writable([]);
-export const projects = writable([]);
-export const tasks = writable([]);
+let _projects;
+projects.subscribe(data => _projects = data)
+
+let _tasks;
+tasks.subscribe(data => _tasks = data);
 
 let backend = "http://127.0.0.1:8000"
 
-export let _tasks = [];
-export let _projects = [];
-
-const priorityColors = _colors['priorityColors'];
-
 export const setup = async () => {
-    await func.getProjects();
-    // if(_projects[0] == undefined) _projects = [];
-    
+    await func.getProjects();    
     await func.getTodos();
-    // if(_tasks[0] == undefined) _tasks = [];
 }
-
-let _priorities = [
-	['Whatever', 'Should do', 'Must do', 'Do ASAP'],
-	{
-		title: 'Whatever',
-		color: priorityColors[0]
-	},
-	{
-		title: 'Should do',
-		color: priorityColors[1]
-	},
-	{
-		title: 'Must do',
-		color: priorityColors[2]
-	},
-	{
-		title: 'Do ASAP',
-		color: priorityColors[3]
-	}
-];
 
 const getJson = async (address) => {
     let response = await fetch(address);
@@ -61,46 +34,38 @@ export const func = {
         return uuid;
     },
     
-    getTodos: async (getNew=false) => {
-        if(getNew || _tasks.length == 0) {
-            let res = await getJson(backend + "/get-todos");
-            tasks.set(res.todos);
-            _tasks = res.todos;
-        }
-        return _tasks
+    getTodos: async () => {
+        let res = await getJson(backend + "/get-todos");
+        let data = res.todos;
+        tasks.set(data)
+        return data
     },
     
-    getProjects: async (getNew=false) => {
-        if(getNew || _projects.length == 0){
-            let res = await getJson(backend + "/get-projects");
-            projects.set(res.projects);
-            _projects = res.projects;
-        }
-        return _projects
+    getProjects: async () => {
+        let res = await getJson(backend + "/get-projects");
+        let data = res.projects;
+        projects.set(data);
+        return data
     },
 
-    addProject: (project) => {
+    addProject: async (project) => {
         fetch(backend + "/add-project", {
             method: "POST",
             body: JSON.stringify(project),
             headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-        func.getProjects(true);
+        });
+        await func.getProjects();
     },
 
-    addTodo: (todo) => {
+    addTodo: async (todo) => {
         fetch(backend + "/add-todo", {
             method: "POST",
             body: JSON.stringify(todo),
             headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-        func.getTodos(true);
+        });
+        await func.getTodos();
     }
 
 }
 
 setup();
-
-priorities.set(_priorities);
-projects.set(_projects);
-tasks.set(_tasks);

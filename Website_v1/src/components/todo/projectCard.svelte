@@ -1,6 +1,6 @@
 <script>
 	import DonutChart from '../base/donutChart.svelte';
-	import { priorities } from '../../routes/todo/functions';
+	import { priorities } from '../../stores/Tasks';
 	import { colors } from '../../stores/Global';
 	export let project;
 </script>

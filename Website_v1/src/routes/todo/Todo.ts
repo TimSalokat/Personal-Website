@@ -1,4 +1,10 @@
-import { _projects, _tasks } from '../todo/functions';
+import { projects, tasks } from "../../stores/Tasks";
+
+let _projects;
+projects.subscribe(data => _projects = data);
+
+let _tasks;
+tasks.subscribe(data => _tasks = data)
 
 class _Projects {
 	getById(id: string) {
@@ -15,7 +21,7 @@ class _Projects {
 class _Todos {
 	filterByProjectId(id: string) {
 		const filtered = _tasks.filter((task) => {
-			return task.project_id === id;
+			return task.project_uuid === id;
 		});
 		return filtered;
 	}

@@ -5,14 +5,14 @@
 	import { colors } from '../stores/Global';
 	let ShowSideBar = true;
 
-	const toggleSideBar = () => {
-		ShowSideBar = !ShowSideBar;
-	};
+	const toggleSideBar = () => { ShowSideBar = !ShowSideBar };
 
 </script>
 
 <Overlay/>
 <SideBar {toggleSideBar} {ShowSideBar} />
+
+<!-- Main Content -->
 <div 
 	class=" p-5 {ShowSideBar
 		? 'open'

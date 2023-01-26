@@ -54,8 +54,8 @@
 	</div>
 
 	<!-- Project Indicator -->
-	<p class="text-xs absolute top-0 right-0 p-1 px-2" style="color:{task.projectColor}">
-		{task.project}
+	<p class="text-xs absolute top-0 right-0 p-1 px-2" style="color:{task.project_color}">
+		{task.project_title}
 	</p>
 </div>
 

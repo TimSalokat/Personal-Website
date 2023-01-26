@@ -3,19 +3,16 @@
 
 	import { states, colors } from '../../../stores/Global';
 
-	const color = $colors;
-
 	import { Projects, Tasks } from '../Todo';
-
-	import Todo from '../../../components/todo/todo.svelte';
 	import Category from '../../../components/todo/category.svelte';
 
 	$states['activePage'] = 'Todos';
 
+
 	const uuid = data.params.project_id;
 	const project = Projects.getById(uuid);
 
-	const tasks = Tasks.filterByProjectId(uuid);
+	$: tasks = Tasks.filterByProjectId(uuid); // TODO move this because at the moment you need to reload the page for the tasks to update
 </script>
 
 <div class="h-full w-full flex flex-col gap-0 overflow-hidden">
@@ -38,6 +35,6 @@
 
 		<Category title="Still buggy" {tasks} project={project.title} />
 
-		<Category title="Implemented" project={project.title} />
+		<Category title="Implemented" {tasks} project={project.title} />
 	</div>
 </div>

@@ -1,10 +1,9 @@
 <script>
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import BiPlus from 'svelte-icons-pack/bi/BiPlus';
-
-    import { func, projects } from './functions';
     
     import { states, colors } from '../../stores/Global';
+    import { projects, tasks } from '../../stores/Tasks';
 
 	$states['activePage'] = 'Todos';
 
@@ -26,7 +25,7 @@ style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkCol
 </div>
 
 <div class="flex h-2/4 w-full">
-
+        <!-- TODO Fix the overflow -->
         <!-- ? Projects Section -->
         <div 
         class="flex w-1/2 rounded-xl border-2 m-3 p-5 flex-col h-full" 
@@ -36,15 +35,10 @@ style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkCol
             <h2 class="pb-4 text-2xl text-slate-200">Projects</h2>
             <div class="grid grid-cols-2 gap-5">
 
-                {#await func.getProjects()}
-                    <h2>Loading ...</h2>
-                {:then} 
                 {#each $projects as project}
                     <Project {project} />
                 {/each}
-                {/await}
 
-                <!-- Add Project Button -->
                 <button
                 class="relative w-full p-4 h-16 rounded-lg border-2 flex justify-center"
                 style="border-color: {$colors.darkColors[15]}; color: {$colors.lightColors[7]}; fill: {$colors.lightColors[7]}"
@@ -68,13 +62,9 @@ style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkCol
             <h2 class="text-2xl pb-4 text-slate-200">Important Tasks</h2>
             <div class="flex flex-col gap-3 stretch w-full">
 
-                {#await func.getTodos()}
-                    <h2>Loading ...</h2>
-                {:then tasks} 
-                {#each tasks as task}
+                {#each $tasks as task}
                     <Todo {task} />
                 {/each}
-                {/await}
 
             </div>
         </div>
