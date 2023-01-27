@@ -4,13 +4,15 @@
 
 	import { states } from '../../stores/Global';
 
-	export let category;
 	export let project;
+	export let category;
 	export let customClasses = '';
 
 	function handleClick() {
 		$states.activeForm = "AddTodo";
 		$states.overlayActive = true;
+		$states.overlay.project = project;
+		$states.overlay.category = category;
 	}
 
 </script>

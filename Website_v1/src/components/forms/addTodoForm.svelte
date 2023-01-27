@@ -11,18 +11,22 @@
     import CustomTextarea from "../base/inputs/customTextarea.svelte";
     import ChipContainer from "../base/inputs/chipContainer.svelte";
 
-    let selectedProject;
+    let selectedProject = $states.overlay.project.title;
+    let selectedCategory = $states.overlay.category;
     const p_titles = [];
-    $projects.forEach((project) => {p_titles.push(project.title)})
+    const p_colors = [];
+    $projects.forEach((project) => {
+        p_titles.push(project.title)
+        p_colors.push(project.color)
+    })
 
     let title;
     let description;
 
     const submit = () => {
-        // console.log(title, description);
         const _data = {
             uuid: uuid(),
-            project_uuid: func.getProjectUuid(selectedProject),
+            project_uuid: func.getProjectByName(selectedProject),
             title: title,
             description: description,
             priority: 2,
@@ -73,7 +77,7 @@ class="w-3/5 h-4/5 mx-auto rounded-xl p-5 relative flex"
         <ChipContainer 
             items={p_titles} 
             bind:selected={selectedProject}
-            customColors={$colors.projectColors}    
+            customColors={p_colors}    
         />
 
         <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>

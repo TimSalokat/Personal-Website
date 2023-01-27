@@ -6,7 +6,9 @@
     export let selected = items[0];
     export let customColors = undefined;
 
-    const select = (text) => selected = text;
+    const select = (text) => {
+        selected = text;
+    }
 </script>
 
 <div class="flex gap-1 justify-center p-3 flex-wrap">
