@@ -1,9 +1,11 @@
-<script lang="ts">
+<script>
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import BiCheckCircle from 'svelte-icons-pack/bi/BiCheckCircle';
 	import BiCircle from 'svelte-icons-pack/bi/BiCircle';
 
 	import { colors } from '../../stores/Global';
+
+	import { func } from '../../routes/todo/functions';
 
 	const d_colors = $colors.darkColors;
 	const l_colors = $colors.lightColors;
@@ -15,6 +17,12 @@
 
 	const t_color = l_colors[10];
 	const bg_color = d_colors[12];
+
+	let isChecked;
+
+	$: {
+		isChecked = task.finished
+	}
 
 	const appliedStyle = `background-color: ${bg_color}; color: ${t_color}; text-decoration-color: ${t_color}; border-color: ${t_color}`;
 
@@ -34,11 +42,14 @@
 	<div
 		class="w-fit h-full overflow-visible relative customscale"
 		style="fill: {t_color}"
-		on:click={() => (task.finished = !task.finished)}
+		on:click={() => {
+			func.setFinished(task.uuid)
+			task.finished = !task.finished
+		}}
 		on:keydown={() => console.log('keydown')}
 	>
 		<!-- Checkbox -->
-		{#if task.finished}
+		{#if isChecked}
 			<Icon
 				src={BiCheckCircle}
 				className="fill-inherit w-max h-max flex align-center justify-center customscale"

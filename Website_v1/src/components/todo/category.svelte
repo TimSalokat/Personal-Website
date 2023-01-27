@@ -1,5 +1,6 @@
 <script>
 	import { states, colors } from '../../stores/Global';
+	import { tasks } from '../../stores/Tasks';
 
 	import Sortable from "sortablejs";
 
@@ -10,7 +11,14 @@
 
 	export let title;
 	export let project;
-	export let tasks = [];
+	export let uuid;
+	let _tasks;
+
+	$: {
+		_tasks = $tasks.filter((task) => {
+			return task.project_uuid === uuid;
+		});
+	}
 
 	let self;
 	let sortable;
@@ -35,14 +43,15 @@
 	class="flex flex-col"
 	>
 		<!-- Display Tasks -->
-		{#each tasks as task}
+		{#each _tasks as task}
 		<Todo {task}/>
 		<span class="seperator bg-slate-700" />
 		{/each}
 	</div>
 
 	<!-- Show that no tasks there -->
-	{#if tasks.length === 0}
+	{#if _tasks.length === 0}
+		<!-- <h2 class="text-slate-500 place-self-center text-xl">No Tasks</h2> -->
 		<AddTodoBtn category={title} {project} customClasses="m-auto" />
 	{:else}
 		<AddTodoBtn category={title} {project} customClasses="mt-auto mb-5"/>

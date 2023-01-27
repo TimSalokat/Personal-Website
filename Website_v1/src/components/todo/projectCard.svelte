@@ -24,7 +24,7 @@
             style="">
             {project.title}
         </h2>
-        <p class="text-sm" style="line-height: 1rem; color: {$colors.lightColors[6]}">15 Tasks</p>
+        <p class="text-sm" style="line-height: 1rem; color: {$colors.lightColors[6]}">{project.total} Tasks</p>
     </div>
     
         <!-- <DonutChart
@@ -43,7 +43,7 @@
 	>
 		<span
 			class="h-full"
-			style="width:{(project.finishedTasks / project.totalTasks) * 100 +
+			style="width:{(project.finished / project.total) * 100 +
 				'%'}; background-color: {project.color}"
 		/>
 	</div>

@@ -5,17 +5,15 @@
 	import BiPlus from 'svelte-icons-pack/bi/BiPlus';
 
 	import { states, colors } from '../../../stores/Global';
+	import { tasks } from '../../../stores/Tasks';
+	import { Projects } from '../functions';
 
-	import { Projects, Tasks } from '../Todo';
 	import Category from '../../../components/todo/category.svelte';
 
 	$states['activePage'] = 'Todos';
 
-
 	const uuid = data.params.project_id;
 	const project = Projects.getById(uuid);
-
-	$: tasks = Tasks.filterByProjectId(uuid); // TODO move this because at the moment you need to reload the page for the tasks to update
 </script>
 
 <div class="h-full w-full flex flex-col gap-0 overflow-hidden">
@@ -34,11 +32,11 @@
 
 	<!-- Taks Categories -->
 	<div class="flex h-full w-full flex-nowrap gap-5 overflow-x-auto p-5">
-		<Category title="Todo" {tasks} project={project.title} />
+		<Category title="Todo" {uuid} {project} />
 
-		<Category title="Still buggy" {tasks} project={project.title} />
+		<Category title="Still buggy" {uuid} {project} />
 
-		<Category title="Implemented" {tasks} project={project.title} />
+		<Category title="Implemented" {uuid} {project} />
 
 		<button 
 		class="flex-shrink-0 height-full flex rounded-lg items-center justify-center border pt-7"
