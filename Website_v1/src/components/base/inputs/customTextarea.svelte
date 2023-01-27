@@ -28,6 +28,8 @@
         @apply rounded-md;
         @apply p-3;
         @apply pl-3;
+        font-size: .83rem;
+        line-height: 1rem;
         resize: none;
     }
 
@@ -37,12 +39,12 @@
 
     textarea:focus {
         outline: none;
-        @apply h-32;
+        @apply h-48;
     }
 
     textarea:not(:placeholder-shown) {
         outline: none;
-        @apply h-32;
+        @apply h-48;
     }
 
     textarea:focus + p {

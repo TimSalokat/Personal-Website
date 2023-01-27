@@ -14,9 +14,9 @@
 
 <!-- Main Content -->
 <div 
-	class=" p-5 {ShowSideBar
+	class=" {ShowSideBar
 		? 'open'
-		: 'closed'} min-w-screen min-h-screen  text-white relative transition-all overflow-hidden h-screen"
+		: 'closed'} min-w-screen min-h-screen max-h-screen text-white relative transition-all overflow-hidden h-screen flex flex-col"
 	style="background-color: {$colors.darkColors[10]};"
 >
 	<slot />

@@ -11,11 +11,19 @@
 	export let task;
 	export let customStyle = '';
 	export let customClasses = '';
+	export let charLimit = 150;
 
 	const t_color = l_colors[10];
 	const bg_color = d_colors[12];
 
 	const appliedStyle = `background-color: ${bg_color}; color: ${t_color}; text-decoration-color: ${t_color}; border-color: ${t_color}`;
+
+	let trimmedDescription;
+
+	if(task.description.length > charLimit) {
+		trimmedDescription = task.description.substring(0, charLimit) + "...";
+	}else trimmedDescription = task.description;
+
 </script>
 
 <div
@@ -24,7 +32,7 @@
 >
 	<!-- Side Border -->
 	<div
-		class="w-fit h-fit overflow-visible relative"
+		class="w-fit h-full overflow-visible relative customscale"
 		style="fill: {t_color}"
 		on:click={() => (task.finished = !task.finished)}
 		on:keydown={() => console.log('keydown')}
@@ -33,13 +41,13 @@
 		{#if task.finished}
 			<Icon
 				src={BiCheckCircle}
-				className="fill-inherit w-max h-max flex align-center justify-center scale-90"
+				className="fill-inherit w-max h-max flex align-center justify-center customscale"
 				size="1.5rem"
 			/>
 		{:else}
 			<Icon
 				src={BiCircle}
-				className="fill-inherit w-max h-max flex align-center justify-center scale-90"
+				className="fill-inherit w-max h-max flex align-center justify-center customscale"
 				size="1.5rem"
 			/>
 		{/if}
@@ -47,16 +55,20 @@
 		<span class="prioIndicator" style="background-color: {task.borderColor};" />
 	</div>
 
-	<!-- text -->
-	<div class="{task.finished ? 'line-through' : ''} decoration-1 p-1 ml-3">
-		<h2 class="font-semibold">{task.title}</h2>
-		<h4 class="text-sm" style="color: {$colors.lightColors[6]}">{task.description}</h4>
-	</div>
+	<div class="ml-2" on:click={() => console.log(task)} on:keypress>
 
-	<!-- Project Indicator -->
-	<p class="text-xs absolute top-0 right-0 p-1 px-2" style="color:{task.project_color}">
-		{task.project_title}
-	</p>
+		<!-- text -->
+		<div class="{task.finished ? 'line-through' : ''} decoration-1">
+			<h2 class="font-semibold text-sm">{task.title}</h2>
+			<h4 class="text-xs" style="color: {$colors.lightColors[6]}">{trimmedDescription}</h4>
+		</div>
+		
+		<!-- Project Indicator -->
+		<p class="text-xs absolute top-0 right-0 p-1 px-2" style="color:{task.project_color}">
+			{task.project_title}
+		</p>
+		
+	</div>
 </div>
 
 <style>
@@ -75,8 +87,16 @@
 	}
 
 	.todoContainer {
+		@apply my-1;
 		display: grid;
 		grid-template-columns: 1.5rem auto;
 		cursor: pointer;
+	}
+	.todoContainer.sortable-ghost {
+		opacity: .4 !important;
+	}
+
+	.customscale {
+		transform: scale(.85);
 	}
 </style>

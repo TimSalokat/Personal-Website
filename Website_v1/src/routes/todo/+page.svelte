@@ -17,23 +17,24 @@
 
 </script>
 
-<div 
-class="bg-red-900 flex h-60 border-2 m-3 p-5 rounded-xl"
-style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkColors[13]};"
->
-    <h2>Overview or some shit</h2>
-</div>
+<div class="p-4 my-auto h-full relative flex flex-col gap-2">
+        
+    <div 
+    class="bg-red-900 flex h-60 border-2 p-3 rounded-xl"
+    style="background-color: {$colors.darkColors[8]}; border-color: {$colors.darkColors[13]};"
+    >
+        <h2>Overview or some shit</h2>
+    </div>
 
-<div class="flex h-2/4 w-full">
-        <!-- TODO Fix the overflow -->
+    <div class="flex h-full w-full flex-grow gap-2">
         <!-- ? Projects Section -->
         <div 
-        class="flex w-1/2 rounded-xl border-2 m-3 p-5 flex-col h-full" 
-        style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkColors[13]};"
+        class="flex w-1/2 rounded-xl border-2 p-3 flex-col" 
+        style="background-color: {$colors.darkColors[8]}; border-color: {$colors.darkColors[13]};"
         >
 
             <h2 class="pb-4 text-2xl text-slate-200">Projects</h2>
-            <div class="grid grid-cols-2 gap-5">
+            <div class="grid grid-cols-2 gap-3">
 
                 {#each $projects as project}
                     <Project {project} />
@@ -55,17 +56,34 @@ style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkCol
 
         <!-- ? Important Tasks -->
         <div 
-        class="flex w-1/2 rounded-xl border-2 m-3 p-5 flex-col h-full" 
-        style="background-color: {$colors.darkColors[9]}; border-color: {$colors.darkColors[13]};"
+        class="flex w-1/2 rounded-xl border-2 p-3 flex-col h-full" 
+        style="background-color: {$colors.darkColors[8]}; border-color: {$colors.darkColors[13]};"
         >
 
             <h2 class="text-2xl pb-4 text-slate-200">Important Tasks</h2>
-            <div class="flex flex-col gap-3 stretch w-full">
+            <div class="flex flex-col w-full h-min">
 
-                {#each $tasks as task}
+                {#each $tasks as task, i}
+                    {#if i < 5}
                     <Todo {task} />
+                    {/if}
                 {/each}
 
             </div>
         </div>
+    </div>
 </div>
+
+<style>
+    ::-webkit-scrollbar{
+		height: 3px;
+		width: 3px;
+	}
+	::-webkit-scrollbar-track{
+		background: transparent;
+	}
+	::-webkit-scrollbar-thumb{
+		background-color: rgb(161, 161, 192);
+		border-radius: 5px;
+	}
+</style>
