@@ -1,4 +1,4 @@
-<!-- TODO remove the description as a dependencie -->
+
 <script>
     import { func } from "../../routes/todo/functions.js";
 
@@ -14,7 +14,7 @@
     let description;
 
     const submit = () => {
-        console.log(title, description);
+        if(description === undefined) description = "";
         const _data = {
             uuid: uuid(),
             title: title,

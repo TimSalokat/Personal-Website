@@ -1,4 +1,4 @@
-<!-- TODO make the right project auto select and update the project colors -->
+
 <script>
     import { v4 as uuid } from 'uuid';
 
@@ -24,6 +24,7 @@
     let description;
 
     const submit = () => {
+        if(description === undefined) description = "";
         const _data = {
             uuid: uuid(),
             project_uuid: func.getProjectByName(selectedProject),

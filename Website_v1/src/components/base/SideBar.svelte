@@ -53,8 +53,7 @@
 			</a>
 
 			<!-- !This shit aint workin (link) -->
-			<!-- TODO this is an error in sveltekit. if your at the dynamic +page from the projects the
-			TODO  data isnt passed a second time on click of any of these -->
+			<!-- TODO this is an error in sveltekit. if your at the dynamic +page from the projects the data isnt passed a second time on click of any of these -->
 			{#if page.title === "Todos"}
 				<!-- {#await func.getProjects()}
 					<h2>Loading ...</h2>
