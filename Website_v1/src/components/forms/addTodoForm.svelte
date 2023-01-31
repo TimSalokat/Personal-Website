@@ -24,18 +24,19 @@
     let description;
 
     const submit = () => {
-        if(description === undefined) description = "";
-        const _data = {
-            uuid: uuid(),
-            project_uuid: func.getProjectByName(selectedProject),
-            title: title,
-            description: description,
-            priority: 2,
-            finished: false,
-        }
-        func.addTodo(_data);
-        $states.overlayActive = false;
-    }
+    //     if(description === undefined) description = "";
+    //     const _data = {
+    //         uuid: uuid(),
+    //         project_uuid: func.getProjectByName(selectedProject),
+    //         title: title,
+    //         description: description,
+    //         priority: 2,
+    //         finished: false,
+    //     }
+    //     func.addTodo(_data);
+    //     $states.overlayActive = false;
+        console.log("elo")
+}
 
 </script>
 
@@ -75,11 +76,11 @@ class="w-3/5 h-4/5 mx-auto rounded-xl p-5 relative flex"
 
         <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
 
-        <ChipContainer 
+        <!-- <ChipContainer 
             items={p_titles} 
             bind:selected={selectedProject}
             customColors={p_colors}    
-        />
+        /> -->
 
         <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
 

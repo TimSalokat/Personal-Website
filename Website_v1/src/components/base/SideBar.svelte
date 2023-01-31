@@ -55,19 +55,15 @@
 			<!-- !This shit aint workin (link) -->
 			<!-- TODO this is an error in sveltekit. if your at the dynamic +page from the projects the data isnt passed a second time on click of any of these -->
 			{#if page.title === "Todos"}
-				<!-- {#await func.getProjects()}
-					<h2>Loading ...</h2>
-				{:then projects}  -->
-					<ul>
-						{#each $projects as project}
-							<li class="hover:text-slate-200">
-								<a href="/todo/{project.uuid}">
-									{project.title}
-								</a>
-							</li>
-						{/each}
-					</ul>
-				<!-- {/await} -->
+				<ul>
+					{#if $projects}{#each $projects as project}
+						<li class="hover:text-slate-200">
+							<a href="/todo/{project.uuid}">
+								{project.title}
+							</a>
+						</li>
+					{/each} {/if}
+				</ul>
 			{/if}
 		{/each}
 		

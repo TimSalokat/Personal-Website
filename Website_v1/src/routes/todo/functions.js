@@ -18,14 +18,16 @@ const getJson = async (address) => {
     let response = await fetch(address);
     if(response.status === 200){
         let res = await response.json();
+        console.log(res);
         return res 
+    } else {
+        console.error("Couldnt fetch from: " + address + ". Status code: " + response.status);
+        return false
     }
-    console.error("Couldnt fetch from: " + address + ". Status code: " + response.status);
 }
 
 export const func = {
 
-    
     getTodoByUuid: (uuid) => {
         let _task;
         _tasks.forEach(task => {
@@ -44,15 +46,17 @@ export const func = {
     },
     
     getTodos: async () => {
+        let data = [];
         let res = await getJson(backend + "/get-todos");
-        let data = res.todos;
+        if(res) data = res.todos;
         tasks.set(data)
         return data
     },
     
     getProjects: async () => {
+        let data = [];
         let res = await getJson(backend + "/get-projects");
-        let data = res.projects;
+        if(res) data = res;
         projects.set(data);
         return data
     },

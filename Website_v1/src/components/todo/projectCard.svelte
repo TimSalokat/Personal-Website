@@ -8,7 +8,7 @@
 <a 
     href="/todo/{project.uuid}"
     id="" 
-    class="relative w-full p-4 flex h-16 rounded-lg"
+    class="relative w-full p-4 pl-3 flex h-16 rounded-lg"
 	style="background-color: {$colors.darkColors[12]}"
     >
 
@@ -16,7 +16,7 @@
    
     <!-- Heading -->
     <div 
-	class="flex flex-col h-full justify-center pb-3 px-0 pl-2"
+	class="flex flex-col h-full justify-center pb-3 px-0 pl-3"
 	style="color: {$colors.lightColors[10]}"
 	>
         <h2
@@ -24,7 +24,12 @@
             style="">
             {project.title}
         </h2>
-        <p class="text-sm" style="line-height: 1rem; color: {$colors.lightColors[6]}">{project.total} Tasks</p>
+        <p 
+		class="" 
+		style="font-size: .75rem; line-height: .5rem; color: {$colors.lightColors[6]}"
+		>
+			{project.total_tasks} Tasks
+		</p>
     </div>
     
         <!-- <DonutChart
@@ -43,7 +48,7 @@
 	>
 		<span
 			class="h-full"
-			style="width:{(project.finished / project.total) * 100 +
+			style="width:{(project.finished_tasks / project.total_tasks) * 100 +
 				'%'}; background-color: {project.color}"
 		/>
 	</div>

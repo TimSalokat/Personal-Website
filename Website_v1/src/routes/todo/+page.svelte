@@ -36,9 +36,9 @@
             <h2 class="pb-4 text-2xl text-slate-200">Projects</h2>
             <div class="grid grid-cols-2 gap-3">
 
-                {#each $projects as project}
+                {#if $projects} {#each $projects as project}
                     <Project {project} />
-                {/each}
+                {/each} {/if}
 
                 <button
                 class="relative w-full p-4 h-16 rounded-lg border-2 flex justify-center"
@@ -63,11 +63,11 @@
             <h2 class="text-2xl pb-4 text-slate-200">Important Tasks</h2>
             <div class="flex flex-col w-full h-min">
 
-                {#each $tasks as task, i}
+                {#if $tasks} {#each $tasks as task, i}
                     {#if i < 5}
                     <Todo {task} />
                     {/if}
-                {/each}
+                {/each} {/if}
 
             </div>
         </div>
