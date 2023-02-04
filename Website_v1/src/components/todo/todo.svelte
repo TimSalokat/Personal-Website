@@ -5,21 +5,21 @@
 
 	import { colors } from '../../stores/Global';
 
-	import { func } from '../../routes/todo/functions';
+	import { func, Projects } from '../../routes/todo/functions';
 
 	const d_colors = $colors.darkColors;
 	const l_colors = $colors.lightColors;
+	const t_color = l_colors[10];
+	const bg_color = d_colors[12];
 
 	export let task;
 	export let customStyle = '';
 	export let customClasses = '';
 	export let charLimit = 150;
 
-	const t_color = l_colors[10];
-	const bg_color = d_colors[12];
+	const project = Projects.getById(task.project_id);
 
 	let isChecked;
-
 	$: {
 		isChecked = task.finished
 	}
@@ -27,7 +27,6 @@
 	const appliedStyle = `background-color: ${bg_color}; color: ${t_color}; text-decoration-color: ${t_color}; border-color: ${t_color}`;
 
 	let trimmedDescription;
-
 	if(task.description.length > charLimit) {
 		trimmedDescription = task.description.substring(0, charLimit) + "...";
 	}else trimmedDescription = task.description;
@@ -43,8 +42,8 @@
 		class="w-fit h-full overflow-visible relative customscale"
 		style="fill: {t_color}"
 		on:click={() => {
-			func.setFinished(task.uuid)
-			task.finished = !task.finished
+			func.setFinished(task.id, task.project_id, !task.finished)
+			task.finished = !task.finished			
 		}}
 		on:keydown={() => console.log('keydown')}
 	>
@@ -75,8 +74,8 @@
 		</div>
 		
 		<!-- Project Indicator -->
-		<p class="text-xs absolute top-0 right-0 p-1 px-2" style="color:{task.project_color}">
-			{task.project_title}
+		<p class="text-xs absolute top-0 right-0 p-1 px-2" style="color:{project?.color}">
+			{project?.title}
 		</p>
 		
 	</div>

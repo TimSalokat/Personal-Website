@@ -1,27 +1,16 @@
 
 <script>
     import { func } from "../../routes/todo/functions.js";
-
-    import { v4 as uuid } from 'uuid';
-
-    import { projects } from "../../stores/Tasks";
+    
     import { colors, states } from "../../stores/Global";
 
     import CustomInput from "../base/inputs/customInput.svelte";
-    import CustomTextarea from "../base/inputs/customTextarea.svelte";
 
     let title;
-    let description;
 
     const submit = () => {
-        if(description === undefined) description = "";
         const _data = {
-            uuid: uuid(),
             title: title,
-            description: description,
-            total: 0,
-            finished: 0,
-            color: "#ea1"
         }
         func.addProject(_data);
         $states.overlayActive = false;
@@ -40,8 +29,6 @@ class="w-3/5 h-4/5 mx-auto rounded-xl p-5 relative flex"
         
         <!-- Inputs -->
         <CustomInput title="Title" bind:value={title}/>
-        <CustomTextarea title="Description" customClasses="h-20" bind:value={description}/>
-
 
         <!-- Submit and Cancel buttons -->
         <div class="absolute bottom-5 right-5 flex gap-3">

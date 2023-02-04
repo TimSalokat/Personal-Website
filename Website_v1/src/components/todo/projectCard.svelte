@@ -6,7 +6,7 @@
 </script>
 
 <a 
-    href="/todo/{project.uuid}"
+    href="/todo/{project.id}"
     id="" 
     class="relative w-full p-4 pl-3 flex h-16 rounded-lg"
 	style="background-color: {$colors.darkColors[12]}"

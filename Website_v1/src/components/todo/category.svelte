@@ -11,13 +11,14 @@
 
 	export let title;
 	export let project;
-	export let uuid;
-	let _tasks;
+	let _tasks = [];
 
 	$: {
-		_tasks = $tasks.filter((task) => {
-			return task.project_uuid === uuid;
-		});
+		if($tasks){
+			_tasks = $tasks.filter((task) => {
+				return task.project_id === project.id;
+			});
+		}
 	}
 
 	let self;

@@ -11,13 +11,15 @@ let backend = "http://127.0.0.1:8000"
 
 export const setup = async () => {
     await func.getProjects();    
-    await func.getTodos();
+    await func.getTasks();
 }
 
 const getJson = async (address) => {
-    let response = await fetch(address);
+    const target = backend + address;
+    let response = await fetch(target);
     if(response.status === 200){
         let res = await response.json();
+        console.log("Fetch from: " + address)
         console.log(res);
         return res 
     } else {
@@ -40,47 +42,68 @@ export const func = {
         let uuid;
         if(_projects === undefined) return
         _projects.forEach(project => {
-            if(project.title === name) uuid = project.uuid
+            if(project.title === name) uuid = project.id
         })
         return uuid;
     },
     
-    getTodos: async () => {
+    getTasks: async () => {
         let data = [];
-        let res = await getJson(backend + "/get-todos");
-        if(res) data = res.todos;
+        let res = await getJson("/get-tasks");
+        if(res) data = res;
         tasks.set(data)
         return data
     },
     
     getProjects: async () => {
         let data = [];
-        let res = await getJson(backend + "/get-projects");
+        let res = await getJson("/get-projects");
         if(res) data = res;
         projects.set(data);
         return data
     },
 
     addProject: async (project) => {
-        fetch(backend + "/add-project", {
+        const res = await fetch(backend + "/add-project", {
             method: "POST",
             body: JSON.stringify(project),
             headers: {"Content-type": "application/json; charset=UTF-8"}
-        });
-        await func.getProjects();
+        })
+        let newProject = await res.json()
+        projects.update(current => {
+            current.push(newProject)
+            return current;
+        })
     },
 
-    addTodo: async (todo) => {
-        await fetch(backend + "/add-todo", {
+    addTask: async (todo, project_id) => {
+        projects.update(current => {
+            let index = current.findIndex(item => item.id == project_id)
+            current[index].total_tasks += 1;
+            return current
+        })
+
+        const res = await fetch(backend + `/add-task/${project_id}`, {
             method: "POST",
             body: JSON.stringify(todo),
             headers: {"Content-type": "application/json; charset=UTF-8"}
         });
-        await func.getTodos();
+        const newTask = await res.json()
+        tasks.update(current => {
+            current.push(newTask);
+            return current;
+        })
     },
 
-    setFinished: async (uuid) => {
-        fetch(backend + `/set-finished?uuid=${uuid}`, {
+    setFinished: async (task_id, project_id, set_to) => {
+        projects.update(current => {
+            let index = current.findIndex(item => item.id == project_id)
+            if(set_to) current[index].finished_tasks += 1;
+            else current[index].finished_tasks -= 1;
+            return current
+        })
+
+        fetch(backend + `/set-finished?task_id=${task_id}`, {
             method: "put",
             headers: {"Content-type": "application/json"}
         })
@@ -91,7 +114,7 @@ class _Projects {
 	getById(id) {
 		let response;
 		_projects.forEach((project) => {
-			if (id == project.uuid) {
+			if (id == project.id) {
 				response = project;
 			}
 		});
@@ -100,6 +123,5 @@ class _Projects {
 }
 
 export const Projects = new _Projects();
-
 
 setup();

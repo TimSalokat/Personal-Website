@@ -5,15 +5,13 @@
 	import BiPlus from 'svelte-icons-pack/bi/BiPlus';
 
 	import { states, colors } from '../../../stores/Global';
-	import { tasks } from '../../../stores/Tasks';
 	import { Projects } from '../functions';
 
 	import Category from '../../../components/todo/category.svelte';
 
 	$states['activePage'] = 'Todos';
 
-	const uuid = data.params.project_id;
-	const project = Projects.getById(uuid);
+	const project = Projects.getById(data.params.project_id);
 </script>
 
 <div class="h-full w-full flex flex-col gap-0 overflow-hidden">
@@ -32,11 +30,11 @@
 
 	<!-- Taks Categories -->
 	<div class="flex h-full w-full flex-nowrap gap-5 overflow-x-auto p-5">
-		<Category title="Todo" {uuid} {project} />
+		<Category title="Todo" {project} />
 
-		<Category title="Still buggy" {uuid} {project} />
+		<Category title="Still buggy" {project} />
 
-		<Category title="Implemented" {uuid} {project} />
+		<Category title="Implemented" {project} />
 
 		<button 
 		class="flex-shrink-0 height-full flex rounded-lg items-center justify-center border pt-7"
