@@ -1,8 +1,19 @@
 <script>
 	import DonutChart from '../base/donutChart.svelte';
-	import { priorities } from '../../stores/Tasks';
 	import { colors } from '../../stores/Global';
+	import { func } from '../../routes/todo/functions';
+
 	export let project;
+	let ratio;
+
+	const total = func.calcTotal(project.id);
+	const finished = func.calcFinished(project.id);
+
+	$: {
+		ratio = Math.round((finished / total) * 100)
+		if(total == 0){ratio = 0}
+	}
+
 </script>
 
 <a 
@@ -28,7 +39,7 @@
 		class="" 
 		style="font-size: .75rem; line-height: .5rem; color: {$colors.lightColors[6]}"
 		>
-			{project.total_tasks} Tasks
+			{total} Tasks
 		</p>
     </div>
     
@@ -48,10 +59,12 @@
 	>
 		<span
 			class="h-full"
-			style="width:{(project.finished_tasks / project.total_tasks) * 100 +
-				'%'}; background-color: {project.color}"
+			style="width:{ratio + "%"}; background-color: {project.color}"
 		/>
 	</div>
+	<p class="absolute right-1 bottom-1 text-xs">
+		{ratio} %
+	</p>
 </a>
 
 <style>

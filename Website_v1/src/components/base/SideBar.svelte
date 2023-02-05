@@ -56,9 +56,10 @@
 			<!-- TODO this is an error in sveltekit. if your at the dynamic +page from the projects the data isnt passed a second time on click of any of these -->
 			{#if page.title === "Todos"}
 				<ul>
-					{#if $projects}{#each $projects as project}
+					{#if $projects}
+					{#each Array.from($projects.entries()) as [id, project]}
 						<li class="hover:text-slate-200">
-							<a href="/todo/{project.uuid}">
+							<a href="/todo/{id}">
 								{project.title}
 							</a>
 						</li>

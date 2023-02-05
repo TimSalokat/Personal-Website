@@ -3,32 +3,21 @@
     import Chip from "./chip.svelte";
 
     export let items;
-    export let selected = items[0];
-    export let customColors = undefined;
+    export let selected = items[0].id;
 
-    const select = (text) => {
-        selected = text;
+    const select = (id) => {
+        selected = id;
     }
 </script>
 
 <div class="flex gap-1 justify-center p-3 flex-wrap">
-    {#if customColors === undefined}
-        {#each items as item}
-            <Chip 
-                text={item} 
-                func={() => select(item)} 
-                active={item === selected}
-            />
-        {/each}
-    {:else}
-        {#each items as item, index}
-            <Chip 
-                text={item} 
-                func={() => select(item)} 
-                active={item === selected}
-                color={customColors[index]}
-            />
-        {/each}
-    {/if}
+    {#each Array.from(items.entries()) as [id, item]}
+        <Chip 
+            text={item.title} 
+            func={() => select(id)} 
+            active={id === selected}
+            color={item.color}
+        />
+    {/each}
 </div>
 

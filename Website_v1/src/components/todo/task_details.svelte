@@ -1,34 +1,41 @@
 
 <script>
     import { projects } from "../../stores/Tasks"
-    import { colors, states } from "../../stores/Global";
+    import { colors } from "../../stores/Global"
 
-    import { func } from "../../routes/todo/functions.js";
-
-    import FormBase from "./formBase.svelte";
+    import FormBase from "../forms/formBase.svelte";
     import CustomInput from "../base/inputs/customInput.svelte";
     import CustomTextarea from "../base/inputs/customTextarea.svelte";
     import ChipContainer from "../base/inputs/chipContainer.svelte";
+	import { func } from "../../routes/todo/functions";
 
-    let selectedProject = $states.overlay.project.id;
-    let selectedCategory = $states.overlay.category;
+    export let props;
 
-    let title;
-    let description;
+    const initialProject = props.project_id;
+    let selectedProject = props.project_id;
+    // let selectedCategory; 
+
+    let title = props.title;
+    let description = props.description;
 
     const submit = () => {
         if(description === undefined) description = "";
         const _data = {
             title: title,
             description: description,
-            priority: 2,
+            priority: 0,
         }
-        func.addTask(_data, selectedProject);
-}
+        const details = {
+            "project_id": selectedProject,
+            "task_id": props.id,
+            "old_project_id": initialProject
+        }
+        func.editTask(_data, details)
+    }
 
 </script>
 
-<FormBase submit={submit}>
+<FormBase submit={() => submit()}>
     <!-- Main  -->
     <div class="w-2/3 pr-5 relative">
         <h1 class="text-2xl mb-3">Add Task</h1>

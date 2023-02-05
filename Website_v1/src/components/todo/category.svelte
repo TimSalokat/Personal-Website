@@ -1,6 +1,6 @@
 <script>
 	import { states, colors } from '../../stores/Global';
-	import { tasks } from '../../stores/Tasks';
+	import { projects } from '../../stores/Tasks';
 
 	import Sortable from "sortablejs";
 
@@ -10,16 +10,10 @@
 	import AddTodoBtn from './addTodoBtn.svelte';
 
 	export let title;
-	export let project;
-	let _tasks = [];
+	export let project_id;
+	let tasks;
 
-	$: {
-		if($tasks){
-			_tasks = $tasks.filter((task) => {
-				return task.project_id === project.id;
-			});
-		}
-	}
+	$: {tasks = $projects.get(project_id).tasks}
 
 	let self;
 	let sortable;
@@ -44,18 +38,18 @@
 	class="flex flex-col"
 	>
 		<!-- Display Tasks -->
-		{#each _tasks as task}
+		{#if tasks}{#each tasks as task}
 		<Todo {task}/>
 		<span class="seperator bg-slate-700" />
-		{/each}
+		{/each} {/if}
 	</div>
 
 	<!-- Show that no tasks there -->
-	{#if _tasks.length === 0}
+	{#if tasks.length === 0}
 		<!-- <h2 class="text-slate-500 place-self-center text-xl">No Tasks</h2> -->
-		<AddTodoBtn category={title} {project} customClasses="m-auto" />
+		<AddTodoBtn category={title} project={$projects.get(project_id)} customClasses="m-auto" />
 	{:else}
-		<AddTodoBtn category={title} {project} customClasses="mt-auto mb-5"/>
+		<AddTodoBtn category={title} project={$projects.get(project_id)} customClasses="mt-auto mb-5"/>
 	{/if}
 </div>
 

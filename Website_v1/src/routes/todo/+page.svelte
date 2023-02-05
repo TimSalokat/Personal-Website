@@ -36,7 +36,8 @@
             <h2 class="pb-4 text-2xl text-slate-200">Projects</h2>
             <div class="grid grid-cols-2 gap-3">
 
-                {#if $projects} {#each $projects as project}
+                {#if $projects} 
+                {#each Array.from($projects.entries()) as [id, project]}
                     <Project {project} />
                 {/each} {/if}
 
@@ -69,7 +70,7 @@
                     {/if}
                 {/each} {/if}
 
-            </div>
+            </div> 
         </div>
     </div>
 </div>

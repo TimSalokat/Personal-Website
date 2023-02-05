@@ -5,6 +5,7 @@
     import { colors, states } from "../../stores/Global";
 
     import CustomInput from "../base/inputs/customInput.svelte";
+    import FormBase from "./formBase.svelte";
 
     let title;
 
@@ -13,48 +14,26 @@
             title: title,
         }
         func.addProject(_data);
-        $states.overlayActive = false;
     }
 
 </script>
 
-<div 
-style="background-color: {$colors.darkColors[5]}; color: {$colors.lightColors[10]}" 
-class="w-3/5 h-4/5 mx-auto rounded-xl p-5 relative flex"
->
-
+<FormBase submit={submit}>
     <!-- Main  -->
     <div class="w-2/3 pr-5 relative">
         <h1 class="text-2xl mb-3">Add Project</h1>
-        
+
         <!-- Inputs -->
         <CustomInput title="Title" bind:value={title}/>
-
-        <!-- Submit and Cancel buttons -->
-        <div class="absolute bottom-5 right-5 flex gap-3">
-            <button 
-                class="border px-6 py-3 rounded text-sm"
-                style="border-color: {$colors.darkColors[19]}"
-                on:click={() => $states.overlayActive = false}
-            >Cancel</button>
-
-            <button 
-                class="px-6 py-3 rounded text-sm border" 
-                style="background-color: {$colors.darkColors[15]};  border-color: {$colors.darkColors[19]}"
-                on:click={() => submit()}
-            >Add Project</button>
-        </div>
     </div>
 
     <!-- Side -->
-    <div class="flex-1 p-5 border-l relative" style="border-color: {$colors.darkColors[18]};">
+    <div class="flex-1 p-5 border-l relative mb-14" style="border-color: {$colors.darkColors[18]};">
         <h2 class="text-xl text-center">Settings</h2>
-
         <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
-
     </div>
 
-</div>
+</FormBase>
 
 <style>
 	.seperator {

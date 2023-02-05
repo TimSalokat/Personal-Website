@@ -3,9 +3,10 @@
 	import BiCheckCircle from 'svelte-icons-pack/bi/BiCheckCircle';
 	import BiCircle from 'svelte-icons-pack/bi/BiCircle';
 
-	import { colors } from '../../stores/Global';
+	import { colors, states } from '../../stores/Global';
+	import { projects } from '../../stores/Tasks';
 
-	import { func, Projects } from '../../routes/todo/functions';
+	import { func } from '../../routes/todo/functions';
 
 	const d_colors = $colors.darkColors;
 	const l_colors = $colors.lightColors;
@@ -17,19 +18,27 @@
 	export let customClasses = '';
 	export let charLimit = 150;
 
-	const project = Projects.getById(task.project_id);
+	const project = $projects.get(task.project_id);
 
 	let isChecked;
-	$: {
-		isChecked = task.finished
-	}
+	$: {isChecked = task.finished}
 
 	const appliedStyle = `background-color: ${bg_color}; color: ${t_color}; text-decoration-color: ${t_color}; border-color: ${t_color}`;
 
 	let trimmedDescription;
-	if(task.description.length > charLimit) {
-		trimmedDescription = task.description.substring(0, charLimit) + "...";
-	}else trimmedDescription = task.description;
+	$:{
+		if(task.description.length > charLimit) {
+			trimmedDescription = task.description.substring(0, charLimit) + "...";
+		}else {
+			trimmedDescription = task.description;
+		}
+	}
+
+	const handleClick = () => {
+		$states.activeForm = "TaskDetails";
+		$states.overlay.props = task
+		$states.overlayActive = true;
+	}
 
 </script>
 
@@ -65,7 +74,7 @@
 		<span class="prioIndicator" style="background-color: {task.borderColor};" />
 	</div>
 
-	<div class="ml-2" on:click={() => console.log(task)} on:keypress>
+	<div class="ml-2" on:click={() => handleClick()} on:keypress>
 
 		<!-- text -->
 		<div class="{task.finished ? 'line-through' : ''} decoration-1">
