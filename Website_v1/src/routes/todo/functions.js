@@ -13,7 +13,7 @@ let backend = "http://127.0.0.1:8000"
 
 export const setup = async () => {
     await func.getProjects();    
-    // await func.getTasks();
+    await func.getTasks();
 }
 
 const getJson = async (address) => {
@@ -31,6 +31,7 @@ const getJson = async (address) => {
 export const func = {
 
     calcTotal: (project_id) => {
+        if(_projects.get(project_id).tasks === undefined) return 0
         return _projects.get(project_id).tasks.length;
     },
     calcFinished: (project_id) => {
@@ -41,7 +42,21 @@ export const func = {
         projects.update(project => {
             project.get(project_id).total_tasks = func.calcTotal(project_id)
             project.get(project_id).finished_tasks = func.calcFinished(project_id)
+            console.log(project.get(project_id));
             return project
+        })
+    },
+
+    addFinished: (project_id) => {
+        projects.update(current => {
+            current.get(project_id).finished_tasks += 1;
+            return current;
+        })
+    }, 
+    substractFinished: (project_id) => {
+        projects.update(current => {
+            current.get(project_id).finished_tasks -= 1;
+            return current;
         })
     },
     
@@ -55,6 +70,14 @@ export const func = {
             }, new Map());
         }
         projects.set(data);
+        return data
+    },
+
+    getTasks: async () => {
+        let data = [];
+        let res = await getJson(`/get-tasks?testing=${TESTING}`);
+        if(res) {data = res}
+        tasks.set(data);
         return data
     },
 
@@ -125,11 +148,7 @@ export const func = {
     },
 
     setFinished: async (task_id, project_id, set_to) => {
-        projects.update(old_projects => {
-            if(set_to) old_projects.get(project_id).finished_tasks += 1;
-            else old_projects.get(project_id).finished_tasks -= 1;
-            return old_projects
-        })
+        set_to ? func.addFinished(project_id) : func.substractFinished(project_id);
 
         fetch(backend + `/set-finished?task_id=${task_id}&testing=${TESTING}`, {
             method: "PUT",
@@ -137,19 +156,5 @@ export const func = {
         })
     }
 }
-
-// class _Projects {
-// 	getById(id) {
-// 		let response;
-// 		_projects.forEach((project) => {
-// 			if (id == project.id) {
-// 				response = project;
-// 			}
-// 		});
-// 		return response;
-// 	}
-// }
-
-// export const Projects = new _Projects();
 
 setup();

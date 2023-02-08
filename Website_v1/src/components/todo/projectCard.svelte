@@ -2,15 +2,18 @@
 	import DonutChart from '../base/donutChart.svelte';
 	import { colors } from '../../stores/Global';
 	import { func } from '../../routes/todo/functions';
+	import { projects } from '../../stores/Tasks';
 
 	export let project;
-	let ratio;
-
+	
 	const total = func.calcTotal(project.id);
 	const finished = func.calcFinished(project.id);
+	
+	let ratio = Math.round((finished / total) * 100);
+	if(total == 0){ratio = 0}
 
 	$: {
-		ratio = Math.round((finished / total) * 100)
+		ratio = Math.round(($projects.get(project.id).finished_tasks / $projects.get(project.id).finished_tasks) * 100)
 		if(total == 0){ratio = 0}
 	}
 
