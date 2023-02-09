@@ -6,15 +6,14 @@
 
 	export let project;
 	
-	const total = func.calcTotal(project.id);
-	const finished = func.calcFinished(project.id);
-	
-	let ratio = Math.round((finished / total) * 100);
-	if(total == 0){ratio = 0}
+	let ratio;
+
+	let self;
+	$: self = $projects.get(project.id);
 
 	$: {
-		ratio = Math.round(($projects.get(project.id).finished_tasks / $projects.get(project.id).finished_tasks) * 100)
-		if(total == 0){ratio = 0}
+		ratio = Math.round((self.finished_tasks / self.total_tasks) * 100)
+		if(self.total_tasks == 0){ratio = 0}
 	}
 
 </script>
@@ -42,7 +41,7 @@
 		class="" 
 		style="font-size: .75rem; line-height: .5rem; color: {$colors.lightColors[6]}"
 		>
-			{total} Tasks
+			{self.total_tasks} Tasks
 		</p>
     </div>
     

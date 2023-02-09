@@ -65,7 +65,7 @@
             <div class="flex flex-col w-full h-min">
 
                 {#if $tasks} {#each $tasks as task, i}
-                    {#if i < 5}
+                    {#if i < 12}
                     <Todo {task} />
                     {/if}
                 {/each} {/if}

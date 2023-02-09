@@ -14,6 +14,9 @@ let backend = "http://127.0.0.1:8000"
 export const setup = async () => {
     await func.getProjects();    
     await func.getTasks();
+    _projects.forEach(project => {
+        func.reCalc(project.id);
+    })
 }
 
 const getJson = async (address) => {
@@ -42,7 +45,6 @@ export const func = {
         projects.update(project => {
             project.get(project_id).total_tasks = func.calcTotal(project_id)
             project.get(project_id).finished_tasks = func.calcFinished(project_id)
-            console.log(project.get(project_id));
             return project
         })
     },
@@ -75,8 +77,20 @@ export const func = {
 
     getTasks: async () => {
         let data = [];
-        let res = await getJson(`/get-tasks?testing=${TESTING}`);
-        if(res) {data = res}
+
+        // ! Server Fetch
+        // let res = await getJson(`/get-tasks?testing=${TESTING}`);
+        // if(res) {data = res}
+        
+        // ! Get Tasks from the projects not by a seperate fetch
+        _projects.forEach(project => {
+            data.push(...project.tasks);
+        });
+
+        data = data.sort(function(a,b) {
+            return b.priority - a.priority;
+        })
+        
         tasks.set(data);
         return data
     },
@@ -105,7 +119,8 @@ export const func = {
             project.get(project_id).total_tasks += 1;
             project.get(project_id).tasks.push(newTask);
             return project
-        })        
+        })       
+        func.getTasks();
     },
 
     editTask: async(task, details) => {
@@ -126,6 +141,7 @@ export const func = {
             updated_task[0].priority = task.priority;
             return current;
         })
+        func.getTasks();
     },
 
     taskChangeProject: (task_id, new_project_id, old_project_id) => {
@@ -137,6 +153,8 @@ export const func = {
             func.removeTask(task_id, old_project_id);
             return current
         })
+        func.reCalc(new_project_id);
+        func.reCalc(old_project_id);
     },
 
     removeTask: async(task_id, project_id) => {

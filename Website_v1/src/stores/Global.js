@@ -1,5 +1,6 @@
 import BiHome from 'svelte-icons-pack/bi/BiHome';
 import BiSpreadsheet from 'svelte-icons-pack/bi/BiSpreadsheet';
+import BiCategory from 'svelte-icons-pack/bi/BiCategory';
 
 import { writable } from 'svelte/store';
 
@@ -77,6 +78,11 @@ const _consts = {
 			title: 'Todos',
 			icon: BiSpreadsheet,
 			link: '/todo',
+		},
+		{
+			title: 'Task Tracker',
+			icon: BiCategory,
+			link: '/task_tracker',
 		}
 	]
 };

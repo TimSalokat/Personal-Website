@@ -18,7 +18,8 @@
 	export let customClasses = '';
 	export let charLimit = 150;
 
-	const project = $projects.get(task.project_id);
+	let project = $projects.get(task.project_id);
+	$: project = $projects.get(task.project_id);
 
 	let isChecked;
 	$: {isChecked = task.finished}

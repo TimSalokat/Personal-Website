@@ -45,7 +45,7 @@
 	</div>
 
 	<!-- Show that no tasks there -->
-	{#if tasks.length === 0}
+	{#if tasks?.length === 0}
 		<!-- <h2 class="text-slate-500 place-self-center text-xl">No Tasks</h2> -->
 		<AddTodoBtn category={title} project={$projects.get(project_id)} customClasses="m-auto" />
 	{:else}
