@@ -102,7 +102,8 @@
 .project {
     grid-area: project;
     font-size: .8rem;
-    justify-self: center;
+    justify-self: flex-end;
+    padding-right: .5rem;
 }
 
 .finished {

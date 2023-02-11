@@ -64,9 +64,12 @@
         <span class="form_seperator"/>
         
         <div style="display: flex;" class="gap-2 m-2">
-            <h2>Selected:</h2>
+            <h2>Color:</h2>
             <div class="color_option" style="background-color: {selected_color}"></div>
         </div>
+
+        <span class="form_seperator"/>
+
         <div class="color_wrapper">
             {#each random_colors as color}
             <div 

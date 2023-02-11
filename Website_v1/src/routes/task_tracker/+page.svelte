@@ -69,6 +69,12 @@
     h2 {
         font-size: 1.6rem;
         font-weight: 700;
+        position: sticky;
+        top: 0;
+        background-color: #f3f5f6;
+        padding-top: 1rem;
+        z-index: 2;
+        filter: drop-shadow(0px 15px 15px #f3f6f6);
     }
 
     :global(.project_container) {

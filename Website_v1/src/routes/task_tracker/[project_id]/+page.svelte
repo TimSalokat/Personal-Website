@@ -14,7 +14,7 @@
     let self;
     $: {self = $projects.get(data.params.project_id)}
 
-    const categories = ["Section", "Testing", "NOther one"]
+    const categories = ["Section", "Testing", "Another One"]
 
     const open_form = () => {
         $states.activeForm = "EditProject";
@@ -28,6 +28,7 @@
 </svelte:head>
 
 <div class="header">
+
     <div class="navigation_bar">
         <a href="/task_tracker" style="display: flex; align-items: center">
             <Icon src={BiArrowBack} size="1.5rem" className="icon_style"/>
@@ -37,6 +38,7 @@
             <Icon src={BiEdit} size="1.5rem" className="normal_icon_style"/>
         </button>
     </div>
+
     <h2>Tasks in <span style="color: {self.color}">{self.title}</span></h2>
 </div>
 
@@ -53,9 +55,17 @@
         position: relative;
         min-width: 550px;
         max-width: 550px;
-        margin: .5rem;
+        // margin: .5rem;
+        padding: .5rem;
         border-right: 2px solid $gray3;
         overflow-y: auto;
+    }
+
+    :global(.seperator){
+        min-width: 90%;
+        margin: .35rem 5%;
+        min-height: 1px;
+        background-color: $gray3;
     }
 
     .header {

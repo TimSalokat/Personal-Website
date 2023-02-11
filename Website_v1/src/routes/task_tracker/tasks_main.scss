@@ -51,6 +51,8 @@
 
 .dashboard_tasks {
     grid-area: tasks;
+    padding-top: 0;
+    position: relative;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
