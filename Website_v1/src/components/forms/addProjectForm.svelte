@@ -4,8 +4,8 @@
     
     import { colors, states } from "../../stores/Global";
 
-    import CustomInput from "../base/inputs/customInput.svelte";
-    import FormBase from "./formBase.svelte";
+    import CustomInput from "./form_components/custom_input.svelte";
+    import FormBase from "./base_form.svelte";
 
     let title;
 

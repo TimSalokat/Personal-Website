@@ -1,7 +1,7 @@
 
 import { projects, tasks } from "../../stores/Tasks";
 
-const TESTING = true;
+const TESTING = false;
 
 let _projects;
 projects.subscribe(data => _projects = data)
@@ -144,12 +144,61 @@ export const func = {
         func.getTasks();
     },
 
+    editProject: async(project, details) => {
+        const res = await fetch(backend + `/edit-project?testing=${TESTING}`, {
+            method: "PUT",
+            body: JSON.stringify(project),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                ...details
+            }
+        });
+
+        projects.update(current => {
+            let updated_project = current.get(details.project_id)
+            updated_project.title = project.title;
+            updated_project.color = project.color;
+            return current;
+        })
+    },
+
+    delTask: async(project_id, task_id) => {
+        const res = await fetch(backend + `/del-task?testing=${TESTING}`, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                task_id
+            }
+        });
+
+        func.removeTask(task_id, project_id);
+        func.reCalc(project_id);
+        func.getTasks();
+    },
+
+    delProject: async(project_id) => {
+        const res = await fetch(backend + `/del-project?testing=${TESTING}`, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                project_id
+            }
+        });
+
+        func.removeProject(project_id);
+        func.getTasks();
+    },
+
     taskChangeProject: (task_id, new_project_id, old_project_id) => {
         if(new_project_id === old_project_id) return
         projects.update(current => {
             let moved_task = current.get(old_project_id).tasks.filter(task => task.id===task_id)
             moved_task[0].project_id = new_project_id;
-            current.get(new_project_id).tasks.push(...moved_task);
+            if(current.get(new_project_id).hasOwnProperty("tasks")){
+                current.get(new_project_id).tasks.push(...moved_task);
+            }else {
+                current.get(new_project_id).tasks = moved_task;
+            }
             func.removeTask(task_id, old_project_id);
             return current
         })
@@ -161,6 +210,13 @@ export const func = {
         projects.update(current => {
             const index = current.get(project_id).tasks.findIndex(task => task.id===task_id)
             current.get(project_id).tasks.splice(index, 1)
+            return current
+        })
+    },
+
+    removeProject: async(project_id) => {
+        projects.update(current => {
+            current.delete(project_id);
             return current
         })
     },

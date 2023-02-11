@@ -1,5 +1,7 @@
 <script>
 
+	import "./index.scss"
+
 	import SideBar from '../components/base/SideBar.svelte';
 	import Overlay from '../components/base/overlay.svelte';
 	import { colors } from '../stores/Global';
@@ -16,8 +18,9 @@
 <div 
 	class=" {ShowSideBar
 		? 'open'
-		: 'closed'} min-w-screen min-h-screen max-h-screen text-white relative transition-all overflow-hidden h-screen flex flex-col"
-	style="background-color: {$colors.darkColors[10]};"
+		: 'closed'} 
+		wrapper
+		min-w-screen min-h-screen max-h-screen relative transition-all overflow-hidden h-screen flex flex-col"
 >
 	<slot />
 </div>
@@ -34,6 +37,11 @@
 	.closed {
 		margin-left: 55px;
 		border-radius: 5px 0 0 5px;
+	}
+
+	.wrapper {
+		background-color: #f3f5f6;
+    	color: #212830;
 	}
 
 </style>

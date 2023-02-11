@@ -1,13 +1,18 @@
 
 <script>
-    import { projects } from "../../stores/Tasks"
-    import { colors } from "../../stores/Global"
+    import Icon from "svelte-icons-pack";
+    import BiTrash from "svelte-icons-pack/bi/BiTrash";
 
-    import FormBase from "../forms/base_form.svelte";
-    import CustomInput from "../forms/form_components/custom_input.svelte";
-    import CustomTextarea from "../base/inputs/customTextarea.svelte";
-    import ChipContainer from "../base/inputs/chipContainer.svelte";
-	import { func } from "../../routes/todo/functions";
+    import "../forms.scss";
+
+    import { projects } from "../../../stores/Tasks"
+    import { states } from "../../../stores/Global"
+
+    import FormBase from "../../forms/base_form.svelte";
+    import CustomInput from "../form_components/custom_input.svelte";
+    import CustomTextarea from "../form_components/custom_textarea.svelte";
+    import ChipContainer from "../../base/inputs/chipContainer.svelte";
+	import { func } from "../../../routes/todo/functions";
 
     export let props;
 
@@ -33,42 +38,40 @@
         func.editTask(_data, details)
     }
 
+    const handle_delete = () => {
+        func.delTask(initialProject, props.id);
+        $states.overlayActive = false;
+    }
+
 </script>
 
 <FormBase submit={() => submit()}>
     <!-- Main  -->
-    <div class="w-2/3 pr-5 relative">
-        <h1 class="text-2xl mb-3">Add Task</h1>
+    <div class="form_main">
+        <h1 class="text-2xl mb-4">Edit Task</h1>
         
         <!-- Inputs -->
         <CustomInput title="Title" bind:value={title}/>
         <CustomTextarea title="Description" customClasses="h-20" bind:value={description}/>
+
+        <button class="delete_button" on:click={() => {handle_delete()}}>
+            <Icon src={BiTrash} size="1.5rem" className="icon_inherit icon_style"/>
+        </button>
     
     </div>
 
     <!-- Side -->
-    <div class="flex-1 p-5 border-l relative mb-14" style="border-color: {$colors.darkColors[18]};">
+    <div class="form_side">
         <h2 class="text-xl text-center">Settings</h2>
 
-        <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
+        <span class="form_seperator"/>
 
         <ChipContainer 
             items={$projects} 
             bind:selected={selectedProject}
         />
 
-        <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
+        <span class="form_seperator"/>
 
     </div>
 </FormBase>
-
-<style>
-	.seperator {
-        @apply mt-2;
-        @apply mb-1;
-        @apply mx-auto;
-        display: block;
-		width: 90%;
-		height: 1px;
-	}
-</style>

@@ -1,0 +1,68 @@
+@use "sass:map";
+
+$gray1: #f3f5f6;
+$gray2: #e2e5e9;
+$gray3: #d1d5db;
+$gray4: #98a1ae;
+$gray5: #6e7887;
+$gray6: #46515d;
+$gray7: #3b4754;
+$gray8: #212831;
+$gray9: #212830;
+
+@import url("https://fonts.googleapis.com/css?family=Rubik");
+@import url("https://fonts.googleapis.com/css?family=Baloo 2"); // * Like this one but no
+
+body {
+    font-family: "Rubik";
+
+    ::-webkit-scrollbar{
+		height: 5px;
+		width: 4px;
+	}
+	::-webkit-scrollbar-track{
+		background: $gray3;
+        margin: 250px 0;
+	}
+	::-webkit-scrollbar-thumb{
+		background-color: $gray5;
+		border-radius: 5px;
+	}
+}
+
+.seperator {
+    min-width: 90%;
+    margin-left: 5%;
+    margin-top: .35rem;
+    margin-bottom: .35rem;
+    min-height: 1px;
+    background-color: $gray4;
+}
+
+.seperator_vertical {
+    height: 80%;
+    width: 1px;
+    margin: 10% .35rem;
+    background-color: $gray4;
+}
+
+.icon_inherit {
+    fill: inherit;
+}
+
+.icon_style, .bigger_icon_style {
+    display: flex;
+    transform: scale(.92);
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: auto;
+    fill: inherit;
+}
+
+.normal_icon_style {
+    transform: scale(1.1);
+}
+
+.bigger_icon_style {
+    transform: scale(1.75);
+}

@@ -1,14 +1,14 @@
 
 <script>
-    import { projects } from "../../stores/Tasks"
-    import { colors, states } from "../../stores/Global";
+    import { projects } from "../../../stores/Tasks"
+    import { colors, states } from "../../../stores/Global";
 
-    import { func } from "../../routes/todo/functions.js";
+    import { func } from "../../../routes/todo/functions.js";
 
-    import FormBase from "./base_form.svelte";
-    import CustomInput from "./form_components/custom_input.svelte";
-    import CustomTextarea from "./form_components/custom_textarea.svelte";
-    import ChipContainer from "../base/inputs/chipContainer.svelte";
+    import FormBase from ".././base_form.svelte";
+    import CustomInput from "../form_components/custom_input.svelte";
+    import CustomTextarea from "../form_components/custom_textarea.svelte";
+    import ChipContainer from "../../base/inputs/chipContainer.svelte";
 
     let selectedProject = $states.overlay.project.id;
     let selectedCategory = $states.overlay.category;
@@ -30,7 +30,7 @@
 
 <FormBase submit={submit}>
     <!-- Main  -->
-    <div class="w-2/3 pr-5 relative">
+    <div class="form_main">
         <h1 class="text-2xl mb-3">Add Task</h1>
         
         <!-- Inputs -->
@@ -40,28 +40,17 @@
     </div>
 
     <!-- Side -->
-    <div class="flex-1 p-5 border-l relative mb-14" style="border-color: {$colors.darkColors[18]};">
+    <div class="form_side">
         <h2 class="text-xl text-center">Settings</h2>
 
-        <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
+        <span class="form_seperator"/>
 
         <ChipContainer 
             items={$projects} 
             bind:selected={selectedProject}
         />
 
-        <span class="seperator" style="background-color: {$colors.darkColors[18]};"/>
+        <span class="form_seperator"/>
 
     </div>
 </FormBase>
-
-<style>
-	.seperator {
-        @apply mt-2;
-        @apply mb-1;
-        @apply mx-auto;
-        display: block;
-		width: 90%;
-		height: 1px;
-	}
-</style>
