@@ -13,6 +13,7 @@
         background-color: #f3f5f6;
         aspect-ratio: 3/1.7;
         padding: 1rem;
+        margin: .5rem;
     }
 
 </style>
