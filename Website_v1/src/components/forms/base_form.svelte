@@ -30,3 +30,9 @@
     </div>
 
 </div>
+
+<style>
+    * {
+        transition: 0.2s ease;
+    }
+</style>

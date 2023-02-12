@@ -8,7 +8,7 @@
 
 </script>
 
-<div class="custom_input">
+<div class="anim custom_input">
     <input type="text" placeholder=" " bind:value>
     <p>{title}</p>
 </div>

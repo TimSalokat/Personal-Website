@@ -49,23 +49,15 @@
 </div>
 
 <style lang="scss">
-    @import "../../index.scss";
 
     :global(.section) {
         position: relative;
         min-width: 550px;
         max-width: 550px;
-        // margin: .5rem;
+        border-radius: .3rem;
         padding: .5rem;
-        border-right: 2px solid $gray3;
+        border-right: 2px solid var(--gray3);
         overflow-y: auto;
-    }
-
-    :global(.seperator){
-        min-width: 90%;
-        margin: .35rem 5%;
-        min-height: 1px;
-        background-color: $gray3;
     }
 
     .header {
@@ -75,7 +67,7 @@
         height: 25%;
 
         h2 {
-            color: $gray7;
+            color: var(--gray7);
             font-size: 2.5rem;
             font-weight: 800;
         }
@@ -98,7 +90,7 @@
         width: 2.2rem;
         height: 2.2rem;
         aspect-ratio: 1/1;
-        border: 2px solid $gray7;
+        border: 2px solid (--gray7);
 
     }
 
@@ -109,6 +101,7 @@
         flex-direction: row;
         overflow-x: auto;
         flex-wrap: nowrap;
+        gap: 1rem;
     }
 
 </style>

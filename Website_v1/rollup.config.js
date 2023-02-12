@@ -11,8 +11,13 @@ export default {
   plugins: [
     svelte({
       /* ... */
-      preprocess: preprocess()
-    })
-    ]
-  /* ... */
+      preprocess: preprocess(),
+
+      onwarn: (warning, handler) => {
+        const {code, frame} = warning;
+        if(code === "css-unused-selector")
+          return
+        handler(warning);
+      }
+    })],
 }

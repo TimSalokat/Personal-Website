@@ -1,7 +1,7 @@
 
 import { projects, tasks } from "../../stores/Tasks";
 
-const TESTING = false;
+const TESTING = true;
 
 let _projects;
 projects.subscribe(data => _projects = data)

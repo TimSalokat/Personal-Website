@@ -2,10 +2,10 @@
 	import Icon from "svelte-icons-pack";
     import BiPlus from 'svelte-icons-pack/bi/BiPlus';
 
-    import "../../routes/index.scss";
+    import "$routes/index.scss";
 
-    import { states } from "../../stores/Global";
-    import { projects, tasks } from "../../stores/Tasks";
+    import { states } from "$stores/Global";
+    import { projects, tasks } from "$stores/Tasks";
 
     $states['activePage'] = 'Task Tracker';
 
@@ -38,12 +38,11 @@
         {/each} {/if}
 
         <button 
-        class="project_container" 
+        class="anim project_container" 
         style="
             display: flex;
             justify-content: center;
-            align-items: center;
-            fill: #98a1ae;"
+            align-items: center;"
         on:click={() => open_form()}
         >
             <Icon src={BiPlus} size="1.5rem" className="bigger_icon_style"/>
@@ -64,37 +63,41 @@
     </div>
 </div>
 
-<style>
+<style lang="scss">
     
     h2 {
         font-size: 1.6rem;
         font-weight: 700;
         position: sticky;
         top: 0;
-        background-color: #f3f5f6;
+        background-color: var(--gray1);
         padding-top: 1rem;
         z-index: 2;
-        filter: drop-shadow(0px 15px 15px #f3f6f6);
+        filter: drop-shadow(0px 10px 10px var(--gray1));
     }
 
     :global(.project_container) {
         display: grid;
         border-radius: .75rem;
-        border: 1px solid #d1d5db;
+        border: 1px solid var(--gray3);
         aspect-ratio: 3/1.7;
         padding: 1rem;
         margin: .5rem;
+        color: var(--gray7);
+        fill: var(--gray4);
 
         grid-template-areas: 
         "title count"
         "bar progress";
         grid-template-columns: auto 45px;
         grid-template-rows: auto 15px;
-    }
 
-    :global(.project_container:hover) {
-        cursor: pointer;
-        border-color: #98a1ae;
+        &:hover {
+            cursor: pointer;
+            background-color: var(--gray6);
+            color: var(--gray2);
+            fill: var(--gray2);
+        }
     }
 
     :global(.task_container) {
@@ -104,8 +107,15 @@
         min-height: max-content;
         padding: .25rem;
         height: fit-content;
-        border-radius: .2rem;
+        border-radius: .35rem;
         border: 1px solid transparent;
+        background-color: var(--gray1);
+        fill: var(--gray6);
+        &:hover {
+            background-color: var(--gray6);
+            color: var(--gray2);
+            fill: var(--gray2)
+        }
     }
 
     :global(.task_container:hover) {

@@ -74,11 +74,11 @@ const _consts = {
 			icon: BiHome,
 			link: '/'
 		},
-		{
-			title: 'Todos',
-			icon: BiSpreadsheet,
-			link: '/todo',
-		},
+		// {
+		// 	title: 'Todos',
+		// 	icon: BiSpreadsheet,
+		// 	link: '/todo',
+		// },
 		{
 			title: 'Task Tracker',
 			icon: BiCategory,

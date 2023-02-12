@@ -5,7 +5,7 @@
 
     import { func } from "../../../routes/todo/functions.js";
     
-    import { colors, states } from "../../../stores/Global";
+    import { states } from "../../../stores/Global";
 
     import CustomInput from "../form_components/custom_input.svelte";
     import FormBase from "../base_form.svelte";
@@ -47,7 +47,7 @@
 <FormBase submit={submit}>
     <!-- Main  -->
     <div class="form_main">
-        <h1 class="text-2xl mb-3">Add Project</h1>
+        <h1 class="text-2xl mb-3">Edit Project</h1>
 
         <!-- Inputs -->
         <CustomInput title="Title" bind:value={title}/>

@@ -1,91 +1,117 @@
 <script>
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 
-	import { states, consts, colors } from '../../stores/Global.js';
-	import { projects } from '../../stores/Tasks.js';
+	import { states, consts } from '$stores/Global.js';
 
 	export let toggleSideBar;
 	export let ShowSideBar;
 
-	const l_colors = $colors.lightColors;
-	const hover_color = "#eee";
 
 </script>
 
 <button class={ShowSideBar ? 'Burger open' : 'Burger'} on:click={toggleSideBar}>
-	<span class="bg-slate-300" />
-	<span class="bg-slate-300" />
-	<span class="bg-slate-300" />
+	<span />
+	<span />
+	<span />
 </button>
 
-<div
-    class="flex flex-col min-h-screen bg-gray-900 text-slate-300 absolute top-0 left-0 items-center px-1 py-5"
-	id="SideBar"
->
+<div id="SideBar" >
 	<!-- Header -->
-	<h1 class="text-xl mb-4 font-semibold">Tims Projecto</h1>
-	<div class="bg-indigo-500 rounded-full w-16 h-16 mb-2">
+	<h1>Tims Projecto</h1>
+	<div class="image_holder">
 		<!-- Placeholder for Image -->
 	</div>
 
 	<!-- User Info -->
-	<h2 class="font-semibold text-indigo-500">Admin User</h2>
-	<p class="text-slate-500 text-xs">Admin</p>
+	<h2>Admin User</h2>
+	<p>Admin</p>
+	<span class="seperator {ShowSideBar ? '' : 'invis'}" style="background-color:var(--gray5)"/>
 
-	<span class="{ShowSideBar ? 'seperator' : 'seperator invis'} bg-indigo-600 my-5" />
 
 	<!-- Navigation -->
-	<nav class="flex flex-col w-full px-3 gap-1 font-normal text-gray-500">
+	<nav class="link_wrapper">
 
 		{#each $consts['Pages'] as page}
 			<a
-			class="col-span-3 transition ease-in-out flex gap-5 hover:text-slate-200 {page.title === "Todos" ? "" : "mb-2"}"
+			class="anim {$states['activePage']==page.title ? "active":""}"
 			href={page.link}
-			style="{$states['activePage'] === page.title ? `color: ${hover_color} ;` : ``}"
 			>
-				<div
-				class="w-6 h-6 hover:fill-slate-200"
-				style={$states['activePage'] === page.title ? `fill: ${hover_color};` : `fill: ${l_colors[5]}`}
-				>
-					<Icon src={page.icon} className="w-6 h-6 fill-inherit" />
-				</div>
+				<Icon src={page.icon} size="1.5rem" />
 				<h4 style="color: inherit;">{page.title}</h4>
 			</a>
-
-			<!-- !This shit aint workin (link) -->
-			<!-- TODO this is an error in sveltekit. if your at the dynamic +page from the projects the data isnt passed a second time on click of any of these -->
-			{#if page.title === "Todos"}
-				<ul>
-					{#if $projects}
-					{#each Array.from($projects.entries()) as [id, project]}
-						<li class="hover:text-slate-200">
-							<a href="/todo/{id}">
-								{project.title}
-							</a>
-						</li>
-					{/each} {/if}
-				</ul>
-			{/if}
 		{/each}
 		
 	</nav>
 </div>
 
-<style>
+<style lang="scss">
+
 	#SideBar {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		align-items: center;
+		padding: 1.25rem;
+		padding-left: 4px;
 		padding-right: 30px;
 		width: 280px;
+		background-color: var(--gray2);
+		color: var(--gray7);
 	}
 
-	.seperator {
-		width: 60%;
-		height: 1px;
-		border-radius: 100%;
-		transition: 0.2s ease;
+	h1 {
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+
+	h2 {
+		color: var(--accent);
+		font-weight: 600;
+		+p {
+			font-size: .8rem;
+		}
+	}
+
+	a {
+		display: flex;
+		gap: 20px;
+		cursor: default;
+		&.active {
+			color: var(--accent);
+			fill: var(--accent);
+			h4 {
+				font-weight: 600;
+			}
+		}
+		&:hover:not(.active){
+			text-decoration: underline;
+			cursor: pointer;
+		}
 	}
 
 	.seperator.invis {
 		opacity: 0;
+	}
+
+	.image_holder {
+		background-color: var(--accent);
+		border-radius: 100%;
+		height: 4rem;
+		width: 4rem;
+		margin-bottom: .5rem;
+	}
+
+	.link_wrapper {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		margin-top: 25%;
+		padding-left: .75rem;
+		gap: .5rem;
 	}
 
 	.Burger {
@@ -105,6 +131,7 @@
 		top: 50%;
 		right: 0%;
 		transition: ease-in-out 0.4s;
+		background-color: var(--gray8);
 	}
 	.Burger span:nth-of-type(1) {
 		top: calc(50% + 7px);
@@ -123,9 +150,5 @@
 	}
 	.Burger.open span:nth-of-type(3) {
 		opacity: 0;
-	}
-	ul{
-		list-style-type: circle;
-		margin-left: 3rem;
 	}
 </style>

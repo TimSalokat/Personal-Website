@@ -16,7 +16,7 @@
 
 </script>
 
-<a href="/task_tracker/{project_id}" class="project_container">
+<a href="/task_tracker/{project_id}" class="project_container anim">
 
     <h2 class="title">{self.title}</h2>
 
@@ -37,7 +37,7 @@
     .title {
         grid-area: title;
         font-size: 1.7rem;
-        color: #3b4754;
+        color: inherit;
         font-weight: 800;
         margin-top: auto;
     }
@@ -54,7 +54,7 @@
         place-self: center;
         font-weight: 600;
         font-size: 1.1rem;
-        color: #f3f5f6;
+        color: var(--gray1);
     }
 
     .bar {

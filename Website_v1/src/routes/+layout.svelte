@@ -4,8 +4,7 @@
 
 	import SideBar from '../components/base/SideBar.svelte';
 	import Overlay from '../components/base/overlay.svelte';
-	import { colors } from '../stores/Global';
-	let ShowSideBar = true;
+	let ShowSideBar = false;
 
 	const toggleSideBar = () => { ShowSideBar = !ShowSideBar };
 
@@ -29,6 +28,27 @@
 	@tailwind base;
 	@tailwind components;
 	@tailwind utilities;
+
+	:global(body) {
+		--accent: #7c5cdb;
+
+		--gray1: #f3f5f6;
+		--gray2: #e2e5e9;
+		--gray3: #d1d5db;
+		--gray4: #98a1ae;
+		--gray5: #6e7887;
+		--gray6: #46515d;
+		--gray7: #3b4754;
+		--gray8: #212831;
+		--gray9: #212830;
+	}
+
+	:global(.seperator){
+        min-width: 90%;
+        margin: .35rem 5%;
+        min-height: 1px;
+        background-color: var(--gray3);
+    }
 
 	.open {
 		margin-left: 250px;

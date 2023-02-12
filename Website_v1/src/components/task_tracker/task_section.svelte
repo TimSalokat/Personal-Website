@@ -50,8 +50,7 @@
         style="
             display: flex;
             justify-content: center;
-            align-items: center;
-            fill: #98a1ae;"
+            align-items: center;"
         on:click={() => open_form()}
         >
             <Icon src={BiPlus} size="1.5rem" className="normal_icon_style"/>
@@ -63,7 +62,6 @@
 
 
 <style lang="scss">
-    @import "../../routes/index.scss";
 
     h2 {
         font-size: 1.35rem;
@@ -72,18 +70,25 @@
     }
 
     .add_task {
+        * {transition: .2s ease}
         width: calc(50% - 2rem);
         height: 55px;
-        border: 1px solid $gray4;
+        border: 1px solid var(--gray4);
         border-radius: .5rem;
         position: absolute;
-        bottom: 0;
+        bottom: 10px;
         left: 25%;
+        fill: var(--gray4);
         p {
             font-size: 1.1rem;
             margin-top: .12rem;
             margin-left: .5rem;
-            color: $gray4;
+            color: var(--gray4);
+        }
+        &:hover {
+            background-color: var(--gray6);
+            fill: var(--gray2);
+            p {color: var(--gray2)}
         }
     }
 

@@ -1,9 +1,5 @@
 @import "../../routes/index.scss";
 
-* {
-    transition: ease .2s;
-}
-
 .form_seperator {
     display: block;
     background-color: $gray5;
@@ -13,6 +9,7 @@
 }
 
 .form_wrapper {
+    * {transition: .2s ease;}
     background-color: $gray2;
     color: $gray8;
     display: flex;
@@ -61,13 +58,13 @@
         line-height: 1rem;
         resize: none;
         background: transparent;
-        border: 1px solid $gray4;
-        border-radius: .5rem;
+        border-bottom: 1px solid $gray4;
+        border-top: 1px solid $gray4;
         &:focus {
             outline: none;
             border-color: $gray5;
         }
-        &:not(:placeholder-shown){
+        &:not(:placeholder-shown), &:focus{
             height: 12rem;
         }
         &:not(:placeholder-shown)+p, &:focus + p {

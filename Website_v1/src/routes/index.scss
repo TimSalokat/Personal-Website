@@ -13,6 +13,10 @@ $gray9: #212830;
 @import url("https://fonts.googleapis.com/css?family=Rubik");
 @import url("https://fonts.googleapis.com/css?family=Baloo 2"); // * Like this one but no
 
+.anim {
+    transition: ease .2s;
+}
+
 body {
     font-family: "Rubik";
 
@@ -37,11 +41,7 @@ body {
     background-color: $gray4;
 }
 
-.icon_inherit {
-    fill: inherit;
-}
-
-.icon_style, .bigger_icon_style {
+.icon_style, .bigger_icon_style, .normal_icon_style {
     display: flex;
     transform: scale(.92);
     cursor: pointer;

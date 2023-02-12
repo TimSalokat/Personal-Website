@@ -27,12 +27,12 @@
 
 </script>
 
-<div class="task_container {task.finished ? "finished" : ""}">
+<div class="anim task_container {task.finished ? "finished" : ""}">
 
     <!-- Checkbox -->
     <div 
     class="icon_wrapper" 
-    style="fill: #3b4754"
+    style="fill: inherit;"
     on:click={() => {
         func.setFinished(task.id, task.project_id, !task.finished)
         task.finished = !task.finished			
@@ -42,7 +42,7 @@
         <Icon 
         src={(task.finished ? BiCheckCircle : BiCircle)} 
         size="1.5rem" 
-        className="icon_style"
+        className="icon_no_anim icon_style"
         />
     </div>
 
@@ -87,7 +87,7 @@
 
 .description {
     grid-area: desc;
-    color: #6e7887;
+    color: inherit;
     padding-right: 20px;
     font-weight: 100;
     font-size: .9rem;
@@ -108,7 +108,6 @@
 
 .finished {
     text-decoration: line-through;
-    text-decoration-color: #6e7887;
 }
 
 </style>
