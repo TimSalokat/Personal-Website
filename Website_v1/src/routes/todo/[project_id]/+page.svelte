@@ -38,7 +38,7 @@
 
 		<button 
 		class="flex-shrink-0 height-full flex rounded-lg items-center justify-center border pt-7"
-		style="width: 22rem; border-color: {$colors.lightColors[0]}; color: {$colors.lightColors[7]}; fill: {$colors.lightColors[7]}"
+		style="width: 22rem; border-color: var(--gray2); color: var(--gray4); fill: var(--gray2)"
 		>
 			<Icon src={BiPlus} size="1.5rem" className="fill-inherit" />
 			<p>Add Category</p>

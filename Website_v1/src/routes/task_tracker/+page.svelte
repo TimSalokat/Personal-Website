@@ -28,7 +28,7 @@
 <div class="dashboard_container">
 
     <div class="dashboard_header">
-        <h1>Good Morning <span style="color: #8e7cc3">Admin</span></h1>
+        <h1>Good Morning <span style="color: var(--accent)">Admin</span></h1>
     </div>
 
     <div class="dashboard_projects">                

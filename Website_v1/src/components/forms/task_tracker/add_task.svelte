@@ -1,7 +1,7 @@
 
 <script>
     import { projects } from "../../../stores/Tasks"
-    import { colors, states } from "../../../stores/Global";
+    import { states } from "../../../stores/Global";
 
     import { func } from "../../../routes/todo/functions.js";
 

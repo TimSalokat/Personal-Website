@@ -1,10 +1,8 @@
 <script>
-	import { states, colors } from '../../stores/Global';
+	import { states } from '../../stores/Global';
 	import { projects } from '../../stores/Tasks';
 
 	import Sortable from "sortablejs";
-
-	const color = $colors;
 
 	import Todo from './todo.svelte';
 	import AddTodoBtn from './addTodoBtn.svelte';
@@ -29,7 +27,7 @@
 
 <div
 	class="flex-shrink-0 height-full p-3 flex flex-col gap-2 rounded-xl overflow-y-auto"
-	style="background-color: {color.darkColors[8]}; width: 22rem; border-color: {color.lightColors[0]}"
+	style="background-color: var(--gray8); width: 22rem; border-color: var(--gray2)"
 >
 	<h2 class="text-slate-300 text-xl mb-1">{title}</h2>
 

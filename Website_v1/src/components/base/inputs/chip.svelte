@@ -1,7 +1,5 @@
 
 <script>
-    import { colors } from "../../../stores/Global";
-
     export let text;
     export let active;
     export let func;
@@ -10,7 +8,7 @@
 
 <button 
 class="border rounded-xl py-1 px-3 text-xs w-max cursor-pointer {active ? "active" : "inactive"}"
-style="border-color: {color}; color: {!active ? color : $colors.darkColors[11]}; background-color: {active ? color : "transparent"}" 
+style="border-color: {color}; color: {!active ? color : "var(--gray2)"}; background-color: {active ? color : "transparent"}" 
 on:click={func}>
     {text}
 </button>

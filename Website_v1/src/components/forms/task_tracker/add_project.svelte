@@ -1,8 +1,6 @@
 
 <script>
     import { func } from "../../../routes/todo/functions.js";
-    
-    import { colors, states } from "../../../stores/Global";
 
     import CustomInput from "../form_components/custom_input.svelte";
     import FormBase from "../base_form.svelte";

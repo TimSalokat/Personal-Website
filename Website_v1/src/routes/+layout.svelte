@@ -30,7 +30,7 @@
 	@tailwind utilities;
 
 	:global(body) {
-		--accent: #7c5cdb;
+		--accent: #623bd7;
 
 		--gray1: #f3f5f6;
 		--gray2: #e2e5e9;

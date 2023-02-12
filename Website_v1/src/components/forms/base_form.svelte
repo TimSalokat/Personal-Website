@@ -1,7 +1,7 @@
 
 <script>
     import "../forms/forms.scss"
-    import { colors, states } from "../../stores/Global";
+    import { states } from "../../stores/Global";
 
     export let submit;
 
