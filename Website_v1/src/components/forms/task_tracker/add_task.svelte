@@ -1,10 +1,11 @@
 
 <script>
-    import { projects } from "../../../stores/Tasks"
-    import { states } from "../../../stores/Global";
+    import { projects, priorities } from "$stores/Tasks"
+    import { states } from "$stores/Global";
 
-    import { func } from "../../../routes/todo/functions.js";
+    import { func } from "$routes/task_tracker/functions.js";
 
+    import Chip from "$components/base/inputs/chip.svelte";
     import FormBase from ".././base_form.svelte";
     import CustomInput from "../form_components/custom_input.svelte";
     import CustomTextarea from "../form_components/custom_textarea.svelte";
@@ -16,15 +17,21 @@
     let title;
     let description;
 
+    let selectedPriority=0;
+
     const submit = () => {
         if(description === undefined) description = "";
         const _data = {
             title: title,
             description: description,
-            priority: 2,
+            priority: selectedPriority,
         }
         func.addTask(_data, selectedProject);
-}
+    }
+    const select = (id) => {
+        console.log(id);
+        selectedPriority = id;
+    }
 
 </script>
 
@@ -35,7 +42,7 @@
         
         <!-- Inputs -->
         <CustomInput title="Title" bind:value={title}/>
-        <CustomTextarea title="Description" customClasses="h-20" bind:value={description}/>
+        <CustomTextarea title="Description" bind:value={description}/>
     
     </div>
 
@@ -51,6 +58,21 @@
         />
 
         <span class="form_seperator"/>
+
+        <!-- <div class="flex gap-1 justify-center p-3 flex-wrap">
+            {#each Array.from($priorities.entries()) as [id, item]}
+                <Chip 
+                    text={item} 
+                    func={() => select(id)} 
+                    active={id === selectedPriority}
+                    color="var(--accent)"
+                />
+            {/each}
+        </div> -->
+        <ChipContainer 
+            items={$priorities} 
+            bind:selected={selectedPriority}
+        />
 
     </div>
 </FormBase>

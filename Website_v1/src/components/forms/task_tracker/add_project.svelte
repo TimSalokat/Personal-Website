@@ -1,6 +1,6 @@
 
 <script>
-    import { func } from "../../../routes/todo/functions.js";
+    import { func } from "$routes/task_tracker/functions.js";
 
     import CustomInput from "../form_components/custom_input.svelte";
     import FormBase from "../base_form.svelte";

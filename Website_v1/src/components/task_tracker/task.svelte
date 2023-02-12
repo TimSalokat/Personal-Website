@@ -5,10 +5,11 @@
 	import BiCircle from 'svelte-icons-pack/bi/BiCircle';
 
     import { states } from '../../stores/Global';
-    import { projects } from '../../stores/Tasks';
-    import { func } from '../../routes/todo/functions';
+    import { projects, priorities } from '../../stores/Tasks';
+    import { func } from '$routes/task_tracker/functions';
 
     export let task;
+    export let show_project = false;
 
     let this_project;
     $: {this_project = $projects.get(task.project_id)}
@@ -18,6 +19,9 @@
         if(!task.description) { description = "No Description" }
         else { description = task.description }  
     }
+
+    let priority;
+    $: {priority = $priorities.get(task.priority);}
 
     const open_form = () => {
 		$states.activeForm = "TaskDetails";
@@ -42,20 +46,57 @@
         <Icon 
         src={(task.finished ? BiCheckCircle : BiCircle)} 
         size="1.5rem" 
-        className="icon_no_anim icon_style"
+        className="icon_style"
         />
     </div>
 
     <!-- Content -->
     <div class="task_content" on:click={() => open_form()} on:keydown={() => console.log("Keydown")}>
-        <h2 class="title">{task.title}</h2>
+        <h2 class="title">{task.title} : {task.priority}</h2>
+        {#if show_project}
         <h2 class="project" style="color: {this_project.color}">{this_project.title}</h2>
+        {:else}
+        <h2 class="project" style="color: {priority.color}">{priority.title}</h2>
+        {/if}
         <p class="description">{description}</p>
     </div>
     
 </div>
 
-<style>
+<style lang="scss">
+
+:global(.task_container) {
+    position: relative;
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    min-height: max-content;
+    padding: .25rem;
+    margin-bottom: .5rem;
+    height: fit-content;
+    border-radius: .35rem;
+    border: 1px solid transparent;
+    background-color: var(--gray1);
+    fill: var(--gray6);
+    &:hover {
+        background-color: var(--gray6);
+        color: var(--gray2);
+        fill: var(--gray2)
+    }
+    &::after{
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 2.5%;
+        width: 95%;
+        height: 1px;
+        background-color: var(--gray3);
+    }
+}
+
+:global(.task_container:hover) {
+    cursor: pointer;
+}
 
 .task_content {
     width: 100%;
@@ -65,10 +106,6 @@
     grid-template-areas: 
     "title project"
     "desc desc";
-}
-
-.icon_wrapper{
-    grid-area: checkbox;
 }
 
 .title {
@@ -90,7 +127,7 @@
     color: inherit;
     padding-right: 20px;
     font-weight: 100;
-    font-size: .9rem;
+    font-size: .8rem;
 
     overflow: hidden;
     text-overflow: ellipsis;

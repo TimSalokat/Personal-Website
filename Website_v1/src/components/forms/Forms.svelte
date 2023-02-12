@@ -11,7 +11,7 @@
         ["AddTodo", AddTask],
         ["AddProject", AddProject],
         ["TaskDetails", TaskDetails],
-        ["EditProject", EditProject]
+        ["EditProject", EditProject],
     ])
 
     const formData = $states.overlay.props

@@ -35,6 +35,7 @@
     padding: 1rem;
     border-radius: 1rem;
     border: 2px solid $gray3;
+    overflow-y: scroll;
 }
 
 .dashboard_projects {
@@ -55,7 +56,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
     @media (width < 900px) {
         display: none;
     }

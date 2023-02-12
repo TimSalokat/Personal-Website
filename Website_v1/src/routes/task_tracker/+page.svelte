@@ -5,19 +5,23 @@
     import "$routes/index.scss";
 
     import { states } from "$stores/Global";
-    import { projects, tasks } from "$stores/Tasks";
+    import { priorities, projects, tasks } from "$stores/Tasks";
 
     $states['activePage'] = 'Task Tracker';
 
     import "./tasks_main.scss"
 
-    import ProjectCard from "../../components/task_tracker/project_card.svelte";
-    import Task from "../../components/task_tracker/task.svelte";
+    import ProjectCard from "$components/task_tracker/project_card.svelte";
+    import Task from "$components/task_tracker/task.svelte";
+    import Dropdown from "$components/base/inputs/dropdown.svelte";
 
     const open_form = () => {
 		$states.activeForm = "AddProject";
 		$states.overlayActive = true;
     }
+
+    let selected_filter = 0;
+    // Make this actually filter
 
 </script>
 
@@ -49,38 +53,27 @@
         </button>
     </div>
     
-    <div class="scrollbar_horizontal dashboard_tasks">
+    <div class="dashboard_tasks">
 
-        <h2>Tasks</h2>
+        <Dropdown title="Tasks" options={$priorities} bind:selected={selected_filter}/>
 
         <div class="seperator"/>
         {#if $tasks} {#each $tasks as task, i}
             {#if i < 12} 
-                <Task {task}/> 
-                <div class="seperator"/>
+                <Task {task} show_project={true}/> 
             {/if}
         {/each} {/if}
     </div>
 </div>
 
 <style lang="scss">
-    
-    h2 {
-        font-size: 1.6rem;
-        font-weight: 700;
-        position: sticky;
-        top: 0;
-        background-color: var(--gray1);
-        padding-top: 1rem;
-        z-index: 2;
-        filter: drop-shadow(0px 10px 10px var(--gray1));
-    }
 
     :global(.project_container) {
         display: grid;
         border-radius: .75rem;
         border: 1px solid var(--gray3);
-        aspect-ratio: 3/1.7;
+        aspect-ratio: 3/1.7 !important;
+        min-height: 35%;
         padding: 1rem;
         margin: .5rem;
         color: var(--gray7);
@@ -98,28 +91,6 @@
             color: var(--gray2);
             fill: var(--gray2);
         }
-    }
-
-    :global(.task_container) {
-        display: flex;
-        gap: 5px;
-        width: 100%;
-        min-height: max-content;
-        padding: .25rem;
-        height: fit-content;
-        border-radius: .35rem;
-        border: 1px solid transparent;
-        background-color: var(--gray1);
-        fill: var(--gray6);
-        &:hover {
-            background-color: var(--gray6);
-            color: var(--gray2);
-            fill: var(--gray2)
-        }
-    }
-
-    :global(.task_container:hover) {
-        cursor: pointer;
     }
 
 </style>

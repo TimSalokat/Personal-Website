@@ -12,7 +12,7 @@
     import CustomInput from "../form_components/custom_input.svelte";
     import CustomTextarea from "../form_components/custom_textarea.svelte";
     import ChipContainer from "../../base/inputs/chipContainer.svelte";
-	import { func } from "../../../routes/todo/functions";
+	import { func } from "$routes/task_tracker/functions";
 
     export let props;
 

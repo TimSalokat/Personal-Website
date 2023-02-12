@@ -3,7 +3,7 @@
 	import Icon from "svelte-icons-pack";
     import BiTrash from "svelte-icons-pack/bi/BiTrash";
 
-    import { func } from "../../../routes/todo/functions.js";
+    import { func } from "$routes/task_tracker/functions.js";
     
     import { states } from "../../../stores/Global";
 

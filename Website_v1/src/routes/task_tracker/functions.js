@@ -77,12 +77,7 @@ export const func = {
 
     getTasks: async () => {
         let data = [];
-
-        // ! Server Fetch
-        // let res = await getJson(`/get-tasks?testing=${TESTING}`);
-        // if(res) {data = res}
         
-        // ! Get Tasks from the projects not by a seperate fetch
         _projects.forEach(project => {
             data.push(...project.tasks);
         });

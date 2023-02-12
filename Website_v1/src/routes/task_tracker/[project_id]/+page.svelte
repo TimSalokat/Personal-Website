@@ -52,10 +52,9 @@
 
     :global(.section) {
         position: relative;
+        height: 100%;
         min-width: 550px;
         max-width: 550px;
-        border-radius: .3rem;
-        padding: .5rem;
         border-right: 2px solid var(--gray3);
         overflow-y: auto;
     }
