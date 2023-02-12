@@ -18,12 +18,16 @@
     
     <h2>{title}</h2>
 
-    <div class="drop_wrapper">
-        <button on:click={() => {opened = !opened}}>Filter</button>
+    <div 
+    class="drop_wrapper" 
+    on:mouseover={() => {opened = true}} 
+    on:mouseleave={() => {opened = false}}
+    >
+        <h3>Filter</h3>
         {#if opened}
         <div class="dropdown">
             {#each Array.from(options.entries()) as [id, option]}
-            <button on:click={() => handle_click(id)}>
+            <button on:click={() => handle_click(id)} class={selected == id ? "active" : ""}>
                 {option.title}
             </button>
             {/each}
@@ -35,6 +39,10 @@
 
 <style lang="scss">
 
+.active {
+    text-decoration: underline;
+}
+
 .drop_container {
     position: sticky;
     display: flex;
@@ -44,7 +52,7 @@
     background-color: var(--gray1);
     padding-top: 1rem;
     z-index: 2;
-    filter: drop-shadow(0px 10px 10px var(--gray1));
+    // filter: drop-shadow(0px 10px 10px var(--gray1));
     h2 {
         font-size: 1.6rem;
         font-weight: 700;
@@ -53,21 +61,24 @@
 
 .drop_wrapper {
     position: relative;
+    width: 30%;
+    text-align: right;
+    h3 { width: 100% }
 }
 
 .dropdown {
     position: absolute;
-    bottom: calc(-100px - 1rem);
-    left: -160px;
+    top: 25px;
+    right: 0;
     border-radius: 1rem 0 1rem 1rem;
     padding: .5rem;
     z-index: 2;
-    width: 200px;
-    height: fit-content;
+    width: fit-content;
+    height: max-content;
     border: 1px solid var(--gray3);
     background-color: var(--gray1);
     button {
-        text-align:left;
+        text-align: right;
         width: 100%;
     }
     button:hover {

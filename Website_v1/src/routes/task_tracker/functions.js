@@ -1,7 +1,7 @@
 
 import { projects, tasks } from "../../stores/Tasks";
 
-const TESTING = true;
+const TESTING = false;
 
 let _projects;
 projects.subscribe(data => _projects = data)
@@ -223,6 +223,7 @@ export const func = {
             method: "PUT",
             headers: {"Content-type": "application/json"}
         })
+        func.getTasks();
     }
 }
 

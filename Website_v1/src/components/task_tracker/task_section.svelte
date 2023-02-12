@@ -5,30 +5,37 @@
 
     import Sortable from "sortablejs";
 
-    import { states } from "../../stores/Global";
+    import { states } from "$stores/Global";
+    import { priorities } from "$stores/Tasks";
 
     import Task from "./task.svelte";
+	import Dropdown from "../base/inputs/dropdown.svelte";
+    
 
     export let title;
     export let self;
 
+    let selected_filter = 0;
+    let filtered_tasks;
+    $: {if(selected_filter != 0){
+            filtered_tasks = self.tasks.filter((task) => {return task.priority == selected_filter})
+        }else {
+            filtered_tasks = self.tasks.sort(function(a,b) {
+            return b.priority - a.priority;
+    })}}
+
     let active_tasks;
-    $: {active_tasks = self.tasks.filter((task) => {
-            return !task.finished;
-        })}
+    $: {active_tasks = filtered_tasks.filter((task) => { return !task.finished; })}
+    
     let finished_tasks;
-    $: {finished_tasks = self.tasks.filter((task) => {
-            return task.finished;
-        })}
+    $: {finished_tasks = filtered_tasks.filter((task) => { return task.finished;})}
+
     let sorting;
     let sortable;
-    $: {
-        if(sorting !== undefined){
+    $: {if(sorting !== undefined){
             sortable = Sortable.create(sorting, {
                 animation: 150,
-            })
-        }
-    }
+    })}}
 
     const open_form = () => {
         $states.activeForm = "AddTodo";
@@ -41,7 +48,8 @@
 
 <div class="section_container">
 
-    <h2> {title} </h2>
+    <Dropdown {title} options={$priorities} bind:selected={selected_filter} />
+
     <div class="section" bind:this={sorting}>    
         
         {#each active_tasks as task}

@@ -9,7 +9,6 @@
     import { func } from '$routes/task_tracker/functions';
 
     export let task;
-    export let show_project = false;
 
     let this_project;
     $: {this_project = $projects.get(task.project_id)}
@@ -52,12 +51,15 @@
 
     <!-- Content -->
     <div class="task_content" on:click={() => open_form()} on:keydown={() => console.log("Keydown")}>
-        <h2 class="title">{task.title} : {task.priority}</h2>
-        {#if show_project}
-        <h2 class="project" style="color: {this_project.color}">{this_project.title}</h2>
+
+        {#if task.priority > 2}
+        <h5 class="priority_indicator" style="color: {priority.color}">{priority.title}</h5>
         {:else}
-        <h2 class="project" style="color: {priority.color}">{priority.title}</h2>
+        <h5 class="priority_indicator">{priority.title}</h5>
         {/if}
+        
+        <h2 class="title">{task.title}</h2>
+        <h2 class="project" style="color: {this_project.color}">{this_project.title}</h2>
         <p class="description">{description}</p>
     </div>
     
@@ -145,6 +147,13 @@
 
 .finished {
     text-decoration: line-through;
+}
+
+.priority_indicator {
+    position: absolute;
+    bottom: -4px;
+    right: 10px;
+    font-size: .65rem;
 }
 
 </style>

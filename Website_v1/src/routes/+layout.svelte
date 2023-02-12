@@ -2,46 +2,79 @@
 
 	import "./index.scss"
 
+	import { states } from "$stores/Global";
+
 	import SideBar from '../components/base/SideBar.svelte';
 	import Overlay from '../components/base/overlay.svelte';
 	let ShowSideBar = false;
 
 	const toggleSideBar = () => { ShowSideBar = !ShowSideBar };
 
+	const colors = [
+		"#f3f5f6",
+		"#e2e5e9",
+		"#d1d5db",
+		"#98a1ae",
+		"#6e7887",
+		"#46515d",
+		"#3b4754",
+		"#212831",
+		"#212830"
+	]
+
+	const dark_colors = [
+		"#212830",
+		"#212831",
+		"#3b4754",
+		"#46515d",
+		"#6e7887",
+		"#98a1ae",
+		"#d1d5db",
+		"#e2e5e9",
+		"#f3f5f6"
+	];
+
+	let displayed_colors;
+	$: { if($states.dark_mode == true){displayed_colors = dark_colors}
+		else {displayed_colors = colors}
+	}
+
 </script>
 
-<Overlay/>
-<SideBar {toggleSideBar} {ShowSideBar} />
+<div style="
+--accent: #623bd7;
 
-<!-- Main Content -->
-<div 
+--gray1: {displayed_colors[0]};
+--gray2: {displayed_colors[1]};
+--gray3: {displayed_colors[2]};
+--gray4: {displayed_colors[3]};
+--gray5: {displayed_colors[4]};
+--gray6: {displayed_colors[5]};
+--gray7: {displayed_colors[6]};
+--gray8: {displayed_colors[7]};
+--gray9: {displayed_colors[8]};
+">
+
+	<Overlay/>
+
+	<SideBar {toggleSideBar} {ShowSideBar} />
+	
+	<!-- Main Content -->
+	<div 
 	class=" {ShowSideBar
-		? 'open'
-		: 'closed'} 
-		wrapper
-		min-w-screen min-h-screen max-h-screen relative transition-all overflow-hidden h-screen flex flex-col"
->
-	<slot />
+			? 'open'
+			: 'closed'} 
+			wrapper
+			min-w-screen min-h-screen max-h-screen relative transition-all overflow-hidden h-screen flex flex-col"
+			>
+			<slot />
+		</div>
 </div>
 
 <style>
 	@tailwind base;
 	@tailwind components;
 	@tailwind utilities;
-
-	:global(body) {
-		--accent: #623bd7;
-
-		--gray1: #f3f5f6;
-		--gray2: #e2e5e9;
-		--gray3: #d1d5db;
-		--gray4: #98a1ae;
-		--gray5: #6e7887;
-		--gray6: #46515d;
-		--gray7: #3b4754;
-		--gray8: #212831;
-		--gray9: #212830;
-	}
 
 	:global(.seperator){
         min-width: 90%;
@@ -60,8 +93,7 @@
 	}
 
 	.wrapper {
-		background-color: #f3f5f6;
-    	color: #212830;
+		background-color: var(--gray1);
+    	color: var(--gray9);
 	}
-
 </style>

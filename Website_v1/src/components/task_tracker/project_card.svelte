@@ -34,6 +34,8 @@
 
 <style>
 
+    * {transition: ease .1s}
+
     .title {
         grid-area: title;
         font-size: 1.7rem;
@@ -63,7 +65,7 @@
         width: 100%;
         height: 2px;
         place-self: center;
-        background-color: #d1d5db;
+        background-color: var(--gray3);
     }
 
     .bar_fill {

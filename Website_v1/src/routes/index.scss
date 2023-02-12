@@ -1,14 +1,5 @@
 @use "sass:map";
 
-$gray1: #f3f5f6;
-$gray2: #e2e5e9;
-$gray3: #d1d5db;
-$gray4: #98a1ae;
-$gray5: #6e7887;
-$gray6: #46515d;
-$gray7: #3b4754;
-$gray8: #212831;
-$gray9: #212830;
 
 @import url("https://fonts.googleapis.com/css?family=Rubik");
 @import url("https://fonts.googleapis.com/css?family=Baloo 2"); // * Like this one but no
@@ -25,11 +16,11 @@ body {
 		width: 4px;
 	}
 	::-webkit-scrollbar-track{
-		background: $gray3;
+		background: var(--gray3);
         margin: 250px 0;
 	}
 	::-webkit-scrollbar-thumb{
-		background-color: $gray5;
+		background-color: var(--gray5);
 		border-radius: 5px;
 	}
 }
@@ -38,7 +29,7 @@ body {
     height: 80%;
     width: 1px;
     margin: 10% .35rem;
-    background-color: $gray4;
+    background-color: var(--gray4);
 }
 
 .icon_style, .bigger_icon_style, .normal_icon_style {

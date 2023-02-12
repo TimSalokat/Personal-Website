@@ -80,6 +80,7 @@
         top: 0;
         height: 50px;
         width: 100%;
+        fill: var(--gray7);
     }
     
     .icon_wrapper {
@@ -90,7 +91,6 @@
         height: 2.2rem;
         aspect-ratio: 1/1;
         border: 2px solid (--gray7);
-
     }
 
     .section_wrapper {

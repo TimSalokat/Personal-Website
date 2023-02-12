@@ -2,7 +2,7 @@
 
 .form_seperator {
     display: block;
-    background-color: $gray5;
+    background-color: var(--gray5);
     margin: .5rem auto;
     width: 90%;
     height: 1px;
@@ -10,8 +10,8 @@
 
 .form_wrapper {
     * {transition: .2s ease;}
-    background-color: $gray2;
-    color: $gray8;
+    background-color: var(--gray2);
+    color: var(--gray8);
     display: flex;
     position: relative;
     width: 60%;
@@ -29,10 +29,10 @@
         padding-left: .35rem;
         margin: .5rem;
         background: transparent;
-        border-bottom: 1px solid $gray4;
+        border-bottom: 1px solid var(--gray4);
         &:focus {
             outline: none;
-            border-color: $gray5;
+            border-color: var(--gray5);
         }
         &:not(:placeholder-shown)+p, &:focus + p {
             font-size: .75rem;
@@ -40,7 +40,7 @@
         }
         &+p {
             position: absolute;
-            color: $gray6;
+            color: var(--gray6);
             top: 30%;
             margin-left: .75rem;
         }
@@ -58,11 +58,11 @@
         line-height: 1rem;
         resize: none;
         background: transparent;
-        border-bottom: 1px solid $gray4;
-        border-top: 1px solid $gray4;
+        border-bottom: 1px solid var(--gray4);
+        border-top: 1px solid var(--gray4);
         &:focus {
             outline: none;
-            border-color: $gray5;
+            border-color: var(--gray5);
         }
         &:not(:placeholder-shown), &:focus{
             height: 12rem;
@@ -73,10 +73,10 @@
         }
         &+p {
             position: absolute;
-            color: $gray6;
+            color: var(--gray6);
             top: 25%;
             margin-left: .75rem;
-            background-color: $gray2;
+            background-color: var(--gray2);
             padding: 2px;
         }
     }
@@ -95,20 +95,21 @@
     border-radius: .2rem;
     font-size: .85rem;
     padding: .75rem 1.75rem;
-    border-color: $gray5;
-    background-color: $gray2;
+    border-color: var(--gray5);
+    background-color: var(--gray2);
     &:hover {
-        background-color: $gray6;
-        color: $gray2;
+        background-color: var(--gray6);
+        color: var(--gray2);
     }
 }
 
 .delete_button {
     * {transition: none;}
+    fill: var(--gray7);
     position: absolute;
     bottom: .25rem;
     left: .25rem;
-    border: 1px solid $gray6;
+    border: 1px solid var(--gray6);
     padding: .55rem;
     border-radius: .5rem;
     &:hover {
@@ -128,5 +129,5 @@
     width: 35%;
     padding: 1.25rem;
     margin-bottom: 3.5rem;
-    border-left: 1px solid $gray6;
+    border-left: 1px solid var(--gray6);
 }

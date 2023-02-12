@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: center;
     h1 {
-        color: $gray7;
+        color: var(--gray7);
         font-size: 2.5rem;
         font-weight: 800;
     }
@@ -34,8 +34,9 @@
 .dashboard_projects, .dashboard_tasks {
     padding: 1rem;
     border-radius: 1rem;
-    border: 2px solid $gray3;
-    overflow-y: scroll;
+    border: 2px solid var(--gray3);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .dashboard_projects {

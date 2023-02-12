@@ -80,6 +80,7 @@
 		display: flex;
 		gap: 20px;
 		cursor: default;
+		fill: var(--gray6);
 		&.active {
 			color: var(--accent);
 			fill: var(--accent);

@@ -5,7 +5,7 @@
 
     import "../forms.scss";
 
-    import { projects } from "../../../stores/Tasks"
+    import { projects, priorities } from "../../../stores/Tasks"
     import { states } from "../../../stores/Global"
 
     import FormBase from "../../forms/base_form.svelte";
@@ -18,17 +18,19 @@
 
     const initialProject = props.project_id;
     let selectedProject = props.project_id;
+    let selectedPriority = props.priority;
     // let selectedCategory; 
 
     let title = props.title;
     let description = props.description;
+
 
     const submit = () => {
         if(description === undefined) description = "";
         const _data = {
             title: title,
             description: description,
-            priority: 0,
+            priority: selectedPriority,
         }
         const details = {
             "project_id": selectedProject,
@@ -52,7 +54,7 @@
         
         <!-- Inputs -->
         <CustomInput title="Title" bind:value={title}/>
-        <CustomTextarea title="Description" customClasses="h-20" bind:value={description}/>
+        <CustomTextarea title="Description" bind:value={description}/>
 
         <button class="delete_button" on:click={() => {handle_delete()}}>
             <Icon src={BiTrash} size="1.5rem" className="icon_inherit icon_style"/>
@@ -72,6 +74,11 @@
         />
 
         <span class="form_seperator"/>
+
+        <ChipContainer 
+            items={$priorities} 
+            bind:selected={selectedPriority}
+        />
 
     </div>
 </FormBase>

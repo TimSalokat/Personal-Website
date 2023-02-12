@@ -59,16 +59,6 @@
 
         <span class="form_seperator"/>
 
-        <!-- <div class="flex gap-1 justify-center p-3 flex-wrap">
-            {#each Array.from($priorities.entries()) as [id, item]}
-                <Chip 
-                    text={item} 
-                    func={() => select(id)} 
-                    active={id === selectedPriority}
-                    color="var(--accent)"
-                />
-            {/each}
-        </div> -->
         <ChipContainer 
             items={$priorities} 
             bind:selected={selectedPriority}
