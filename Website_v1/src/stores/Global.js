@@ -27,6 +27,18 @@ const _states = {
 	activeForm: "AddTodo",
 
 	dark_mode: false,
+	
+	loading: false,
+	load_for: (ms) => {
+		_states.loading = true;
+		setTimeout(() => {
+			states.update((current) => {
+				current.loading = false;
+				return current
+			})
+		}, ms)
+		// _states.loading = true
+	},
 
 	overlay: {},
 	overlayActive: false,

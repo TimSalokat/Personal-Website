@@ -6,6 +6,7 @@
 
 	import SideBar from '../components/base/SideBar.svelte';
 	import Overlay from '../components/base/overlay.svelte';
+	import LoadingScreen from "$src/components/base/loading_screen.svelte";
 	let ShowSideBar = false;
 
 	const toggleSideBar = () => { ShowSideBar = !ShowSideBar };
@@ -18,17 +19,17 @@
 		"#6e7887",
 		"#46515d",
 		"#3b4754",
-		"#212831",
+		"#171b21",
 		"#212830"
 	]
 
 	const dark_colors = [
 		"#212830",
-		"#212831",
+		"#171b21",
 		"#3b4754",
 		"#46515d",
 		"#6e7887",
-		"#98a1ae",
+		"#e2e5e9",
 		"#d1d5db",
 		"#e2e5e9",
 		"#f3f5f6"
@@ -54,6 +55,8 @@
 --gray8: {displayed_colors[7]};
 --gray9: {displayed_colors[8]};
 ">
+
+	<LoadingScreen/>
 
 	<Overlay/>
 

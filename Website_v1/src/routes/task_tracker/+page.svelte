@@ -35,6 +35,7 @@
     $: {finished_tasks = filtered_tasks.filter((task)=>{return task.finished})}
 
     const handle_switch = (new_value) => {
+        $states.load_for(800);
         $states.dark_mode = new_value;
     }
 
