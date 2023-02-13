@@ -11,6 +11,8 @@
 
 	const toggleSideBar = () => { ShowSideBar = !ShowSideBar };
 
+	$states.load_for(2000);
+
 	const colors = [
 		"#f3f5f6",
 		"#e2e5e9",
