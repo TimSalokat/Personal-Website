@@ -29,8 +29,16 @@ const _states = {
 	dark_mode: false,
 	
 	loading: false,
-	load_for: (ms) => {
-		_states.loading = true;
+	load: (ms, func) => {
+		states.update((current) => {
+			current.loading = true;
+			return current;
+		})
+
+		setTimeout(() => {
+			func();
+		}, 200)
+
 		setTimeout(() => {
 			states.update((current) => {
 				current.loading = false;

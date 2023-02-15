@@ -1,7 +1,7 @@
 @import "../index.scss";
 
 .dashboard_container {
-    height: 100%;
+    height: calc(100% - 3.5em);
     width: 80%;
     margin-left: 10%;
     display: grid;

@@ -1,132 +1,126 @@
 <script>
-
-    import { states } from "$stores/Global";
-
+	import { states } from '$stores/Global';
 </script>
 
-
 {#if $states.loading}
-<div class="loading_screen">
-    
-    <div class="loader triangle">
-        <svg viewBox="0 0 86 80">
-            <polygon points="43 8 79 72 7 72"></polygon>
-        </svg>
-    </div>
-</div>
+	<div class="loading_screen">
+		<div class="loader triangle">
+			<svg viewBox="0 0 86 80">
+				<polygon points="43 8 79 72 7 72" />
+			</svg>
+		</div>
+	</div>
 {/if}
 
 <style lang="scss">
-    .loading_screen {
-        z-index: 900;
-        display: flex;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: var(--gray1);
-        align-items: center;
-        justify-content: center;
-    }
+	.loading_screen {
+		z-index: 900;
+		display: flex;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: #212830;
+		align-items: center;
+		justify-content: center;
+		animation: fade_in 200ms ease forwards;
+	}
 
-.loader {
-//   --path: #2f3545;
-  --path: var(--gray7);
-//   --dot: #5628ee;
-  --dot: var(--accent);
-  --duration: 1.5s;
-  width: 44px;
-  height: 44px;
-  position: relative;
-}
+	@keyframes fade_in {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 100;
+		}
+	}
 
-.loader:before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  position: absolute;
-  display: block;
-  background: var(--dot);
-  top: 37px;
-  left: 19px;
-  transform: translate(-18px, -18px);
-  animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-}
+	.loader {
+		--path: #d1d5db;
+		//   --path: var(--gray7);
+		//   --dot: #5628ee;
+		--dot: var(--accent);
+		--duration: 1.5s;
+		width: 44px;
+		height: 44px;
+		position: relative;
+	}
 
-.loader svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+	.loader:before {
+		content: '';
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		position: absolute;
+		display: block;
+		background: var(--dot);
+		top: 37px;
+		left: 19px;
+		transform: translate(-18px, -18px);
+		animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+	}
 
-.loader svg rect, .loader svg polygon, .loader svg circle {
-  fill: none;
-  stroke: var(--path);
-  stroke-width: 10px;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
+	.loader svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
 
-.loader svg polygon {
-  stroke-dasharray: 145 76 145 76;
-  stroke-dashoffset: 0;
-  animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-}
+	.loader svg rect,
+	.loader svg polygon,
+	.loader svg circle {
+		fill: none;
+		stroke: var(--path);
+		stroke-width: 10px;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+	}
 
-// .loader svg rect {
-//   stroke-dasharray: 192 64 192 64;
-//   stroke-dashoffset: 0;
-//   animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-// }
+	.loader svg polygon {
+		stroke-dasharray: 145 76 145 76;
+		stroke-dashoffset: 0;
+		animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+	}
 
-// .loader svg circle {
-//   stroke-dasharray: 150 50 150 50;
-//   stroke-dashoffset: 75;
-//   animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-// }
+	.loader.triangle {
+		width: 48px;
+	}
 
-.loader.triangle {
-  width: 48px;
-}
+	.loader.triangle:before {
+		left: 21px;
+		transform: translate(-10px, -18px);
+		animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+	}
 
-.loader.triangle:before {
-  left: 21px;
-  transform: translate(-10px, -18px);
-  animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-}
+	@keyframes pathTriangle {
+		33% {
+			stroke-dashoffset: 74;
+		}
 
-@keyframes pathTriangle {
-  33% {
-    stroke-dashoffset: 74;
-  }
+		66% {
+			stroke-dashoffset: 147;
+		}
 
-  66% {
-    stroke-dashoffset: 147;
-  }
+		100% {
+			stroke-dashoffset: 221;
+		}
+	}
 
-  100% {
-    stroke-dashoffset: 221;
-  }
-}
+	@keyframes dotTriangle {
+		33% {
+			transform: translate(0, 0);
+		}
 
-@keyframes dotTriangle {
-  33% {
-    transform: translate(0, 0);
-  }
+		66% {
+			transform: translate(10px, -18px);
+		}
 
-  66% {
-    transform: translate(10px, -18px);
-  }
+		100% {
+			transform: translate(-10px, -18px);
+		}
+	}
 
-  100% {
-    transform: translate(-10px, -18px);
-  }
-}
-
-.loader {
-  display: inline-block;
-  margin: 0 16px;
-}
-
- 
+	.loader {
+		display: inline-block;
+		margin: 0 16px;
+	}
 </style>

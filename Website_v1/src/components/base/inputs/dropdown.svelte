@@ -60,6 +60,7 @@
 }
 
 .drop_wrapper {
+    cursor: pointer;
     position: relative;
     width: 30%;
     text-align: right;
