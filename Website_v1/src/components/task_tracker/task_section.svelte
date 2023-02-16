@@ -13,10 +13,10 @@
 	export let title;
 	export let self;
 
-	let selected_filter = 0;
+	let selected_filter = -1;
 	let filtered_tasks;
 	$: {
-		if (selected_filter != 0) {
+		if (selected_filter != -1) {
 			filtered_tasks = self.tasks.filter((task) => {
 				return task.priority == selected_filter;
 			});
@@ -86,11 +86,6 @@
 </div>
 
 <style lang="scss">
-	h2 {
-		font-size: 1.35rem;
-		font-weight: 500;
-		margin-bottom: 0.5rem;
-	}
 
 	.section_container {
 		position: relative;

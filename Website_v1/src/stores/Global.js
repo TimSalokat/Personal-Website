@@ -27,6 +27,7 @@ const _states = {
 	activeForm: "AddTodo",
 
 	dark_mode: false,
+	server_connection: false,
 	
 	loading: false,
 	load: (ms, func) => {
@@ -35,17 +36,13 @@ const _states = {
 			return current;
 		})
 
-		setTimeout(() => {
-			func();
-		}, 200)
+		setTimeout(() => { func(); }, 200)
 
 		setTimeout(() => {
 			states.update((current) => {
 				current.loading = false;
 				return current
-			})
-		}, ms)
-		// _states.loading = true
+			})}, ms)
 	},
 
 	overlay: {},

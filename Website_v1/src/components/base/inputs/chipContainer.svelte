@@ -3,6 +3,7 @@
     import Chip from "./chip.svelte";
 
     export let items;
+    export let title;
     export let selected = items[0].id;
 
     const select = (id) => {
@@ -10,7 +11,9 @@
     }
 </script>
 
-<div class="flex gap-1 justify-center p-3 flex-wrap">
+<div class="wrapper">
+    <h2>{title}</h2>
+
     {#each Array.from(items.entries()) as [id, item]}
         <Chip 
             text={item.title} 
@@ -21,3 +24,23 @@
     {/each}
 </div>
 
+<style lang="scss">
+
+.wrapper {
+    position: relative;
+    display: flex;
+    gap: .25rem;
+    justify-content: center;
+    padding: .75rem;
+    padding-top: 1rem;
+    flex-wrap: wrap;
+}
+
+h2 {
+    position: absolute;
+    font-size: .9rem;
+    top: -8%;
+    left: 5%;
+}
+
+</style>

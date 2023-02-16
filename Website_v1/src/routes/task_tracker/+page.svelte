@@ -20,10 +20,10 @@
 		$states.overlayActive = true;
     }
 
-    let selected_filter = 0;
+    let selected_filter = -1;
     let filtered_tasks;
     $: {
-        if(selected_filter != 0){
+        if(selected_filter != -1){
             filtered_tasks = $tasks.filter((task) => {return task.priority == selected_filter})
         }else { filtered_tasks = $tasks }
     }
@@ -63,16 +63,21 @@
         <ProjectCard project_id={project.id} />
         {/each} {/if}
 
-        <button 
-        class="anim project_container" 
-        style="
-            display: flex;
-            justify-content: center;
-            align-items: center;"
-        on:click={() => open_form()}
-        >
-            <Icon src={BiPlus} size="1.5rem" className="bigger_icon_style"/>
-        </button>
+        {#if $states.server_connection}
+            <button 
+            class="anim project_container" 
+            style="
+                display: flex;
+                justify-content: center;
+                align-items: center;"
+            on:click={() => open_form()}
+            >
+                <Icon src={BiPlus} size="1.5rem" className="bigger_icon_style"/>
+            </button>
+        {:else}
+            <h2>No Server Connection</h2>
+        {/if}
+
     </div>
     
     <div class="dashboard_tasks">
@@ -81,20 +86,27 @@
 
         <div class="seperator"/>
         {#if filtered_tasks && filtered_tasks.length != 0} 
-            {#each active_tasks as task}
+            
+        {#each active_tasks as task}
                 <Task {task}/> 
             {/each} 
             {#each finished_tasks as task}
                 <Task {task}/> 
-            {/each} 
+            {/each}
+
+        {:else if filtered_tasks.length == 0 && selected_filter == -1}
+
+        <h5>No Tasks</h5>
+
         {:else}
-            <h5>No Tasks 
-                <br/> in <br/> 
-                <span 
-                    style="color: {$priorities.get(selected_filter).color}">
-                    {$priorities.get(selected_filter).title}
-                </span> 
-            </h5>
+        
+        <h5>No Tasks <br/> in <br/> 
+            <span 
+                style="color: {$priorities.get(selected_filter).color}">
+                {$priorities.get(selected_filter).title}
+            </span> 
+        </h5>
+        
         {/if}
     </div>
 </div>
@@ -106,6 +118,8 @@
         margin-top: auto;
         margin-bottom: auto;
         text-align: center;
+        font-size: 1.1rem;
+        line-height: 1.4rem;
     }
 
     :global(.project_container) {

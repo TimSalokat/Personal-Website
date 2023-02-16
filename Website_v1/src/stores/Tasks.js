@@ -17,7 +17,7 @@ export let _priorities = new Map([
         color: "#FCAF58",
     }],
     [3, {
-        title: "Do asap",
+        title: "Life Dependent",
         color: "#F21B3F",
     }],
 ]);

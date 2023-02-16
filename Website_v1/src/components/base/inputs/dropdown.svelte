@@ -4,6 +4,7 @@
     export let options;
     
     export let selected;
+    export let no_option = true;
 
     let opened = false;
 
@@ -23,14 +24,23 @@
     on:mouseover={() => {opened = true}} 
     on:mouseleave={() => {opened = false}}
     >
+
         <h3>Filter</h3>
+
         {#if opened}
         <div class="dropdown">
+            {#if no_option}
+                <button on:click={() => handle_click(-1)} class={selected == -1 ? "active" : ""}>
+                    No Filter
+                </button>
+            {/if}
+
             {#each Array.from(options.entries()) as [id, option]}
             <button on:click={() => handle_click(id)} class={selected == id ? "active" : ""}>
                 {option.title}
             </button>
             {/each}
+
         </div>
         {/if}
     </div>
@@ -40,7 +50,7 @@
 <style lang="scss">
 
 .active {
-    text-decoration: underline;
+    color: var(--gray8) !important;
 }
 
 .drop_container {
@@ -80,10 +90,14 @@
     background-color: var(--gray1);
     button {
         text-align: right;
+        position: relative;
         width: 100%;
+        padding: .2rem;
+        transition: ease .5s;
+        color: var(--gray4)
     }
     button:hover {
-        text-decoration: underline;
+        background-color: var(--gray2);
     }
 }
 

@@ -70,15 +70,19 @@
 
         <ChipContainer 
             items={$projects} 
+            title="Project: "
             bind:selected={selectedProject}
         />
 
         <span class="form_seperator"/>
 
         <ChipContainer 
-            items={$priorities} 
+            items={$priorities}
+            title="Importance: " 
             bind:selected={selectedPriority}
         />
+        
+        <span class="form_seperator"/>
 
     </div>
 </FormBase>

@@ -1,5 +1,7 @@
 
-import { projects, tasks } from "../../stores/Tasks";
+import { projects, tasks } from "$stores/Tasks";
+
+import { states } from "$stores/Global";
 
 const TESTING = true;
 
@@ -21,13 +23,20 @@ export const setup = async () => {
 
 const getJson = async (address) => {
     const target = backend + address;
-    let response = await fetch(target);
-    if(response.status === 200){
-        let res = await response.json();
-        return res 
-    } else {
-        console.error("Couldnt fetch from: " + address + ". Status code: " + response.status);
-        return false
+    try{
+        let response = await fetch(target);
+        if(response.status === 200){
+            let res = await response.json();
+            states.update(current => {current.server_connection = true; return current})
+            return res 
+        } else {
+            console.error("Couldnt fetch from: " + address + ". Status code: " + response.status);
+            states.update(current => {current.server_connection = false; return current})
+            return false
+        }
+    }catch(error) {
+        console.error(error);
+        states.update(current => {current.server_connection = false; return current})
     }
 }
 
