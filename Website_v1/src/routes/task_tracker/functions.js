@@ -106,6 +106,7 @@ export const func = {
             headers: {"Content-type": "application/json; charset=UTF-8"}
         })
         let newProject = await res.json()
+        newProject.tasks = [];
         projects.update(current => {
             current.set(newProject.id, newProject)
             return current;

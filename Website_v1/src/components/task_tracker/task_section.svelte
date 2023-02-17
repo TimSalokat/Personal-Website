@@ -20,10 +20,12 @@
 			filtered_tasks = self.tasks.filter((task) => {
 				return task.priority == selected_filter;
 			});
-		} else {
+		} else if (self.tasks != undefined){
 			filtered_tasks = self.tasks.sort(function (a, b) {
 				return b.priority - a.priority;
 			});
+		}else {
+			filtered_tasks = [];
 		}
 	}
 

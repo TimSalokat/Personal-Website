@@ -75,7 +75,7 @@
                 <Icon src={BiPlus} size="1.5rem" className="bigger_icon_style"/>
             </button>
         {:else}
-            <h2>No Server Connection</h2>
+            <h5 class="w-full col-span-2 h-full" style="margin-top: 50%">No Server Connection</h5>
         {/if}
 
     </div>

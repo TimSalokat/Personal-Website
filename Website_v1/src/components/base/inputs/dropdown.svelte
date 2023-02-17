@@ -84,7 +84,7 @@
     border-radius: 1rem 0 1rem 1rem;
     padding: .5rem;
     z-index: 2;
-    width: fit-content;
+    width: 150%;
     height: max-content;
     border: 1px solid var(--gray3);
     background-color: var(--gray1);

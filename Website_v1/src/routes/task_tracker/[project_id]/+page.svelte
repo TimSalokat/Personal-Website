@@ -14,7 +14,7 @@
     let self;
     $: {self = $projects.get(data.params.project_id)}
 
-    const categories = ["Section", "Testing", "Another One"]
+    const categories = ["Section 1"]
 
     const open_form = () => {
         $states.activeForm = "EditProject";
