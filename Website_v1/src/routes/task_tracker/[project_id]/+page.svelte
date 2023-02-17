@@ -50,15 +50,6 @@
 
 <style lang="scss">
 
-    :global(.section) {
-        position: relative;
-        height: 100%;
-        min-width: 550px;
-        max-width: 550px;
-        border-right: 2px solid var(--gray3);
-        overflow-y: auto;
-    }
-
     .header {
         position: relative;
         display: grid;

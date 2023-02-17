@@ -15,6 +15,8 @@
     import Task from "$components/task_tracker/task.svelte";
     import Dropdown from "$components/base/inputs/dropdown.svelte";
 
+    const user_name = "Tim"
+
     const open_form = () => {
 		$states.activeForm = "AddProject";
 		$states.overlayActive = true;
@@ -54,7 +56,7 @@
 <div class="dashboard_container">
 
     <div class="dashboard_header">
-        <h1>Good Morning <span style="color: var(--accent)">Admin</span></h1>
+        <h1>Good Morning <span style="color: var(--accent)">{user_name}</span></h1>
     </div>
 
     <div class="dashboard_projects">                
@@ -65,11 +67,7 @@
 
         {#if $states.server_connection}
             <button 
-            class="anim project_container" 
-            style="
-                display: flex;
-                justify-content: center;
-                align-items: center;"
+            class="add_project_btn anim project_container"
             on:click={() => open_form()}
             >
                 <Icon src={BiPlus} size="1.5rem" className="bigger_icon_style"/>
@@ -87,9 +85,10 @@
         <div class="seperator"/>
         {#if filtered_tasks && filtered_tasks.length != 0} 
             
-        {#each active_tasks as task}
+            {#each active_tasks as task}
                 <Task {task}/> 
             {/each} 
+            
             {#each finished_tasks as task}
                 <Task {task}/> 
             {/each}
@@ -145,6 +144,23 @@
             color: var(--gray2);
             fill: var(--gray2);
         }
+    }
+
+    :global(.section) {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-width: 550px;
+        max-width: 550px;
+        border-right: 2px solid var(--gray3);
+        overflow-y: auto;
+    }
+
+    .add_project_btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .color_switch {

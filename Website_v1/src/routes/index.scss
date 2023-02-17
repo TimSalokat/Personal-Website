@@ -1,8 +1,15 @@
 @use "sass:map";
 
 
-@import url("https://fonts.googleapis.com/css?family=Rubik");
+// @import url("https://fonts.googleapis.com/css?family=Rubik");
 @import url("https://fonts.googleapis.com/css?family=Baloo 2"); // * Like this one but no
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('../fonts/Rubik-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 .anim {
     transition: ease .2s;

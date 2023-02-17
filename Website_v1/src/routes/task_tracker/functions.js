@@ -3,7 +3,7 @@ import { projects, tasks } from "$stores/Tasks";
 
 import { states } from "$stores/Global";
 
-const TESTING = true;
+const TESTING = false;
 
 let _projects;
 projects.subscribe(data => _projects = data)

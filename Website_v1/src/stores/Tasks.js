@@ -5,11 +5,11 @@ export let _tasks = [];
 export let _projects = [];
 export let _priorities = new Map([
     [0, {
-        title: "No Prio",
+        title: "Unscheduled",
         color: "var(--gray5)",
     }],
     [1, {
-        title: "Low Prio",
+        title: "Low Priority",
         color: "#40BCD8",
     }],
     [2, {

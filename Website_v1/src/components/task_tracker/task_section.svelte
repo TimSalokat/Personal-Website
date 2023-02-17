@@ -65,13 +65,17 @@
 	<Dropdown {title} options={$priorities} bind:selected={selected_filter} />
 
 	<div class="section" bind:this={sorting}>
-		{#each active_tasks as task}
-			<Task {task} />
-		{/each}
+		{#if filtered_tasks != undefined && filtered_tasks.length != 0}
+			{#each active_tasks as task}
+				<Task {task} />
+			{/each}
 
-		{#each finished_tasks as task}
-			<Task {task} />
-		{/each}
+			{#each finished_tasks as task}
+				<Task {task} />
+			{/each}
+		{:else}
+		<h5>No tasks here</h5>
+		{/if}
 	</div>
 
 	<button
@@ -88,6 +92,14 @@
 </div>
 
 <style lang="scss">
+
+	h5 {
+		align-self: center;
+		margin-top: 40%;
+		text-align: center;
+        font-size: 1.1rem;
+        line-height: 1.4rem;
+	}
 
 	.section_container {
 		position: relative;

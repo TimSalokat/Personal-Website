@@ -17,7 +17,7 @@
 	let description;
 	$: {
 		if (!task.description) {
-			description = 'No Description';
+			description = "";
 		} else {
 			description = task.description;
 		}
@@ -60,6 +60,7 @@
 		<h2 class="title">{task.title}</h2>
 		<h2 class="project" style="color: {this_project.color}">{this_project.title}</h2>
 		<p class="description">{description}</p>
+
 	</div>
 </div>
 
@@ -127,6 +128,8 @@
 		padding-right: 20px;
 		font-weight: 100;
 		font-size: 0.8rem;
+		line-height: .9rem;
+		min-height: .1rem;
 
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -149,7 +152,7 @@
 	.priority_indicator {
 		position: absolute;
 		bottom: -4px;
-		right: 10px;
+		right: 12px;
 		font-size: 0.65rem;
 	}
 </style>

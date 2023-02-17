@@ -6,10 +6,14 @@
     export let selected;
     export let no_option = true;
 
+    let selected_title = "Filter"; 
+
     let opened = false;
 
-    const handle_click = (id) => {
+    const handle_click = (id, option) => {
         selected = id;
+        if (id == -1) selected_title = "Filter";
+        else selected_title = option.title;
         opened = false;
     }
 
@@ -23,20 +27,21 @@
     class="drop_wrapper" 
     on:mouseover={() => {opened = true}} 
     on:mouseleave={() => {opened = false}}
+    on:focus={() => {}}
     >
 
-        <h3>Filter</h3>
+        <h3>{selected_title}</h3>
 
         {#if opened}
         <div class="dropdown">
             {#if no_option}
-                <button on:click={() => handle_click(-1)} class={selected == -1 ? "active" : ""}>
+                <button on:click={() => handle_click(-1, {})} class={selected == -1 ? "active" : ""}>
                     No Filter
                 </button>
             {/if}
 
             {#each Array.from(options.entries()) as [id, option]}
-            <button on:click={() => handle_click(id)} class={selected == id ? "active" : ""}>
+            <button on:click={() => handle_click(id, option)} class={selected == id ? "active" : ""}>
                 {option.title}
             </button>
             {/each}

@@ -1,5 +1,5 @@
 <script>
-	import { states, consts } from '../stores/Global';
+	import { states, consts } from '$stores/Global';
 
 	$states['activePage'] = 'Dashboard';
 </script>

@@ -4,8 +4,8 @@
 
 	import { states } from "$stores/Global";
 
-	import SideBar from '../components/base/SideBar.svelte';
-	import Overlay from '../components/base/overlay.svelte';
+	import SideBar from '$components/base/sidebar.svelte';
+	import Overlay from '$components/base/overlay.svelte';
 	import LoadingScreen from "$src/components/base/loading_screen.svelte";
 	let ShowSideBar = false;
 

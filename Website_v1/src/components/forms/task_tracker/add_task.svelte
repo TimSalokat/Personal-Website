@@ -9,7 +9,7 @@
     import FormBase from ".././base_form.svelte";
     import CustomInput from "../form_components/custom_input.svelte";
     import CustomTextarea from "../form_components/custom_textarea.svelte";
-    import ChipContainer from "../../base/inputs/chipContainer.svelte";
+    import ChipContainer from "$components/base/inputs/chip_container.svelte";
 
     let selectedProject = $states.overlay.project.id;
     let selectedCategory = $states.overlay.category;
