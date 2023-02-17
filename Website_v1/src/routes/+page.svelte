@@ -4,4 +4,9 @@
 	$states['activePage'] = 'Dashboard';
 </script>
 
-<h1 class="text-2xl text-gray-300">Home</h1>
+<div class="information_container">
+	<div class="information_wrapper">
+		<h1>Home</h1>
+		<h3>Still working on this page</h3>
+	</div>
+</div>
