@@ -5,42 +5,25 @@
 	import Sortable from 'sortablejs';
 
 	import { states } from '$stores/Global';
-	import { priorities } from '$stores/Tasks';
+	import { priorities, projects } from '$stores/Tasks';
+	import { func } from '$routes/task_tracker/functions';
 
 	import Task from './task.svelte';
 	import Dropdown from '../base/inputs/dropdown.svelte';
 
-	export let title;
-	export let self;
+	export let section_id;
+	export let project_id;
+
+	let self;
+	$: {
+		self = $projects.get(project_id).sections.filter(section => {return section.id == section_id})[0]
+		// console.log(self);
+	}
 
 	let selected_filter = -1;
-	let filtered_tasks;
-	$: {
-		if (selected_filter != -1) {
-			filtered_tasks = self.tasks.filter((task) => {
-				return task.priority == selected_filter;
-			});
-		} else if (self.tasks != undefined){
-			filtered_tasks = self.tasks.sort(function (a, b) {
-				return b.priority - a.priority;
-			});
-		}else {
-			filtered_tasks = [];
-		}
-	}
-
-	let active_tasks;
-	$: {
-		active_tasks = filtered_tasks.filter((task) => {
-			return !task.finished;
-		});
-	}
-
-	let finished_tasks;
-	$: {
-		finished_tasks = filtered_tasks.filter((task) => {
-			return task.finished;
-		});
+	let displayed_tasks;
+	$:{
+		displayed_tasks = func.filter_by_prio(self.tasks, selected_filter);
 	}
 
 	let sorting;
@@ -56,23 +39,21 @@
 	const open_form = () => {
 		$states.activeForm = 'AddTodo';
 		$states.overlayActive = true;
-		$states.overlay.project = self;
-		$states.overlay.category = title;
+		$states.overlay.project_id = project_id;
+		$states.overlay.section_id = section_id;
 	};
 </script>
 
 <div class="section_container">
-	<Dropdown {title} options={$priorities} bind:selected={selected_filter} />
+	<Dropdown title={self.title} options={$priorities} bind:selected={selected_filter} />
 
 	<div class="section" bind:this={sorting}>
-		{#if filtered_tasks != undefined && filtered_tasks.length != 0}
-			{#each active_tasks as task}
+		{#if displayed_tasks != undefined && displayed_tasks.length != 0}
+			
+			{#each displayed_tasks as task}
 				<Task {task} />
 			{/each}
 
-			{#each finished_tasks as task}
-				<Task {task} />
-			{/each}
 		{:else}
 		<h5>No tasks here</h5>
 		{/if}

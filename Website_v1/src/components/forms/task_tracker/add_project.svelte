@@ -10,9 +10,34 @@
          return "#" + RanHexColor.toString()
     }
 
+    function generateRandomColor() {
+        // Define the range of colors to choose from
+        const blue = [255, 25, 64];
+        const purple = [128, 234, 255];
+
+        // Generate a random value between 0 and 1 for each of the three color channels
+        const r = Math.random();
+        const g = Math.random();
+        const b = Math.random();
+
+        // Interpolate the random color within the blue-to-purple range
+        const color = [
+            Math.round(blue[0] + (purple[0] - blue[0]) * r),
+            Math.round(blue[1] + (purple[1] - blue[1]) * g),
+            Math.round(blue[2] + (purple[2] - blue[2]) * b)
+        ];
+
+        // Convert the color array to a hex string
+        const hex = color.map(c => c.toString(16).padStart(2, '0')).join('');
+
+        // Return the hex value
+        return `#${hex}`;
+    }
+
+
     let random_colors = [];
     for (let i = 0; i < 25; i++) {
-        random_colors.push(hex())
+        random_colors.push(generateRandomColor())
     }
 
     let title;
@@ -35,6 +60,7 @@
 
         <!-- Inputs -->
         <CustomInput title="Title" bind:value={title}/>
+        
     </div>
 
     <!-- Side -->

@@ -11,8 +11,8 @@
     import CustomTextarea from "../form_components/custom_textarea.svelte";
     import ChipContainer from "$components/base/inputs/chip_container.svelte";
 
-    let selectedProject = $states.overlay.project.id;
-    let selectedCategory = $states.overlay.category;
+    let selectedProject = $states.overlay.project_id;
+    let selected_section = $states.overlay.section_id;
 
     let title;
     let description;
@@ -25,6 +25,7 @@
             title: title,
             description: description,
             priority: selectedPriority,
+            section_id: selected_section,
         }
         func.addTask(_data, selectedProject);
     }
