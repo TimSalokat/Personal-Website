@@ -25,7 +25,9 @@
 
     let selected_filter = -1;
     let filtered_tasks;
-    $: {filtered_tasks = func.filter_by_prio($tasks, selected_filter)}
+    $: {
+        filtered_tasks = func.filter_by_prio($tasks, selected_filter)
+    }
 
     const handle_switch = (new_value) => {
         $states.load(800, () => $states.dark_mode = new_value);

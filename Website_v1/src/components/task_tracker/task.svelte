@@ -9,6 +9,9 @@
 
 	export let task;
 
+	console.log("-----")
+	console.log(task);
+
 	let this_project;
 	$: {
 		this_project = $projects.get(task.project_id);
@@ -58,7 +61,7 @@
 		{/if}
 
 		<h2 class="title">{task.title}</h2>
-		<h2 class="project" style="color: {this_project.color}">{this_project.title}</h2>
+		<h2 class="project" style="color: {this_project?.color}">{this_project?.title}</h2>
 		<p class="description">{description}</p>
 
 	</div>

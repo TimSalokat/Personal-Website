@@ -17,7 +17,6 @@
 	let self;
 	$: {
 		self = $projects.get(project_id).sections.filter(section => {return section.id == section_id})[0]
-		// console.log(self);
 	}
 
 	let selected_filter = -1;
