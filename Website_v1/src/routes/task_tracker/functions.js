@@ -3,7 +3,7 @@ import { projects, tasks } from "$stores/Tasks";
 
 import { states } from "$stores/Global";
 
-const TESTING = true;
+const TESTING = false;
 
 let _projects;
 projects.subscribe(data => _projects = data)
@@ -41,6 +41,15 @@ const getJson = async (address) => {
 }
 
 export const func = {
+
+    get_section: (map, project_id, section_id) => {
+        return map.get(project_id).sections.filter((section) => {return section.id == section_id})[0]
+    },
+
+    get_task: (map, project_id, section_id, task_id) => {
+        let section = func.get_section(map, project_id, section_id);
+        return section.tasks.filter((task) => {return task.id == task_id})[0];
+    },
 
     filter_by_prio: (tasks, prio) => {
         let filtered_tasks;
@@ -127,12 +136,15 @@ export const func = {
     getTasks: async () => {
         let data = [];
 
-        let res = await getJson(`/get-tasks?testing=${TESTING}`);
-        if(res) { data = res; }
-        
-        // _projects.forEach(project => {
-        //     data.push(...project.tasks);
-        // });
+        // let res = await getJson(`/get-tasks?testing=${TESTING}`);
+        // if(res) { data = res; }
+
+        _projects.forEach((project)=>{
+            project.sections.forEach((section)=>{
+                data.push(...section.tasks);
+            })
+        })
+
         tasks.set(data);
         return data
     },
@@ -183,6 +195,7 @@ export const func = {
             }
         })
         const new_section = await res.json();
+        new_section.tasks = [];
         projects.update(current => {
             current.get(project_id).sections.push(new_section);
             return current;
@@ -199,12 +212,13 @@ export const func = {
             }
         });
 
-        func.taskChangeProject(details.task_id, details.project_id, details.old_project_id)
+        func.taskChangeProject(details);
         projects.update(current => {
-            let updated_task = current.get(details.project_id).tasks.filter(task=>task.id===details.task_id)
-            updated_task[0].title = task.title;
-            updated_task[0].description = task.description;
-            updated_task[0].priority = task.priority;
+            let updated_section = func.get_section(current, details.project_id, details.section_id);
+            let updated_task = updated_section.tasks.filter(task=>task.id===details.task_id)[0]
+            updated_task.title = task.title;
+            updated_task.description = task.description;
+            updated_task.priority = task.priority;
             return current;
         })
         func.getTasks();
@@ -228,7 +242,7 @@ export const func = {
         })
     },
 
-    delTask: async(project_id, task_id) => {
+    delTask: async(project_id, section_id, task_id) => {
         const res = await fetch(backend + `/del-task?testing=${TESTING}`, {
             method: "DELETE",
             headers: {
@@ -237,7 +251,7 @@ export const func = {
             }
         });
 
-        func.removeTask(task_id, project_id);
+        func.removeTask(project_id, section_id, task_id);
         func.reCalc(project_id);
         func.getTasks();
     },
@@ -255,27 +269,28 @@ export const func = {
         func.getTasks();
     },
 
-    taskChangeProject: (task_id, new_project_id, old_project_id) => {
-        if(new_project_id === old_project_id) return
+    taskChangeProject: (details) => {
+        if(details.section_id === details.old_section_id) return
         projects.update(current => {
-            let moved_task = current.get(old_project_id).tasks.filter(task => task.id===task_id)
-            moved_task[0].project_id = new_project_id;
-            if(current.get(new_project_id).hasOwnProperty("tasks")){
-                current.get(new_project_id).tasks.push(...moved_task);
-            }else {
-                current.get(new_project_id).tasks = moved_task;
-            }
-            func.removeTask(task_id, old_project_id);
+            let moved_task = func.get_task(current, details.old_project_id, details.old_section_id, details.task_id);
+            moved_task.project_id = details.project_id;
+            moved_task.section_id = details.section_id;
+
+            func.get_section(current, details.project_id, details.section_id).tasks.push(moved_task);
+
+            func.removeTask(details.old_project_id, details.old_section_id, details.task_id);
             return current
         })
-        func.reCalc(new_project_id);
-        func.reCalc(old_project_id);
+
+        func.reCalc(details.project_id);
+        func.reCalc(details.old_project_id);
     },
 
-    removeTask: async(task_id, project_id) => {
+    removeTask: async(project_id, section_id, task_id) => {
         projects.update(current => {
-            const index = current.get(project_id).tasks.findIndex(task => task.id===task_id)
-            current.get(project_id).tasks.splice(index, 1)
+            const section = func.get_section(current, project_id, section_id);
+            const index = section.tasks.findIndex(task => task.id===task_id)
+            section.tasks.splice(index, 1)
             return current
         })
     },
@@ -290,7 +305,7 @@ export const func = {
     setFinished: async (task_id, project_id, set_to) => {
         set_to ? func.addFinished(project_id) : func.substractFinished(project_id);
 
-        fetch(backend + `/set-finished?task_id=${task_id}&testing=${TESTING}`, {
+        let res = await fetch(backend + `/set-finished?task_id=${task_id}&testing=${TESTING}`, {
             method: "PUT",
             headers: {"Content-type": "application/json"}
         })

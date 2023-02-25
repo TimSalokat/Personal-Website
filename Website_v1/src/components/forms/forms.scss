@@ -131,3 +131,19 @@
     margin-bottom: 3.5rem;
     border-left: 1px solid var(--gray6);
 }
+
+.chip_container {
+    position: relative;
+    display: flex;
+    gap: .25rem;
+    justify-content: center;
+    padding: .75rem;
+    padding-top: 1rem;
+    flex-wrap: wrap;
+    h2 {
+        position: absolute;
+        font-size: .9rem;
+        top: -8%;
+        left: 5%;
+    }
+}

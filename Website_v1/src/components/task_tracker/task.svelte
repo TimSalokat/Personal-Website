@@ -8,19 +8,14 @@
 	import { func } from '$routes/task_tracker/functions';
 
 	export let task;
-
-	console.log("-----")
-	console.log(task);
-
+	
 	let this_project;
-	$: {
-		this_project = $projects.get(task.project_id);
-	}
+	$: {this_project = $projects.get(task.project_id);}
 
 	let description;
 	$: {
 		if (!task.description) {
-			description = "";
+			description = "No Description";
 		} else {
 			description = task.description;
 		}
@@ -54,15 +49,19 @@
 
 	<!-- Content -->
 	<div class="task_content" on:click={() => open_form()} on:keydown={() => console.log('Keydown')}>
-		{#if task.priority > 2}
-			<h5 class="priority_indicator" style="color: {priority.color}">{priority.title}</h5>
-		{:else}
-			<h5 class="priority_indicator">{priority.title}</h5>
-		{/if}
-
 		<h2 class="title">{task.title}</h2>
 		<h2 class="project" style="color: {this_project?.color}">{this_project?.title}</h2>
 		<p class="description">{description}</p>
+
+		<div class="info">
+
+			<p class="text-left">20:15</p>
+
+			<p class="priority_indicator text-center" style="color: {priority.color}">{priority.title}</p>
+			
+			<p class="text-right">{func.get_section($projects, task.project_id, task.section_id).title}</p>
+
+		</div>
 
 	</div>
 </div>
@@ -74,9 +73,10 @@
 		gap: 5px;
 		width: 100%;
 		min-height: max-content;
+		height: fit-content;
+		// height: 4rem;
 		padding: 0.25rem;
 		margin-bottom: 0.5rem;
-		height: fit-content;
 		border-radius: 0.35rem;
 		border: 1px solid transparent;
 		background-color: var(--gray1);
@@ -104,16 +104,31 @@
 	.task_content {
 		width: 100%;
 		display: grid;
-		grid-template-columns: auto fit-content;
+		grid-template-columns: auto fit-content 20px;
 		grid-template-rows: fit-content auto;
 		grid-template-areas:
 			'title project'
-			'desc desc';
+			'desc desc'
+			'info info';
+	}
+
+	.info {
+		grid-area: info;
+		position: relative;
+		padding-right: 5px;
+		padding-top: 8px;
+		height: 20px;
+		display: flex;
+		// justify-content: space-between;
+		font-size: .6rem;
+		* {
+			width: 35%;
+		}
 	}
 
 	.title {
 		grid-area: title;
-		font-size: 1.05rem;
+		font-size: 1.07rem;
 		font-weight: 500;
 		margin-top: auto;
 		margin-bottom: auto;
@@ -130,7 +145,7 @@
 		color: inherit;
 		padding-right: 20px;
 		font-weight: 100;
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 		line-height: .9rem;
 		min-height: .1rem;
 
@@ -150,12 +165,5 @@
 
 	.finished {
 		text-decoration: line-through;
-	}
-
-	.priority_indicator {
-		position: absolute;
-		bottom: -4px;
-		right: 12px;
-		font-size: 0.65rem;
 	}
 </style>

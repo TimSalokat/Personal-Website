@@ -16,7 +16,7 @@
 
 </script>
 
-<a href="/task_tracker/{project_id}" class="project_container anim">
+<a href="/task_tracker/{self.id}" class="project_container anim">
 
     <h2 class="title">{self.title}</h2>
 

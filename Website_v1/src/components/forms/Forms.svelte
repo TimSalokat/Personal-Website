@@ -4,15 +4,14 @@
     
     import AddProject from "./task_tracker/add_project.svelte";
     import AddTask from "./task_tracker/add_task.svelte";
-    import TaskDetails from "./task_tracker/task_details.svelte";
 	import EditProject from "./task_tracker/edit_project.svelte";
 	import AddSection from "./task_tracker/add_section.svelte";
-
+	import EditTask from "./task_tracker/edit_task.svelte";
 
     const forms = new Map([
         ["AddTodo", AddTask],
         ["AddProject", AddProject],
-        ["TaskDetails", TaskDetails],
+        ["TaskDetails", EditTask],
         ["EditProject", EditProject],
         ["AddSection", AddSection],
     ])

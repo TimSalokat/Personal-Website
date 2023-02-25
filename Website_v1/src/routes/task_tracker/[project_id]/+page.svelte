@@ -48,6 +48,7 @@
 </div>
 
 <div class="scrollbar_horizontal section_wrapper">
+
     {#if self.sections}{#each self.sections as section}
     <TaskSection 
         section_id={section.id}
@@ -104,14 +105,14 @@
         flex-direction: row;
         overflow-x: auto;
         flex-wrap: nowrap;
-        gap: 1rem;
+        gap: .5rem;
     }
 
     .add_section_btn {
         transition: .2s ease;
         display: flex;
-        width: 500px;
-        min-width: 500px;
+        width: 400px;
+        min-width: 400px;
         margin-bottom: 1rem;
         margin-top: 1rem;
         align-items: center;

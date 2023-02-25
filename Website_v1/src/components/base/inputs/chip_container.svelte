@@ -11,7 +11,7 @@
     }
 </script>
 
-<div class="wrapper">
+<div class="chip_container">
     <h2>{title}</h2>
 
     {#each Array.from(items.entries()) as [id, item]}
@@ -23,24 +23,3 @@
         />
     {/each}
 </div>
-
-<style lang="scss">
-
-.wrapper {
-    position: relative;
-    display: flex;
-    gap: .25rem;
-    justify-content: center;
-    padding: .75rem;
-    padding-top: 1rem;
-    flex-wrap: wrap;
-}
-
-h2 {
-    position: absolute;
-    font-size: .9rem;
-    top: -8%;
-    left: 5%;
-}
-
-</style>

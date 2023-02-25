@@ -69,8 +69,9 @@
     z-index: 2;
     // filter: drop-shadow(0px 10px 10px var(--gray1));
     h2 {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         font-weight: 700;
+        margin-bottom: .3rem;
     }
 }
 

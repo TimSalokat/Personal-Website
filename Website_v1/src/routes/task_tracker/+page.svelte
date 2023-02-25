@@ -53,10 +53,10 @@
     </div>
 
     <div class="dashboard_projects">                
-        {#if $projects} 
+            
         {#each Array.from($projects.entries()) as [id, project]}
-        <ProjectCard project_id={project.id} />
-        {/each} {/if}
+        <ProjectCard project_id={id} />
+        {/each}
 
         {#if $states.server_connection}
             <button 
@@ -110,38 +110,13 @@
         line-height: 1.4rem;
     }
 
-    :global(.project_container) {
-        display: grid;
-        border-radius: .75rem;
-        border: 1px solid var(--gray3);
-        aspect-ratio: 3/1.7;
-        min-height: 35%;
-        padding: 1rem;
-        margin: .5rem;
-        color: var(--gray7);
-        fill: var(--gray4);
-
-        grid-template-areas: 
-        "title count"
-        "bar progress";
-        grid-template-columns: auto 45px;
-        grid-template-rows: auto 15px;
-
-        &:hover {
-            cursor: pointer;
-            background-color: var(--gray6);
-            color: var(--gray2);
-            fill: var(--gray2);
-        }
-    }
-
     :global(.section) {
         position: relative;
         display: flex;
         flex-direction: column;
         height: 100%;
-        min-width: 550px;
-        max-width: 550px;
+        min-width: 400px;
+        max-width: 400px;
         border-right: 2px solid var(--gray3);
         overflow-y: auto;
     }
@@ -151,15 +126,6 @@
         justify-content: center;
         align-items: center;
     }
-
-    .color_switch {
-		position: absolute;
-		top: 0;
-		right: 0;
-		z-index: 1;
-        width: 200px;
-        height: 200px;
-	}
 
     .switch {
     --width-of-switch: 2.8em;

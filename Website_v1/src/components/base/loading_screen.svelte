@@ -65,9 +65,7 @@
 		height: 100%;
 	}
 
-	.loader svg rect,
-	.loader svg polygon,
-	.loader svg circle {
+	.loader svg polygon {
 		fill: none;
 		stroke: var(--path);
 		stroke-width: 10px;

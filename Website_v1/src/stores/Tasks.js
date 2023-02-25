@@ -1,8 +1,8 @@
 
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 
 export let _tasks = [];
-export let _projects = [];
+export let _projects;
 export let _priorities = new Map([
     [0, {
         title: "Unscheduled",
@@ -23,7 +23,7 @@ export let _priorities = new Map([
 ]);
 
 export const tasks = writable([]);
-export const projects = writable([]);
+export const projects = writable(new Map());
 export const priorities = writable();
 
 tasks.set(_tasks);

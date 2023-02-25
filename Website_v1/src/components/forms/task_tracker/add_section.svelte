@@ -6,7 +6,6 @@
     import FormBase from "../base_form.svelte";
 
     export let props;
-    console.log(props);
     let title;
 
     const submit = () => {
