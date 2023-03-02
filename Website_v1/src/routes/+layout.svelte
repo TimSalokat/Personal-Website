@@ -14,27 +14,27 @@
 	$states.load(2000, () => {});
 
 	const colors = [
-		"#f3f5f6",
-		"#e2e5e9",
-		"#d1d5db",
-		"#98a1ae",
-		"#6e7887",
-		"#46515d",
-		"#3b4754",
-		"#171b21",
-		"#212830"
+		"#f3f5f6", // Page BG and form bg 1
+		"#e2e5e9", // Hover text color 2
+		"#d1d5db", // Seperator color 3
+		"#98a1ae", // Form borders and seperator 4
+		"#6e7887", // form placeholder, button border, sidebar icons 5
+		"#46515d", // Hover bg color 6
+		"#3b4754", // Main Text and most icons 7
+		"#171b21", // Joker 8
+		"#212830", // Joker  9
 	]
 
 	const dark_colors = [
-		"#212830",
-		"#171b21",
-		"#3b4754",
-		"#46515d",
-		"#6e7887",
-		"#e2e5e9",
-		"#d1d5db",
-		"#e2e5e9",
-		"#f3f5f6"
+		"#212830", // 1 Page and form bg
+		"#171b21", // 2 Hover text
+		"#3b4754", // 3 Seperator
+		"#46515d", // 4 Form Borders and seperators
+		"#6e7887", // 5 Form placeholder, button border, sidebar icons 
+		"#98a1ae", // 6 Hover bg 
+		"#d1d5db", // 7 Main Text and icons
+		"#e2e5e9", // 8 Joker
+		"#f3f5f6", // 9 Joker
 	];
 
 	let displayed_colors;
@@ -82,8 +82,8 @@
 	@tailwind utilities;
 
 	:global(.seperator){
-        min-width: 90%;
-        margin: .35rem 5%;
+        min-width: 70%;
+        margin: .3rem 15%;
         min-height: 1px;
         background-color: var(--gray3);
     }
@@ -98,7 +98,17 @@
 	}
 
 	.wrapper {
+		position: relative;
 		background-color: var(--gray1);
-    	color: var(--gray9);
+    	color: var(--gray7);
+	}
+
+	.wrapper::after {
+		position: absolute;
+		content: "";
+		margin-top: 30vh;
+		height: 40vh;
+		width: 2px;
+		background-color: var(--gray3);
 	}
 </style>

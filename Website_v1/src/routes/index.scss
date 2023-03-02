@@ -1,6 +1,5 @@
 @use "sass:map";
 
-
 // @import url("https://fonts.googleapis.com/css?family=Rubik");
 @import url("https://fonts.googleapis.com/css?family=Baloo 2"); // * Like this one but no
 
@@ -32,6 +31,21 @@ body {
 	}
 }
 
+.button {
+	border: 1px solid transparent;
+    border-radius: .2rem;
+    font-size: .85rem;
+    padding: .75rem 1.75rem;
+    border-color: var(--gray5);
+    background-color: var(--gray1);
+	fill: var(--gray9);
+    &:hover {
+        background-color: var(--gray6);
+        color: var(--gray2);
+    }
+}
+
+
 .seperator_vertical {
     height: 80%;
     width: 1px;
@@ -59,7 +73,7 @@ body {
 .information_container {
 	display: flex;
 	min-height: 100vh;
-	min-width: 100vw;
+	width: 100%;
 	align-items: center;
 	justify-content: center;
 }

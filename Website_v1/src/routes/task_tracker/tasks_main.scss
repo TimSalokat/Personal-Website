@@ -1,9 +1,9 @@
 @import "../index.scss";
 
-.dashboard_container {
+.task_tracker_container {
     height: calc(100% - 3.5em);
-    width: 80%;
-    margin-left: 10%;
+    width: 86%;
+    margin-left: 7%;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 28% calc(72% - 1.2rem);
@@ -19,7 +19,7 @@
     }
 }
 
-.dashboard_header {
+.task_tracker_header {
     grid-area: overview;
     display: flex;
     align-items: center;
@@ -31,47 +31,63 @@
     }
 }
 
-.dashboard_projects, .dashboard_tasks {
+.task_tracker_projects, .task_tracker_tasks {
     padding: 1rem;
     border-radius: 1rem;
-    border: 2px solid var(--gray3);
     overflow-y: auto;
     overflow-x: hidden;
+    background-color: var(--gray2);
 }
 
-.dashboard_projects {
+.task_tracker_projects {
     grid-area: projects;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-auto-rows: min-content;
-    min-width: 300px;
-    @media ((width < 1200px) and (width > 899px)) or (width < 750px) {
-        display: flex;
-        flex-direction: column;
+    position: sticky;
+    top: 0;
+    background-color: var(--gray2);
+    padding-top: 1rem;
+    z-index: 2;
+    h2{
+        color: var(--gray7);
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-left: 10px;
+    }
+    .project_wrapper {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-auto-rows: min-content;
+        min-width: 300px;
+        @media ((width < 1200px) and (width > 899px)) or (width < 750px) {
+            display: flex;
+            flex-direction: column;
+        }
     }
 }
 
-.dashboard_tasks {
+.task_tracker_tasks {
     grid-area: tasks;
     padding-top: 0;
     position: relative;
     display: flex;
     flex-direction: column;
+    background-color: var(--gray2);
     @media (width < 900px) {
         display: none;
     }
 }
 
 .project_container {
+    position: relative;
     display: grid;
     border-radius: .75rem;
-    border: 1px solid var(--gray3);
     aspect-ratio: 3/1.7;
     min-height: 40%;
     padding: 1rem;
     margin: .5rem;
     color: var(--gray7);
     fill: var(--gray4);
+    background-color: var(--gray1);
+    overflow: hidden;
 
     grid-template-areas: 
     "title count"
@@ -79,10 +95,24 @@
     grid-template-columns: auto 45px;
     grid-template-rows: auto 15px;
 
+    * {z-index: 1;}
     &:hover {
-        cursor: pointer;
-        background-color: var(--gray6);
         color: var(--gray2);
         fill: var(--gray2);
+        &::before{
+            width: 120%;
+        }
+    }
+    &::before {
+        content: '';
+        width: 0;
+        height: 800%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(75deg);
+        background: var(--gray6);
+        transition: .5s ease;
+        display: block;
     }
 }

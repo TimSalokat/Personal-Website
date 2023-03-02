@@ -24,8 +24,8 @@
 
 	<!-- User Info -->
 	<h2>Admin User</h2>
+	<span class="seperator {ShowSideBar ? '' : 'invis'}" style="background-color:var(--gray3)"/>
 	<p>Admin</p>
-	<span class="seperator {ShowSideBar ? '' : 'invis'}" style="background-color:var(--gray5)"/>
 
 
 	<!-- Navigation -->
@@ -71,16 +71,16 @@
 	h2 {
 		color: var(--accent);
 		font-weight: 600;
-		+p {
-			font-size: .8rem;
-		}
 	}
+	
+	p {font-size: .8rem;}
 
 	a {
 		display: flex;
 		gap: 20px;
 		cursor: default;
-		fill: var(--gray6);
+		fill: var(--gray5);
+		color: var(--gray5);
 		&.active {
 			color: var(--accent);
 			fill: var(--accent);
@@ -89,8 +89,9 @@
 			}
 		}
 		&:hover:not(.active){
-			text-decoration: underline;
 			cursor: pointer;
+			fill: var(--gray7);
+			color: var(--gray7);
 		}
 	}
 

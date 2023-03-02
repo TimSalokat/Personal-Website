@@ -3,7 +3,7 @@ import { projects, tasks } from "$stores/Tasks";
 
 import { states } from "$stores/Global";
 
-const TESTING = false;
+const TESTING = true;
 
 let _projects;
 projects.subscribe(data => _projects = data)
@@ -43,7 +43,8 @@ const getJson = async (address) => {
 export const func = {
 
     get_section: (map, project_id, section_id) => {
-        return map.get(project_id).sections.filter((section) => {return section.id == section_id})[0]
+        // return map.get(project_id).sections.filter((section) => {return section.id == section_id})[0]
+        return map.get(project_id).sections.find((section)=>{return section.id == section_id})
     },
 
     get_task: (map, project_id, section_id, task_id) => {
@@ -239,6 +240,26 @@ export const func = {
             updated_project.title = project.title;
             updated_project.color = project.color;
             return current;
+        })
+    },
+
+    renameSection: async(project_id, id, new_value) => {
+        let details = {
+            section_id: id,
+            new_title: new_value,
+        }
+        const res = await fetch(backend + `/rename-section?testing=${TESTING}`, {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                ...details
+            }
+        });
+
+        projects.update(current => {
+            let section_edit = func.get_section(current, project_id, id);
+            section_edit.title = new_value;
+            return current
         })
     },
 

@@ -13,6 +13,7 @@
 
     import ProjectCard from "$components/task_tracker/project_card.svelte";
     import Task from "$components/task_tracker/task.svelte";
+    import TaskSection from "$components/task_tracker/task_section.svelte";
     import Dropdown from "$components/base/inputs/dropdown.svelte";
 	import { func } from "./functions";
 
@@ -46,40 +47,48 @@
 </label>
 
 
-<div class="dashboard_container">
+<div class="task_tracker_container">
 
-    <div class="dashboard_header">
+    <div class="task_tracker_header">
         <h1>Good Morning <span style="color: var(--accent)">{user_name}</span></h1>
     </div>
 
-    <div class="dashboard_projects">                
+    <div class="task_tracker_projects">    
+        
+        <h2>Projects</h2>
+
+        <div class="project_wrapper">
             
-        {#each Array.from($projects.entries()) as [id, project]}
-        <ProjectCard project_id={id} />
-        {/each}
+            {#each Array.from($projects.entries()) as [id, project]}
+                <ProjectCard project_id={id} />
+            {/each}
 
-        {#if $states.server_connection}
-            <button 
-            class="add_project_btn anim project_container"
-            on:click={() => open_form()}
-            >
-                <Icon src={BiPlus} size="1.5rem" className="bigger_icon_style"/>
-            </button>
-        {:else}
-            <h5 class="w-full col-span-2 h-full" style="margin-top: 50%">No Server Connection</h5>
-        {/if}
-
+            {#if $states.server_connection}
+                <button 
+                class="add_project_btn anim project_container"
+                on:click={() => open_form()}>
+                    <Icon src={BiPlus} size="1.5rem" className="bigger_icon_style"/>
+                </button>
+            {:else}
+                <h5 class="w-full col-span-2 h-full" style="margin-top: 50%">No Server Connection</h5>
+            {/if}
+    
+        </div> 
     </div>
     
-    <div class="dashboard_tasks">
+    <div class="task_tracker_tasks">
 
-        <Dropdown title="Tasks" options={$priorities} bind:selected={selected_filter}/>
+        <Dropdown 
+        title="Tasks" 
+        options={$priorities}
+        bind:selected={selected_filter}
+        custom_style="background-color: var(--gray2)"/>
 
         <div class="seperator"/>
         {#if filtered_tasks && filtered_tasks.length != 0} 
             
             {#each filtered_tasks as task}
-                <Task {task}/> 
+                <Task {task}/>
             {/each}
 
         {:else if filtered_tasks.length == 0 && selected_filter == -1}
@@ -108,17 +117,6 @@
         text-align: center;
         font-size: 1.1rem;
         line-height: 1.4rem;
-    }
-
-    :global(.section) {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        min-width: 400px;
-        max-width: 400px;
-        border-right: 2px solid var(--gray3);
-        overflow-y: auto;
     }
 
     .add_project_btn {

@@ -44,7 +44,13 @@
 </script>
 
 <div class="section_container">
-	<Dropdown title={self.title} options={$priorities} bind:selected={selected_filter} />
+	<Dropdown 
+		title={self.title}
+		options={$priorities}
+		bind:selected={selected_filter}
+		editable={true}
+		on_edit={(text) => {func.renameSection(self.project_id, self.id, text)}}
+		/>
 
 	<div class="section" bind:this={sorting}>
 		{#if displayed_tasks != undefined && displayed_tasks.length != 0}
@@ -59,7 +65,7 @@
 	</div>
 
 	<button
-		class="add_task"
+		class="button add_task"
 		style="
         display: flex;
         justify-content: center;
@@ -73,9 +79,25 @@
 
 <style lang="scss">
 
+	 :global(.section) {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        color: var(--gray4);
+        height: calc(100% - 80px);
+		padding: .5rem;
+        padding-bottom: 40px;
+		border-radius: .5rem;
+        min-width: 400px;
+        max-width: 400px;
+        overflow-y: auto;
+		background-color: var(--gray2);
+    }
+
 	h5 {
 		align-self: center;
-		margin-top: 40%;
+		margin-top: auto;
+		margin-bottom: auto;
 		text-align: center;
         font-size: 1.1rem;
         line-height: 1.4rem;
@@ -87,26 +109,20 @@
 		flex-direction: column;
 		height: 100%;
 		padding: 0.5rem;
+        background-color: var(--gray1);
 	}
 
 	.add_task {
-		* {
-			transition: 0.2s ease;
-		}
+		* { transition: 0.2s ease;}
 		position: absolute;
-		width: calc(50% - 2rem);
+		z-index: 2;
+		width: calc(180px);
 		height: 55px;
-		border: 1px solid var(--gray4);
-		border-radius: 0.5rem;
 		bottom: 10px;
-		left: 25%;
-		fill: var(--gray4);
-		p {
-			font-size: 1.1rem;
-			margin-top: 0.12rem;
-			margin-left: 0.5rem;
-			color: var(--gray4);
-		}
+		left: calc(50% - 90px);
+		font-size: 1rem;
+		fill: var(--gray7);
+		background-color: var(--gray1);
 		&:hover {
 			background-color: var(--gray6);
 			fill: var(--gray2);

@@ -74,6 +74,7 @@
             color: var(--gray7);
             font-size: 2.5rem;
             font-weight: 800;
+            margin-top: 10%;
         }
     }
 
@@ -113,8 +114,9 @@
         display: flex;
         width: 400px;
         min-width: 400px;
-        margin-bottom: 1rem;
-        margin-top: 1rem;
+        margin: .5rem;
+        margin-bottom: 2.35rem;
+        margin-top: 3.5rem;
         align-items: center;
         justify-content: center;
         border: 2px solid var(--gray3);

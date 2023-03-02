@@ -38,7 +38,7 @@
 
     .title {
         grid-area: title;
-        font-size: 1.7rem;
+        font-size: 1.5rem;
         color: inherit;
         font-weight: 800;
         margin-top: auto;
@@ -70,7 +70,7 @@
 
     .bar_fill {
         position: absolute;
-        height: inherit;
+        height: 2px;
         width: inherit;
     }
 

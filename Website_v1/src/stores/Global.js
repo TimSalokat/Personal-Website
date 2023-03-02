@@ -26,7 +26,7 @@ const _states = {
 	activePage: _consts['Pages'][0].title,
 	activeForm: "AddTodo",
 
-	dark_mode: false,
+	dark_mode: true,
 	server_connection: false,
 	
 	loading: false,

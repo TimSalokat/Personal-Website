@@ -6,9 +6,3 @@
 		<h3>Page not found</h3>
 	</div>
 </div>
-
-<style lang="scss">
-
-
-
-</style>

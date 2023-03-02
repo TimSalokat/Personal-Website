@@ -33,9 +33,13 @@
 	};
 </script>
 
-<div class="anim task_container {task.finished ? 'finished' : ''}">
-	<!-- Checkbox -->
-	<div
+<div> <!-- !Need this for the hover anim to work -->
+<div class="anim task_container 
+	{task.finished ? 'finished' : ''}
+	{task.priority == 3 ? "red" : "" }">
+
+		<!-- Checkbox -->
+		<div
 		class="icon_wrapper"
 		style="fill: inherit;"
 		on:click={() => {
@@ -43,10 +47,10 @@
 			task.finished = !task.finished;
 		}}
 		on:keydown={() => console.log('keydown')}
-	>
+		>
 		<Icon src={task.finished ? BiCheckCircle : BiCircle} size="1.5rem" className="icon_style" />
 	</div>
-
+	
 	<!-- Content -->
 	<div class="task_content" on:click={() => open_form()} on:keydown={() => console.log('Keydown')}>
 		<h2 class="title">{task.title}</h2>
@@ -54,16 +58,15 @@
 		<p class="description">{description}</p>
 
 		<div class="info">
-
-			<p class="text-left">20:15</p>
-
-			<p class="priority_indicator text-center" style="color: {priority.color}">{priority.title}</p>
+			<p class="priority_indicator text-left" style="color: {task.priority == 0 ? "inherit" : priority.color}">{priority.title}</p>
+			
+			<p class="text-center">20:15</p>
 			
 			<p class="text-right">{func.get_section($projects, task.project_id, task.section_id).title}</p>
-
 		</div>
-
+		
 	</div>
+</div>
 </div>
 
 <style lang="scss">
@@ -73,27 +76,34 @@
 		gap: 5px;
 		width: 100%;
 		min-height: max-content;
-		height: fit-content;
-		// height: 4rem;
+		height: max-content;
 		padding: 0.25rem;
 		margin-bottom: 0.5rem;
 		border-radius: 0.35rem;
-		border: 1px solid transparent;
 		background-color: var(--gray1);
-		fill: var(--gray6);
+		fill: var(--gray7);
+		color: var(--gray7);
+		overflow: hidden;
+		* { z-index: 1; }
 		&:hover {
-			background-color: var(--gray6);
 			color: var(--gray2);
 			fill: var(--gray2);
+			&::before{
+				width: 120%;
+				transform: translate(-50%, -50%) rotate(0deg);
+			}
 		}
-		&::after {
+		&::before {
 			content: '';
+			width: 0;
+			height: 500%;
 			position: absolute;
-			bottom: -6px;
-			left: 2.5%;
-			width: 95%;
-			height: 1px;
-			background-color: var(--gray3);
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%) rotate(-45deg);
+			background: var(--gray7);
+			transition: .5s ease;
+			display: block;
 		}
 	}
 
@@ -119,11 +129,8 @@
 		padding-top: 8px;
 		height: 20px;
 		display: flex;
-		// justify-content: space-between;
 		font-size: .6rem;
-		* {
-			width: 35%;
-		}
+		* { width: 35%; }
 	}
 
 	.title {
@@ -142,7 +149,6 @@
 
 	.description {
 		grid-area: desc;
-		color: inherit;
 		padding-right: 20px;
 		font-weight: 100;
 		font-size: 0.75rem;
@@ -166,4 +172,6 @@
 	.finished {
 		text-decoration: line-through;
 	}
+
+	.red { background: var(--gray1) linear-gradient(-150deg, rgba(0,0,0,0) 50%, rgba(255,0,0,0.30) 120%);}
 </style>

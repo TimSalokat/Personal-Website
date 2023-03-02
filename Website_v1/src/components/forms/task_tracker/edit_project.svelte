@@ -100,7 +100,7 @@
         height: 25px;
         width: 25px;
         border-radius: 100%;
-        border: 1px solid var(--gray7);
+        /* border: 1px solid var(--gray7); */
         cursor: pointer;
     }
 </style>

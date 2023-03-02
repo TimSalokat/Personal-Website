@@ -1,10 +1,21 @@
 <script>
 
+    import Icon from 'svelte-icons-pack';
+	import BiEdit from 'svelte-icons-pack/bi/BiEdit';
+
     export let title;
     export let options;
     
     export let selected;
     export let no_option = true;
+
+    export let editable = false;
+    export let on_edit = () => {};
+
+    export let custom_style = "";
+
+    let isEditing = false;
+    let displayed_title = title; 
 
     let selected_title = "Filter"; 
 
@@ -17,19 +28,35 @@
         opened = false;
     }
 
+    const handle_edit = (e) => {
+        on_edit(e.target.innerText);
+        isEditing = false;
+    }
+
 </script>
 
-<div class="drop_container">
+<div class="drop_container" style={custom_style}>
     
+    {#if editable}
+        {#if isEditing}
+            <h2 autofocus contenteditable="true" on:input={(e) => {displayed_title = e.target.innerText}} on:blur={handle_edit}>{displayed_title}</h2>
+        {:else}
+            <button style="display: flex; fill: var(--gray7);" on:click={() => {isEditing = true}}>
+                <Icon src={BiEdit} size="1.5rem" className="normal_icon_style" />    
+                <h2>{displayed_title}</h2>
+            </button>
+        {/if}
+    {:else}
     <h2>{title}</h2>
+    {/if}
 
+    <!--* Actual dropdown  -->
     <div 
     class="drop_wrapper" 
     on:mouseover={() => {opened = true}} 
     on:mouseleave={() => {opened = false}}
     on:focus={() => {}}
     >
-
         <h3>{selected_title}</h3>
 
         {#if opened}
@@ -54,8 +81,12 @@
 
 <style lang="scss">
 
+h3 {
+    color: var(--gray7);
+}
+
 .active {
-    color: var(--gray8) !important;
+    color: var(--gray7) !important;
 }
 
 .drop_container {
@@ -64,14 +95,13 @@
     justify-content: space-between;
     align-items: center;
     top: 0;
-    background-color: var(--gray1);
     padding-top: 1rem;
     z-index: 2;
-    // filter: drop-shadow(0px 10px 10px var(--gray1));
-    h2 {
+    h2, input {
+        color: var(--gray7);
         font-size: 1.4rem;
         font-weight: 700;
-        margin-bottom: .3rem;
+        margin-left: 10px;
     }
 }
 
@@ -92,7 +122,7 @@
     z-index: 2;
     width: 150%;
     height: max-content;
-    border: 1px solid var(--gray3);
+    border: 1px solid var(--gray4);
     background-color: var(--gray1);
     button {
         text-align: right;
