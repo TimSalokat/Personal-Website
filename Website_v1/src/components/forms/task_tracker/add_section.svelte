@@ -1,6 +1,6 @@
 
 <script>
-    import { func } from "$routes/task_tracker/functions.js";
+    import { f_section } from "$scripts/task_tracker/sections";
 
     import CustomInput from "../form_components/custom_input.svelte";
     import FormBase from "../base_form.svelte";
@@ -9,7 +9,7 @@
     let title;
 
     const submit = () => {
-        func.addSection(title, props.id);
+        f_section.add(title, props.id);
     }
 
 </script>

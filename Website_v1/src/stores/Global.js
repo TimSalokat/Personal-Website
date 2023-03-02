@@ -8,6 +8,10 @@ export const states = writable({});
 export const consts = writable({});
 
 const _consts = {
+	
+	backend: "http://127.0.0.1:8000",
+	testing: true,
+
 	Pages: [
 		{
 			title: 'Dashboard',
@@ -19,7 +23,8 @@ const _consts = {
 			icon: BiCategory,
 			link: '/task_tracker',
 		}
-	]
+	],
+
 };
 
 const _states = {

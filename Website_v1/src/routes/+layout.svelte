@@ -2,11 +2,38 @@
 
 	import "./index.scss"
 
+	import { onMount } from "svelte";
+
+	import { projects, _projects } from "$stores/Tasks";
 	import { states } from "$stores/Global";
 
 	import SideBar from '$components/base/sidebar.svelte';
 	import Overlay from '$components/base/overlay.svelte';
 	import LoadingScreen from "$src/components/base/loading_screen.svelte";
+
+	import { f_project } from "$scripts/task_tracker/projects"
+	import { f_task } from "$scripts/task_tracker/tasks"
+
+	let project_ref;
+	projects.subscribe(data => project_ref = data);
+
+	export const setup = async () => {
+		await f_project.get();    
+		await f_task.get();
+		project_ref.forEach(current => {
+			f_project.reCalc(current.id);
+		})
+	}
+
+	let isMounted = false;
+
+	onMount(() => {
+		if(!isMounted) { 
+			setup();
+			isMounted = true;
+		}
+	})
+
 	let ShowSideBar = false;
 
 	const toggleSideBar = () => { ShowSideBar = !ShowSideBar };

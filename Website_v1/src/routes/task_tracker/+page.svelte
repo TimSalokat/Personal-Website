@@ -15,7 +15,8 @@
     import Task from "$components/task_tracker/task.svelte";
     import TaskSection from "$components/task_tracker/task_section.svelte";
     import Dropdown from "$components/base/inputs/dropdown.svelte";
-	import { func } from "./functions";
+
+    import { f_task } from "$scripts/task_tracker/tasks";
 
     const user_name = "Tim"
 
@@ -27,7 +28,7 @@
     let selected_filter = -1;
     let filtered_tasks;
     $: {
-        filtered_tasks = func.filter_by_prio($tasks, selected_filter)
+        filtered_tasks = f_task.filter_by_prio($tasks, selected_filter)
     }
 
     const handle_switch = (new_value) => {
@@ -59,9 +60,9 @@
 
         <div class="project_wrapper">
             
-            {#each Array.from($projects.entries()) as [id, project]}
+            {#if $projects}{#each Array.from($projects.entries()) as [id, project]}
                 <ProjectCard project_id={id} />
-            {/each}
+            {/each}{/if}
 
             {#if $states.server_connection}
                 <button 

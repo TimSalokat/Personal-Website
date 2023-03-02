@@ -1,6 +1,6 @@
 
 <script>
-    import { func } from "$routes/task_tracker/functions.js";
+    import { f_project } from "$scripts/task_tracker/projects";
 
     import CustomInput from "../form_components/custom_input.svelte";
     import FormBase from "../base_form.svelte";
@@ -48,7 +48,7 @@
             title: title,
             color: selected_color,
         }
-        func.addProject(_data);
+        f_project.add(_data);
     }
 
 </script>

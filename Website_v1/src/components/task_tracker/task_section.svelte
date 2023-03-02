@@ -6,7 +6,9 @@
 
 	import { states } from '$stores/Global';
 	import { priorities, projects } from '$stores/Tasks';
-	import { func } from '$routes/task_tracker/functions';
+	
+	import { f_section } from "$scripts/task_tracker/sections";
+	import { f_task } from "$scripts/task_tracker/tasks";
 
 	import Task from './task.svelte';
 	import Dropdown from '../base/inputs/dropdown.svelte';
@@ -22,7 +24,7 @@
 	let selected_filter = -1;
 	let displayed_tasks;
 	$:{
-		displayed_tasks = func.filter_by_prio(self.tasks, selected_filter);
+		displayed_tasks = f_task.filter_by_prio(self.tasks, selected_filter);
 	}
 
 	let sorting;
@@ -49,7 +51,7 @@
 		options={$priorities}
 		bind:selected={selected_filter}
 		editable={true}
-		on_edit={(text) => {func.renameSection(self.project_id, self.id, text)}}
+		on_edit={(text) => {f_section.edit(self.project_id, self.id, text)}}
 		/>
 
 	<div class="section" bind:this={sorting}>

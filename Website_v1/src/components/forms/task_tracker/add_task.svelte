@@ -6,7 +6,7 @@
     import { projects, priorities } from "$stores/Tasks"
     import { states } from "$stores/Global";
 
-    import { func } from "$routes/task_tracker/functions.js";
+    import { f_task } from "$scripts/task_tracker/tasks";
 
     import Chip from "$components/base/inputs/chip.svelte";
     import FormBase from ".././base_form.svelte";
@@ -36,7 +36,7 @@
     
     let submit = (data, project) => {
         if(description === undefined) data.description = "";
-        func.addTask(data, project);
+        f_task.add(data, project);
     }
 
     if (edit) {

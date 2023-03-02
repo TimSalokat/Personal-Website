@@ -13,6 +13,7 @@ const config = {
 			"$src": "./src",
 			"$routes": "./src/routes",
 			"$stores": "./src/stores",
+			"$scripts": "./src/scripts",
 			"$components": "./src/components",
 			"$forms": "./src/components/forms",
 		}

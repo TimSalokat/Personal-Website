@@ -5,7 +5,9 @@
 
 	import { states } from '../../stores/Global';
 	import { projects, priorities } from '../../stores/Tasks';
-	import { func } from '$routes/task_tracker/functions';
+
+	import { f_section } from "$scripts/task_tracker/sections";
+	import { f_task } from "$scripts/task_tracker/tasks";
 
 	export let task;
 	
@@ -43,7 +45,7 @@
 		class="icon_wrapper"
 		style="fill: inherit;"
 		on:click={() => {
-			func.setFinished(task.id, task.project_id, !task.finished);
+			task.setFinished(task.id, task.project_id, !task.finished);
 			task.finished = !task.finished;
 		}}
 		on:keydown={() => console.log('keydown')}
@@ -62,7 +64,7 @@
 			
 			<p class="text-center">20:15</p>
 			
-			<p class="text-right">{func.get_section($projects, task.project_id, task.section_id).title}</p>
+			<p class="text-right">{f_section.get($projects, task.project_id, task.section_id).title}</p>
 		</div>
 		
 	</div>

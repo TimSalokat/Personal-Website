@@ -3,7 +3,7 @@
 	import Icon from "svelte-icons-pack";
     import BiTrash from "svelte-icons-pack/bi/BiTrash";
 
-    import { func } from "$routes/task_tracker/functions.js";
+    import { f_project } from "$scripts/task_tracker/projects";
     
     import { states } from "../../../stores/Global";
 
@@ -34,11 +34,11 @@
         const details = {
             project_id: props.id,
         }
-        func.editProject(_data, details);
+        f_project.edit(_data, details);
     }
 
     const handle_delete = () => {
-        func.delProject(props.id);
+        f_project.delete(props.id);
         $states.overlayActive = false;
     }
 
