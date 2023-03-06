@@ -45,7 +45,7 @@
 		class="icon_wrapper"
 		style="fill: inherit;"
 		on:click={() => {
-			task.setFinished(task.id, task.project_id, !task.finished);
+			f_task.setFinished(task.id, task.project_id, !task.finished);
 			task.finished = !task.finished;
 		}}
 		on:keydown={() => console.log('keydown')}
@@ -64,7 +64,7 @@
 			
 			<p class="text-center">20:15</p>
 			
-			<p class="text-right">{f_section.get($projects, task.project_id, task.section_id).title}</p>
+			<p class="text-right">{f_section.get_section($projects, task.project_id, task.section_id).title}</p>
 		</div>
 		
 	</div>

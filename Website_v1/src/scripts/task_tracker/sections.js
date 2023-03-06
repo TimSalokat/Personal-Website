@@ -1,25 +1,26 @@
 
 import { projects } from "$stores/Tasks";
-
 import { consts } from "$stores/Global";
+
+import { get_headers } from "../functions";
 
 let _consts;
 consts.subscribe(data => _consts = data)
 
 export const f_section = {
 
-    get: (map, project_id, section_id) => {
+    get_section: (map, project_id, section_id) => {
         return map.get(project_id).sections.find((section)=>{return section.id == section_id})
     },
 
     add: async(title, project_id) => {
-        const res = await fetch(_consts.backend + `/sections/add/?testing=${_consts.testing}`, {
+        const res = await fetch(_consts.backend + `/sections/add`, {
             method: "POST",
             body: JSON.stringify({
                 title: title
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8",
+                ...get_headers(),
                 project_id: project_id
             }
         })
@@ -36,10 +37,10 @@ export const f_section = {
             section_id: id,
             new_title: new_value,
         }
-        const res = await fetch(_consts.backend + `/sections/edit?testing=${_consts.testing}`, {
+        const res = await fetch(_consts.backend + `/sections/edit`, {
             method: "PUT",
             headers: {
-                "Content-type": "application/json; charset=UTF-8",
+                ...get_headers(),
                 ...details
             }
         });

@@ -2,7 +2,7 @@
 import { projects, tasks } from "$stores/Tasks";
 import { consts } from "$stores/Global";
 
-import { getJson } from "$scripts/functions";
+import { get_headers } from "$scripts/functions";
 import { f_section } from "$scripts/task_tracker/sections";
 import { f_project } from "$scripts/task_tracker/projects";
 
@@ -25,10 +25,10 @@ export const f_task = {
     },
 
     add: async (todo, project_id) => {
-        const res = await fetch(_consts.backend + `/tasks/add/${project_id}?testing=${_consts.testing}`, {
+        const res = await fetch(_consts.backend + `/tasks/add/${project_id}`, {
             method: "POST",
             body: JSON.stringify(todo),
-            headers: {"Content-type": "application/json; charset=UTF-8"}
+            headers: get_headers()
         });
         const new_task = await res.json()
         projects.update(current => {
@@ -45,11 +45,11 @@ export const f_task = {
     },
 
     edit: async(task, details) => {
-        const res = await fetch(_consts.backend + `/tasks/edit?testing=${_consts.testing}`, {
+        const res = await fetch(_consts.backend + `/tasks/edit`, {
             method: "PUT",
             body: JSON.stringify(task),
             headers: {
-                "Content-type": "application/json; charset=UTF-8",
+                ...get_headers(),
                 ...details
             }
         });
@@ -67,10 +67,10 @@ export const f_task = {
     },
 
     delete: async(project_id, section_id, task_id) => {
-        const res = await fetch(_consts.backend + `/tasks/deletet?testing=${_consts.testing}`, {
+        const res = await fetch(_consts.backend + `/tasks/delete`, {
             method: "DELETE",
             headers: {
-                "Content-type": "application/json; charset=UTF-8",
+                ...get_headers(),
                 task_id
             }
         });
@@ -83,7 +83,7 @@ export const f_task = {
     setFinished: async (task_id, project_id, set_to) => {
         set_to ? f_project.addFinished(project_id) : f_project.substractFinished(project_id);
 
-        let res = await fetch(_consts.backend + `/tasks/set-finished?task_id=${task_id}&testing=${_consts.testing}`, {
+        let res = await fetch(_consts.backend + `/tasks/set-finished?task_id=${task_id}`, {
             method: "PUT",
             headers: {"Content-type": "application/json"}
         })
@@ -112,7 +112,7 @@ export const f_task = {
 
 const local = {
     get_task: (map, project_id, section_id, task_id) => {
-        let _section = f_section.get(map, project_id, section_id);
+        let _section = f_section.get_section(map, project_id, section_id);
         return _section.tasks.filter((task) => {return task.id == task_id})[0];
     },
 
@@ -133,7 +133,7 @@ const local = {
             moved_task.project_id = details.project_id;
             moved_task.section_id = details.section_id;
 
-            f_section.get(current, details.project_id, details.section_id).tasks.push(moved_task);
+            f_section.get_section(current, details.project_id, details.section_id).tasks.push(moved_task);
 
             local.removeTask(details.old_project_id, details.old_section_id, details.task_id);
             return current
@@ -145,7 +145,7 @@ const local = {
 
     removeTask: async(project_id, section_id, task_id) => {
         projects.update(current => {
-            const _section = f_section.get(current, project_id, section_id);
+            const _section = f_section.get_section(current, project_id, section_id);
             const index = _section.tasks.findIndex(task => task.id===task_id)
             _section.tasks.splice(index, 1)
             return current

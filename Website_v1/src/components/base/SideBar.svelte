@@ -1,11 +1,18 @@
 <script>
 	import Icon from 'svelte-icons-pack/Icon.svelte';
+	import BiExit from "svelte-icons-pack/bi/BiExit";
 
-	import { states, consts } from '$stores/Global.js';
+	import { states, consts, user } from '$stores/Global.js';
+
+	import Cookies from "js-cookie";
 
 	export let toggleSideBar;
 	export let ShowSideBar;
 
+	const logout = () => {
+		Cookies.remove("token")
+        location.reload();
+	}
 
 </script>
 
@@ -17,29 +24,47 @@
 
 <div id="SideBar" >
 	<!-- Header -->
-	<h1>Tims Projecto</h1>
+	<h1>Web App</h1>
 	<div class="image_holder">
 		<!-- Placeholder for Image -->
 	</div>
 
 	<!-- User Info -->
-	<h2>Admin User</h2>
+	<h2>{$user.username}</h2>
 	<span class="seperator {ShowSideBar ? '' : 'invis'}" style="background-color:var(--gray3)"/>
-	<p>Admin</p>
-
+	<p>{$user.role}</p>
 
 	<!-- Navigation -->
 	<nav class="link_wrapper">
 
 		{#each $consts['Pages'] as page}
-			<a
-			class="anim {$states['activePage']==page.title ? "active":""}"
-			href={page.link}
-			>
-				<Icon src={page.icon} size="1.5rem" />
-				<h4 style="color: inherit;">{page.title}</h4>
-			</a>
+			{#if page.title == "Settings"}
+				<a
+				class="anim {$states['activePage']==page.title ? "active":""}"
+				style="position: absolute; bottom: 2rem;"
+				href={page.link}
+				>
+					<Icon src={page.icon} size="1.5rem" />
+					<h4 style="color: inherit;">{page.title}</h4>
+				</a>
+			{:else}
+				<a
+				class="anim {$states['activePage']==page.title ? "active":""}"
+				href={page.link}
+				>
+					<Icon src={page.icon} size="1.5rem" />
+					<h4 style="color: inherit;">{page.title}</h4>
+				</a>
+			{/if}
 		{/each}
+
+		<button 
+		class="anim"
+		style="position: absolute; bottom: 0"
+		on:click={() => {logout()}}>
+				<Icon src={BiExit} size="1.5rem"/>
+				<h4>Logout</h4>
+		</button>
 		
 	</nav>
 </div>
@@ -71,27 +96,34 @@
 	h2 {
 		color: var(--accent);
 		font-weight: 600;
+		text-transform: capitalize;
 	}
 	
-	p {font-size: .8rem;}
+	p {
+		font-size: .8rem;
+		text-transform: capitalize;
+	}
 
-	a {
+	a, button {
 		display: flex;
 		gap: 20px;
 		cursor: default;
 		fill: var(--gray5);
 		color: var(--gray5);
+		&:hover{
+			cursor: pointer;
+			fill: var(--gray7);
+			color: var(--gray7);
+		}
+	}
+
+	a {
 		&.active {
 			color: var(--accent);
 			fill: var(--accent);
 			h4 {
 				font-weight: 600;
 			}
-		}
-		&:hover:not(.active){
-			cursor: pointer;
-			fill: var(--gray7);
-			color: var(--gray7);
 		}
 	}
 
@@ -109,8 +141,11 @@
 
 	.link_wrapper {
 		display: flex;
+		position: relative;
 		flex-direction: column;
 		width: 100%;
+		height: 100%;
+		flex: 1;
 		margin-top: 25%;
 		padding-left: .75rem;
 		gap: .5rem;

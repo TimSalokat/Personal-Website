@@ -1,8 +1,11 @@
 import { projects, tasks } from "$stores/Tasks";
-import { consts } from "$stores/Global";
+import { consts, user } from "$stores/Global";
 
-import { getJson } from "$scripts/functions";
+import { getJson, get_headers } from "$scripts/functions";
 import {f_task} from "$scripts/task_tracker/tasks";
+
+let _user;
+user.subscribe(data=>_user=data);
 
 let _consts;
 consts.subscribe(data => _consts = data);
@@ -13,23 +16,22 @@ projects.subscribe(data => _projects = data);
 export const f_project = {
     get: async () => {
         let data = [];
-        let res = await getJson(`/projects/get?testing=${_consts.testing}`);
+        let res = await getJson(`/projects/get?owner=${_user.username}`, get_headers());
         if(res) {
             data = res.reduce((accumulator, current) => {
                 accumulator.set(current.id, current);
                 return accumulator
             }, new Map());
         }
-        console.log(data);
         projects.set(data);
         return data
     },
 
     add: async (project) => {
-        const res = await fetch(_consts.backend + `/projects/add?testing=${_consts.testing}`, {
+        const res = await fetch(_consts.backend + `/projects/add`, {
             method: "POST",
             body: JSON.stringify(project),
-            headers: {"Content-type": "application/json; charset=UTF-8"}
+            headers: get_headers()
         })
         let newProject = await res.json()
         newProject.sections = [];
@@ -40,11 +42,11 @@ export const f_project = {
     },
 
     edit: async(project, details) => {
-        const res = await fetch(_consts.backend + `/projects/edit?testing=${_consts.testing}`, {
+        const res = await fetch(_consts.backend + `/projects/edit`, {
             method: "PUT",
             body: JSON.stringify(project),
             headers: {
-                "Content-type": "application/json; charset=UTF-8",
+                ...get_headers(),
                 ...details
             }
         });
@@ -58,10 +60,10 @@ export const f_project = {
     },
 
     delete: async(project_id) => {
-        const res = await fetch(_consts.backend + `/projects/delete?testing=${_consts.testing}`, {
+        const res = await fetch(_consts.backend + `/projects/delete`, {
             method: "DELETE",
             headers: {
-                "Content-type": "application/json; charset=UTF-8",
+                ...get_headers(),
                 project_id
             }
         });
@@ -75,6 +77,19 @@ export const f_project = {
             current.get(project_id).total_tasks = local.calcTotal(project_id)
             current.get(project_id).finished_tasks = local.calcFinished(project_id)
             return current
+        })
+    },
+
+    addFinished: (project_id) => {
+        projects.update(current => {
+            current.get(project_id).finished_tasks += 1;
+            return current;
+        })
+    }, 
+    substractFinished: (project_id) => {
+        projects.update(current => {
+            current.get(project_id).finished_tasks -= 1;
+            return current;
         })
     },
 }
@@ -99,19 +114,6 @@ const local = {
             });
         }
         return count
-    },
-
-    addFinished: (project_id) => {
-        projects.update(current => {
-            current.get(project_id).finished_tasks += 1;
-            return current;
-        })
-    }, 
-    substractFinished: (project_id) => {
-        projects.update(current => {
-            current.get(project_id).finished_tasks -= 1;
-            return current;
-        })
     },
 
     removeProject: async(project_id) => {

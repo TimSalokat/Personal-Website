@@ -1,16 +1,16 @@
 import BiHome from 'svelte-icons-pack/bi/BiHome';
-import BiSpreadsheet from 'svelte-icons-pack/bi/BiSpreadsheet';
 import BiCategory from 'svelte-icons-pack/bi/BiCategory';
+import RiSystemSettings3Line from "svelte-icons-pack/ri/RiSystemSettings3Line";
 
 import { writable } from 'svelte/store';
 
 export const states = writable({});
 export const consts = writable({});
+export const user = writable({});
 
 const _consts = {
 	
 	backend: "http://127.0.0.1:8000",
-	testing: true,
 
 	Pages: [
 		{
@@ -22,6 +22,11 @@ const _consts = {
 			title: 'Task Tracker',
 			icon: BiCategory,
 			link: '/task_tracker',
+		},
+		{
+			title: 'Settings',
+			icon: RiSystemSettings3Line,
+			link: '/settings',
 		}
 	],
 
@@ -34,7 +39,7 @@ const _states = {
 	dark_mode: true,
 	server_connection: false,
 	
-	loading: false,
+	loading: true,
 	load: (ms, func) => {
 		states.update((current) => {
 			current.loading = true;
@@ -55,5 +60,11 @@ const _states = {
 	setOverlay : (newState) => {_states.overlayActive = newState;},
 };
 
+const _user = {
+	username: "",
+	role: "",
+}
+
 consts.set(_consts);
 states.set(_states);
+user.set(_user);

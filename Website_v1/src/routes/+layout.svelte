@@ -1,46 +1,9 @@
+
 <script>
 
-	import "./index.scss"
+    import { states, consts } from "$stores/Global";
 
-	import { onMount } from "svelte";
-
-	import { projects, _projects } from "$stores/Tasks";
-	import { states } from "$stores/Global";
-
-	import SideBar from '$components/base/sidebar.svelte';
-	import Overlay from '$components/base/overlay.svelte';
-	import LoadingScreen from "$src/components/base/loading_screen.svelte";
-
-	import { f_project } from "$scripts/task_tracker/projects"
-	import { f_task } from "$scripts/task_tracker/tasks"
-
-	let project_ref;
-	projects.subscribe(data => project_ref = data);
-
-	export const setup = async () => {
-		await f_project.get();    
-		await f_task.get();
-		project_ref.forEach(current => {
-			f_project.reCalc(current.id);
-		})
-	}
-
-	let isMounted = false;
-
-	onMount(() => {
-		if(!isMounted) { 
-			setup();
-			isMounted = true;
-		}
-	})
-
-	let ShowSideBar = false;
-
-	const toggleSideBar = () => { ShowSideBar = !ShowSideBar };
-
-	$states.load(2000, () => {});
-
-	const colors = [
+    const colors = [
 		"#f3f5f6", // Page BG and form bg 1
 		"#e2e5e9", // Hover text color 2
 		"#d1d5db", // Seperator color 3
@@ -71,8 +34,10 @@
 
 </script>
 
-<div style="
---accent: #623bd7;
+<div 
+class="page_holder"
+style="
+--accent: #8162DF;
 
 --gray1: {displayed_colors[0]};
 --gray2: {displayed_colors[1]};
@@ -84,58 +49,25 @@
 --gray8: {displayed_colors[7]};
 --gray9: {displayed_colors[8]};
 ">
+    <slot></slot>
 
-	<LoadingScreen/>
-
-	<Overlay/>
-
-	<SideBar {toggleSideBar} {ShowSideBar} />
-	
-	<!-- Main Content -->
-	<div 
-	class=" {ShowSideBar
-			? 'open'
-			: 'closed'} 
-			wrapper
-			min-w-screen min-h-screen max-h-screen relative transition-all overflow-hidden h-screen flex flex-col"
-			>
-			<slot />
-		</div>
 </div>
 
-<style>
-	@tailwind base;
-	@tailwind components;
-	@tailwind utilities;
-
-	:global(.seperator){
-        min-width: 70%;
-        margin: .3rem 15%;
-        min-height: 1px;
-        background-color: var(--gray3);
+<style lang="scss">
+    *{
+        font-family: "Rubik";
+    }
+    .page_holder{
+        position: relative;
+        padding: 0;
+        margin: 0;
+        min-width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background-color: var(--gray1);
+        color: var(--gray7);
     }
 
-	.open {
-		margin-left: 250px;
-		border-radius: 20px 0 0 20px;
-	}
-	.closed {
-		margin-left: 55px;
-		border-radius: 5px 0 0 5px;
-	}
-
-	.wrapper {
-		position: relative;
-		background-color: var(--gray1);
-    	color: var(--gray7);
-	}
-
-	.wrapper::after {
-		position: absolute;
-		content: "";
-		margin-top: 30vh;
-		height: 40vh;
-		width: 2px;
-		background-color: var(--gray3);
-	}
 </style>

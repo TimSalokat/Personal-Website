@@ -2,9 +2,12 @@
 	import Icon from "svelte-icons-pack";
     import BiPlus from 'svelte-icons-pack/bi/BiPlus';
 
+    import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
+
     import "$routes/index.scss";
 
-    import { states } from "$stores/Global";
+    import { states, user } from "$stores/Global";
     import { priorities, projects, tasks } from "$stores/Tasks";
 
     $states['activePage'] = 'Task Tracker';
@@ -13,12 +16,33 @@
 
     import ProjectCard from "$components/task_tracker/project_card.svelte";
     import Task from "$components/task_tracker/task.svelte";
-    import TaskSection from "$components/task_tracker/task_section.svelte";
     import Dropdown from "$components/base/inputs/dropdown.svelte";
 
     import { f_task } from "$scripts/task_tracker/tasks";
+    import { f_project } from "$scripts/task_tracker/projects";
+	import { auth } from "$scripts/login/auth";
 
-    const user_name = "Tim"
+	let project_ref;
+	projects.subscribe(data => project_ref = data);
+
+    const task_tracker_setup = async () => {
+		await f_project.get();    
+		await f_task.get();
+		project_ref.forEach(current => {
+			f_project.reCalc(current.id);
+		})
+	}
+
+    onMount(async () => {
+        let authorized = await auth.check_login()
+        if(!authorized){
+            goto("/login")
+        }
+        await task_tracker_setup();
+    })
+
+    let user_name;
+    $:{user_name = $user.username}
 
     const open_form = () => {
 		$states.activeForm = "AddProject";
@@ -51,7 +75,7 @@
 <div class="task_tracker_container">
 
     <div class="task_tracker_header">
-        <h1>Good Morning <span style="color: var(--accent)">{user_name}</span></h1>
+        <h1>Good Morning <span style="color: var(--accent); text-transform: capitalize;">{user_name}</span></h1>
     </div>
 
     <div class="task_tracker_projects">    

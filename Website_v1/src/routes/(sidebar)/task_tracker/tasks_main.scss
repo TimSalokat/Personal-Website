@@ -1,4 +1,4 @@
-@import "../index.scss";
+@import "../../index.scss";
 
 .task_tracker_container {
     height: calc(100% - 3.5em);
@@ -37,6 +37,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     background-color: var(--gray2);
+    border: 5px solid var(--gray2);
 }
 
 .task_tracker_projects {

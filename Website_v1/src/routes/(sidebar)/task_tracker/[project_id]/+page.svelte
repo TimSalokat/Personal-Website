@@ -1,21 +1,33 @@
+
 <script>
     import Icon from "svelte-icons-pack";
     import BiEdit from "svelte-icons-pack/bi/BiEdit";
     import BiArrowBack from "svelte-icons-pack/bi/BiArrowBack";
 	import BiPlus from 'svelte-icons-pack/bi/BiPlus';
 
+    import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
+
     import "$routes/index.scss";
 
 	import { projects } from "$stores/Tasks";
     import { states } from "$stores/Global";
+    import { auth } from "$scripts/login/auth";
     import TaskSection from "$components/task_tracker/task_section.svelte";
 
     export let data;
 
+    onMount(async () => {
+        let authorized = await auth.check_login()
+        if(!authorized){
+            goto("/login")
+        }
+    })
+
     let self;
     $: {
         try{ self = $projects.get(data.params.project_id) }
-        catch(error){ console.error(error); }
+        catch(error){}
     }
 
     const open_form = (form_title) => {
@@ -26,50 +38,61 @@
 </script>
 
 <svelte:head>
+    {#if self}
     <title>{self.title}</title>
+    {:else}
+    <title>Loading...</title>
+    {/if}
 </svelte:head>
 
+{#if self && $projects}
+
 <div class="header">
-
+    
     <div class="navigation_bar">
-
+        
         <a href="/task_tracker" style="display: flex; align-items: center">
             <Icon src={BiArrowBack} size="1.5rem" className="icon_style"/>
             <p class="ml-1">Go Back</p>
         </a>
-
+        
         <button class="icon_wrapper" on:click={() => open_form("EditProject")}>
             <Icon src={BiEdit} size="1.5rem" className="normal_icon_style"/>
         </button>
-
+        
     </div>
-
+    
     <h2>Tasks in <span style="color: {self.color}">{self.title}</span></h2>
 </div>
 
 <div class="scrollbar_horizontal section_wrapper">
-
+    
     {#if self.sections}{#each self.sections as section}
     <TaskSection 
-        section_id={section.id}
-        project_id={self.id}/>
+    section_id={section.id}
+    project_id={self.id}/>
     {/each}{/if}
-
+    
     <button class="add_section_btn" on:click={() => open_form("AddSection")}>
 		<Icon src={BiPlus} size="1.5rem" className="normal_icon_style" />
         Add Section
     </button>
-
+    
 </div>
+{:else}
+
+<h2>Couldnt load</h2>
+
+{/if}
 
 <style lang="scss">
-
+    
     .header {
         position: relative;
         display: grid;
         place-content: center;
         height: 25%;
-
+        
         h2 {
             color: var(--gray7);
             font-size: 2.5rem;
@@ -77,7 +100,7 @@
             margin-top: 10%;
         }
     }
-
+    
     .navigation_bar {
         display: flex;
         position: absolute;

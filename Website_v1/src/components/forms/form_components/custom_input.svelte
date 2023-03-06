@@ -1,9 +1,7 @@
 
 <script>
     import "../forms.scss";
-    
     export let title;
-
     export let value;
 
 </script>
